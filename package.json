@@ -1,0 +1,37 @@
+{
+  "name": "eslint-config-styleguidejs",
+  "description": "JS Style Guide ESLint Configuration",
+  "version": "0.1.0",
+  "main": "index.js",
+  "keywords": [
+    "nitrogenlabs",
+    "styleguide",
+    "style",
+    "guide",
+    "eslint",
+    "js",
+    "javascript",
+    "babel",
+    "react"
+  ],
+  "author": {
+    "name": "Giraldo Rosales",
+    "email": "giraldo@nitrogenlabs.com",
+    "url": "https://nitrogenlabs.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "nitrogenlabs/eslint-config-styleguidejs"
+  },
+  "homepage": "https://github.com/nitrogenlabs/eslint-config-styleguidejs",
+  "bugs": {
+    "url": "https://github.com/nitrogenlabs/eslint-config-styleguidejs/issues"
+  },
+  "scripts": {
+    "update": "yarn upgrade-interactive --latest"
+  },
+  "dependencies": {
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-react": "^7.8.2"
+  }
+}
