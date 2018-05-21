@@ -11,7 +11,6 @@ module.exports = {
   rules: {
     'no-undef': 0,
     'typescript/class-name-casing': 2,
-    'typescript/explicit-function-return-type': 2,
     'typescript/member-naming': 2,
     'typescript/member-naming': 2,
     'typescript/member-ordering': 2,
