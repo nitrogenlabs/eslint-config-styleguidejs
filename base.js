@@ -2,6 +2,8 @@ module.exports = {
   'env': {
     'es6': true,
     'browser': true,
+    'jest': true,
+    'jest/globals': true,
     'node': true
   },
   'globals': {
@@ -27,6 +29,7 @@ module.exports = {
   },
   'plugins': [
     'babel',
+    'jest',
     'react'
   ],
   'rules': {
@@ -56,6 +59,10 @@ module.exports = {
         'SwitchCase': 1
       }
     ],
+    'jest/no-disabled-tests': 'warn',
+    'jest/no-focused-tests': 'warn',
+    'jest/no-identical-title': 'error',
+    'jest/valid-expect': 'error',
     'keyword-spacing': [
       'error',
       {

@@ -29,6 +29,7 @@
     "url": "https://github.com/nitrogenlabs/eslint-config-styleguidejs/issues"
   },
   "scripts": {
+    "reset": "rm -rf node_modules yarn.lock package-lock.json && yarn",
     "update": "yarn upgrade-interactive --latest"
   },
   "dependencies": {
