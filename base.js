@@ -104,10 +104,7 @@ module.exports = {
     'no-trailing-spaces': 0,
     'no-underscore-dangle': 0,
     'no-unused-vars': 2,
-    'no-use-before-define': [
-      2,
-      'nofunc'
-    ],
+    'no-use-before-define': 0,
     'no-var': 2,
     'no-warning-comments': [
       1,
