@@ -32,13 +32,6 @@ module.exports = {
     'jest',
     'react'
   ],
-  "prefer-const": [
-    "error",
-      {
-      "destructuring": "all",
-      "ignoreReadBeforeAssign": true
-    }
-  ],
   'rules': {
     'array-bracket-spacing': 0,
     'arrow-parens': [
@@ -123,6 +116,13 @@ module.exports = {
       }
     ],
     'object-shorthand': 1,
+    "prefer-const": [
+      "error",
+        {
+        "destructuring": "all",
+        "ignoreReadBeforeAssign": true
+      }
+    ],
     'quotes': [
       2,
       'single'
