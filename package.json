@@ -1,7 +1,7 @@
 {
   "name": "eslint-config-styleguidejs",
   "description": "JS Style Guide ESLint Configuration",
-  "version": "0.5.4",
+  "version": "0.6.0",
   "main": "index.js",
   "keywords": [
     "babel",
@@ -35,6 +35,7 @@
   "dependencies": {
     "babel-eslint": "^8.2.3",
     "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-flow": "^2.29.1",
     "eslint-plugin-jest": "^21.15.1",
     "eslint-plugin-react": "^7.8.2",
     "eslint-plugin-react-native": "^3.2.1",

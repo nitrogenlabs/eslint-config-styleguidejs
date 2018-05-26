@@ -18,7 +18,8 @@ module.exports = {
   'plugins': [
     'babel',
     'jest',
-    'react'
+    'react',
+    'react-native'
   ],
   'rules': {
     'array-bracket-spacing': 0,
