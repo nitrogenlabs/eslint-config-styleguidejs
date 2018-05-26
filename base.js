@@ -3,19 +3,7 @@ module.exports = {
     'es6': true,
     'browser': true,
     'jest': true,
-    'jest/globals': true,
     'node': true
-  },
-  'globals': {
-    'after': false,
-    'afterEach': false,
-    'before': false,
-    'beforeEach': false,
-    'describe': false,
-    'expect': true,
-    'fetch': true,
-    'it': false,
-    'xit': false
   },
   'parser': 'babel-eslint',
   'parserOptions': {
