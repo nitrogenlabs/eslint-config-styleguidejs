@@ -1,7 +1,7 @@
 module.exports = {
   extends: 'eslint-config-styleguidejs/base',
   plugins: [
-    'flow'
+    'flowtype'
   ],
   parserOptions: {
     ecmaVersion: 6,
