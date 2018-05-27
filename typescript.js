@@ -1,10 +1,21 @@
 module.exports = {
+  env: {
+    es6: true,
+    browser: true,
+    jest: true,
+    node: true
+  },
   extends: 'eslint-config-styleguidejs/base',
   parser: 'typescript-eslint-parser',
   plugins: [
     'typescript'
   ],
   parserOptions: {
+    ecmaFeatures: {
+      globalReturn: true,
+      jsx: true,
+      experimentalObjectRestSpread: true
+    },
     ecmaVersion: 6,
     sourceType: 'module'
   },

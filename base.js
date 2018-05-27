@@ -1,27 +1,27 @@
 module.exports = {
-  'env': {
-    'es6': true,
-    'browser': true,
-    'jest': true,
-    'node': true
+  env: {
+    es6: true,
+    browser: true,
+    jest: true,
+    node: true
   },
-  'parser': 'babel-eslint',
-  'parserOptions': {
-    'ecmaFeatures': {
-      'globalReturn': true,
-      'jsx': true,
-      'experimentalObjectRestSpread': true
+  parser: 'babel-eslint',
+  parserOptions: {
+    ecmaFeatures: {
+      globalReturn: true,
+      jsx: true,
+      experimentalObjectRestSpread: true
     },
-    'ecmaVersion': 6,
-    'sourceType': 'module'
+    ecmaVersion: 6,
+    sourceType: 'module'
   },
-  'plugins': [
+  plugins: [
     'babel',
     'jest',
     'react',
     'react-native'
   ],
-  'rules': {
+  rules: {
     'array-bracket-spacing': 0,
     'arrow-parens': [
       2,
@@ -81,6 +81,7 @@ module.exports = {
     ],
     'new-cap': 0,
     'no-await-in-loop': 1,
+    'no-dupe-keys': 2,
     'no-duplicate-imports': 2,
     'no-eq-null': 2,
     'no-mixed-spaces-and-tabs': 2,
@@ -105,11 +106,11 @@ module.exports = {
       }
     ],
     'object-shorthand': 1,
-    "prefer-const": [
-      "error",
+    'prefer-const': [
+      2,
         {
-        "destructuring": "all",
-        "ignoreReadBeforeAssign": true
+        'destructuring': 'all',
+        'ignoreReadBeforeAssign': true
       }
     ],
     'quotes': [
@@ -136,6 +137,8 @@ module.exports = {
         'html': false
       }
     ],
+    'semi': [2, 'always'],
+    'sort-keys': [2, 'asc', {'caseSensitive': true, 'natural': false}],
     'space-before-blocks': [
       2,
       'always'
