@@ -25,11 +25,11 @@ module.exports = {
   rules: {
     'array-bracket-spacing': [2, 'never'],
     'array-callback-return': 2,
-    'arrow-body-style': [2, 'as-needed']
+    'arrow-body-style': [2, 'as-needed'],
     'arrow-parens': [2, 'always'],
     'arrow-spacing': 2,
     'brace-style': [2, '1tbs', {'allowSingleLine': false}],
-    'camelcase': [2, {properties: 'never'}],
+    'camelcase': [2, {'properties': 'never'}],
     'computed-property-spacing': [2, 'never'],
     'comma-dangle': [2, 'never'],
     'comma-style': [2, 'last'],
@@ -40,29 +40,45 @@ module.exports = {
     'eqeqeq': [2, 'always'],
     'func-style': ['error', 'expression', {'allowArrowFunctions': true}],
     'generator-star-spacing': 1,
-    'id-length': [2, 2],
+    'id-length': [2, {'min': 2}],
     'import/default': 0,
     'import/export': 2,
     'import/exports-last': 2,
-    'import/extensions': [2, 'never', {ignorePackages: true}]
+    'import/extensions': [2, 'never', {'ignorePackages': true}],
     'import/first': 2,
-    'import/max-dependencies': [1, {'max': 15}]
+    'import/max-dependencies': [1, {'max': 15}],
     'import/named': 2,
     'import/newline-after-import': 2,
     'import/no-absolute-path': 2,
     'import/no-cycle': 2,
     'import/no-deprecated': 1,
     'import/no-duplicates': 2,
-    'import/no-extraneous-dependencies': [2, {'devDependencies': ['**/*.test.js', '**/*.spec.js'], 'peerDependencies': true}],
+    'import/no-extraneous-dependencies': [
+      2,
+      {
+        'devDependencies': [
+          '**/*.test.js*',
+          '**/*.spec.js*',
+          '**/*.test.ts*',
+          '**/*.spec.ts*'
+        ],
+        'peerDependencies': true
+      }
+    ],
     'import/no-internal-modules': 0,
     'import/no-mutable-exports': 2,
     'import/no-named-as-default': 2,
     'import/no-named-as-default-member': 1,
     'import/no-self-import': 2,
-    'import/no-unresolved': [2, {'caseSensitive': true}],
     'import/no-useless-path-segments': 2,
     'import/no-webpack-loader-syntax': 0,
-    'import/order': [2, {'newlines-between': 'always'}]
+    'import/order': [
+      2,
+      {
+        'groups': [['builtin', 'external', 'internal'], ['parent', 'sibling', 'index']],
+        'newlines-between': 'always'
+      }
+    ],
     'import/prefer-default-export': 0,
     'indent': [2, 2, {'SwitchCase': 1}],
     'jest/no-disabled-tests': 'warn',
@@ -159,7 +175,7 @@ module.exports = {
     'one-var': [2, 'never'],
     'object-curly-spacing': [2, 'never'],
     'object-shorthand': 1,
-    'padded-blocks': [2, 'never']
+    'padded-blocks': [2, 'never'],
     'prefer-arrow-callback': 2,
     'prefer-const': [2, {'destructuring': 'all', 'ignoreReadBeforeAssign': true}],
     'prefer-destructuring': [
