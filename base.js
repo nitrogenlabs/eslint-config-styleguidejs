@@ -17,37 +17,54 @@ module.exports = {
   },
   plugins: [
     'babel',
+    'import',
     'jest',
     'react',
     'react-native'
   ],
   rules: {
-    'array-bracket-spacing': 0,
-    'arrow-parens': [
-      2,
-      'always'
-    ],
-    'camelcase': 0,
-    'computed-property-spacing': [
-      2,
-      'never'
-    ],
-    'comma-dangle': [
-      2,
-      'never'
-    ],
-    'consistent-return': 0,
-    'dot-notation': 0,
+    'array-bracket-spacing': [2, 'never'],
+    'array-callback-return': 2,
+    'arrow-body-style': [2, 'as-needed']
+    'arrow-parens': [2, 'always'],
+    'arrow-spacing': 2,
+    'brace-style': [2, '1tbs', {'allowSingleLine': false}],
+    'camelcase': [2, {properties: 'never'}],
+    'computed-property-spacing': [2, 'never'],
+    'comma-dangle': [2, 'never'],
+    'comma-style': [2, 'last'],
+    'consistent-return': 1,
+    'curly': 2,
+    'dot-notation': 2,
     'eol-last': 2,
-    'eqeqeq': 2,
+    'eqeqeq': [2, 'always'],
+    'func-style': ['error', 'expression', {'allowArrowFunctions': true}],
     'generator-star-spacing': 1,
-    'indent': [
-      2,
-      2,
-      {
-        'SwitchCase': 1
-      }
-    ],
+    'id-length': [2, 2],
+    'import/default': 0,
+    'import/export': 2,
+    'import/exports-last': 2,
+    'import/extensions': [2, 'never', {ignorePackages: true}]
+    'import/first': 2,
+    'import/max-dependencies': [1, {'max': 15}]
+    'import/named': 2,
+    'import/newline-after-import': 2,
+    'import/no-absolute-path': 2,
+    'import/no-cycle': 2,
+    'import/no-deprecated': 1,
+    'import/no-duplicates': 2,
+    'import/no-extraneous-dependencies': [2, {'devDependencies': ['**/*.test.js', '**/*.spec.js'], 'peerDependencies': true}],
+    'import/no-internal-modules': 0,
+    'import/no-mutable-exports': 2,
+    'import/no-named-as-default': 2,
+    'import/no-named-as-default-member': 1,
+    'import/no-self-import': 2,
+    'import/no-unresolved': [2, {'caseSensitive': true}],
+    'import/no-useless-path-segments': 2,
+    'import/no-webpack-loader-syntax': 0,
+    'import/order': [2, {'newlines-between': 'always'}]
+    'import/prefer-default-export': 0,
+    'indent': [2, 2, {'SwitchCase': 1}],
     'jest/no-disabled-tests': 'warn',
     'jest/no-focused-tests': 'warn',
     'jest/no-identical-title': 'error',
@@ -75,26 +92,59 @@ module.exports = {
       }
     ],
     'max-len': [
-      2,
-      120,
-      4
-    ],
-    'new-cap': 0,
-    'no-await-in-loop': 1,
-    'no-dupe-keys': 2,
-    'no-duplicate-imports': 2,
-    'no-eq-null': 2,
-    'no-mixed-spaces-and-tabs': 2,
-    'no-multiple-empty-lines': [
-      2,
-      {
-        'max': 2
+      2, {
+        'code': 120,
+        'ignoreRegExpLiterals': true,
+        'ignoreStrings': true,
+        'ignoreTemplateLiterals': true,
+        'ignoreUrls': true,
+        'tabWidth': 2
       }
     ],
-    'no-trailing-spaces': 0,
-    'no-underscore-dangle': 0,
-    'no-unused-vars': 2,
-    'no-use-before-define': 0,
+    'new-cap': 2,
+    'newline-per-chained-call': [2, {'ignoreChainWithDepth': 2}],
+    'no-array-constructor': 2,
+    'no-await-in-loop': 1,
+    'no-case-declarations': 2,
+    'no-class-assign': 2,
+    'no-confusing-arrow': [2, {'allowParens': true}],
+    'no-const-assign': 2,
+    'no-dupe-keys': 2,
+    'no-duplicate-imports': 2,
+    'no-else-return': 2,
+    'no-eq-null': 2,
+    'no-extra-semi': 2,
+    'no-eval': 1,
+    'no-loop-func': 1,
+    'no-mixed-operators': 2,
+    'no-mixed-spaces-and-tabs': 2,
+    'no-multi-assign': 2,
+    'no-multiple-empty-lines': [2, {'max': 2}],
+    'no-nested-ternary': 2,
+    'no-new-func': 2,
+    'no-new-object': 2,
+    'no-new-wrappers': 2,
+    'no-param-reassign': 2,
+    'no-plusplus': 2,
+    'no-restricted-properties': [
+      1,
+      {
+        'object': 'Object',
+        'property': 'assign',
+        'message': 'Please use spread, {...obj}'
+      }
+    ],
+    'no-sparse-arrays': 2,
+    'no-trailing-spaces': 2,
+    'no-undef-init': 2,
+    'no-underscore-dangle': [2, {'enforceInMethodNames': true}],
+    'no-unexpected-multiline': 2,
+    'no-unneeded-ternary': 2,
+    'no-unused-vars': [2, {'ignoreRestSiblings': true}],
+    'no-use-before-define': [2, {'functions': false, 'classes': false}],
+    'no-useless-concat': 2,
+    'no-useless-constructor': 2,
+    'no-useless-escape': 2,
     'no-var': 2,
     'no-warning-comments': [
       1,
@@ -105,18 +155,29 @@ module.exports = {
         'location': 'anywhere'
       }
     ],
+    'no-whitespace-before-property': 2,
+    'one-var': [2, 'never'],
+    'object-curly-spacing': [2, 'never'],
     'object-shorthand': 1,
-    'prefer-const': [
+    'padded-blocks': [2, 'never']
+    'prefer-arrow-callback': 2,
+    'prefer-const': [2, {'destructuring': 'all', 'ignoreReadBeforeAssign': true}],
+    'prefer-destructuring': [
       2,
-        {
-        'destructuring': 'all',
-        'ignoreReadBeforeAssign': true
+      {
+        'array': true,
+        'object': true
+      },
+      {
+        'enforceForRenamedProperties': false
       }
     ],
-    'quotes': [
-      2,
-      'single'
-    ],
+    'prefer-rest-params': 2,
+    'prefer-template': 2,
+    'prefer-spread': 2,
+    'quote-props': [2, 'as-needed'],
+    'quotes': [2, 'single'],
+    'radix': [2, 'as-needed'],
     'react/display-name': 0,
     'react/jsx-boolean-value': 2,
     'react/jsx-no-undef': 2,
@@ -130,31 +191,25 @@ module.exports = {
     'react/no-unknown-property': 2,
     'react/prop-types': 2,
     'react/react-in-jsx-scope': 2,
-    'react/self-closing-comp': [
-      'error',
-      {
-        'component': true,
-        'html': false
-      }
-    ],
+    'react/self-closing-comp': [2, {'component': true, 'html': false}],
     'semi': [2, 'always'],
+    'semi-spacing': 2,
     'sort-keys': [2, 'asc', {'caseSensitive': true, 'natural': false}],
-    'space-before-blocks': [
-      2,
-      'always'
-    ],
+    'space-before-blocks': [2, 'always'],
     'space-before-function-paren': [
       2,
       {
-        "anonymous": "never",
-        "asyncArrow": "always",
-        "named": "never",
+        'anonymous': 'never',
+        'asyncArrow': 'always',
+        'named': 'never',
       }
     ],
-    'strict': [
-      2,
-      'never'
-    ],
-    'vars-on-top': 2
+    'space-in-parens': [2, 'never'],
+    'space-infix-ops': 2,
+    'spaced-comment': [2, 'always', {'exceptions': ['-', '+']}],
+    'strict': [2, 'never'],
+    'template-curly-spacing': [2, 'never'],
+    'vars-on-top': 2,
+    'wrap-iife': [2, 'outside']
   }
 };

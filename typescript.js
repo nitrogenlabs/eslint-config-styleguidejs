@@ -5,7 +5,7 @@ module.exports = {
     jest: true,
     node: true
   },
-  extends: 'eslint-config-styleguidejs/base',
+  extends: 'styleguidejs/base',
   parser: 'typescript-eslint-parser',
   plugins: [
     'typescript'

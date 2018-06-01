@@ -5,7 +5,7 @@ module.exports = {
     jest: true,
     node: true
   },
-  extends: 'eslint-config-styleguidejs/base',
+  extends: 'styleguidejs/base',
   parser: 'babel-eslint',
   plugins: [
     'flowtype'
