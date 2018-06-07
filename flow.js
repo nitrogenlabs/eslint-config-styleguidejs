@@ -41,7 +41,7 @@ module.exports = {
     'flowtype/require-variable-type': 0,
     'flowtype/semi': [2, 'always'],
     'flowtype/sort-keys': [2, 'asc', {'caseSensitive': true, 'natural': false}],
-    'flowtype/space-after-type-colon': [2, ['always', {'allowLineBreak': true}]],
+    'flowtype/space-after-type-colon': [2, 'always', {'allowLineBreak': true}],
     'flowtype/space-before-generic-bracket': [2, 'never'],
     'flowtype/space-before-type-colon': [2, 'never'],
     'flowtype/type-import-style': [1, 'declaration'],
