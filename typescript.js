@@ -28,6 +28,7 @@ module.exports = {
     'typescript/no-angle-bracket-type-assertion': 2,
     'typescript/no-array-constructor': 2,
     'typescript/no-unused-vars': 2,
-    'typescript/type-annotation-spacing': 2
+    'typescript/type-annotation-spacing': 2,
+    'react/prop-types': 0
   }
 }

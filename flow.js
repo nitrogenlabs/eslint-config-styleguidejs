@@ -45,7 +45,8 @@ module.exports = {
     'flowtype/space-before-generic-bracket': [2, 'never'],
     'flowtype/space-before-type-colon': [2, 'never'],
     'flowtype/type-import-style': [1, 'declaration'],
-    'flowtype/union-intersection-spacing': [2, 'always']
+    'flowtype/union-intersection-spacing': [2, 'always'],
+    'react/prop-types': 0
   },
   settings: {
     flowtype: {

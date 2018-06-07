@@ -43,7 +43,7 @@ module.exports = {
     'id-length': [2, {'min': 2}],
     'import/default': 0,
     'import/export': 2,
-    'import/exports-last': 2,
+    'import/exports-last': 0,
     'import/extensions': [2, 'never', {'ignorePackages': true}],
     'import/first': 2,
     'import/max-dependencies': [1, {'max': 15}],
@@ -141,7 +141,7 @@ module.exports = {
     'no-new-object': 2,
     'no-new-wrappers': 2,
     'no-param-reassign': 2,
-    'no-plusplus': 2,
+    'no-plusplus':[2, {"allowForLoopAfterthoughts": true }],
     'no-restricted-properties': [
       1,
       {
@@ -181,7 +181,7 @@ module.exports = {
     'prefer-destructuring': [
       2,
       {
-        'array': true,
+        'array': false,
         'object': true
       },
       {
@@ -205,7 +205,7 @@ module.exports = {
     'react/no-did-update-set-state': 2,
     'react/no-multi-comp': 0,
     'react/no-unknown-property': 2,
-    'react/prop-types': 2,
+    'react/prop-types': 1,
     'react/react-in-jsx-scope': 2,
     'react/self-closing-comp': [2, {'component': true, 'html': false}],
     'semi': [2, 'always'],
