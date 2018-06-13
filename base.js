@@ -60,7 +60,8 @@ module.exports = {
           '**/*.test.js*',
           '**/*.spec.js*',
           '**/*.test.ts*',
-          '**/*.spec.ts*'
+          '**/*.spec.ts*',
+          'jest.setup.js'
         ],
         'peerDependencies': true
       }
