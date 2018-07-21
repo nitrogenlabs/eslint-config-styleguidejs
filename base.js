@@ -57,6 +57,8 @@ module.exports = {
       2,
       {
         'devDependencies': [
+          '**/test/*',
+          '**/test/**/*',
           '**/*.test.js*',
           '**/*.spec.js*',
           '**/*.test.ts*',
@@ -154,10 +156,10 @@ module.exports = {
     'no-sparse-arrays': 2,
     'no-trailing-spaces': 2,
     'no-undef-init': 2,
-    'no-underscore-dangle': [2, {'enforceInMethodNames': true}],
+    'no-underscore-dangle': [1, {'enforceInMethodNames': true}],
     'no-unexpected-multiline': 2,
     'no-unneeded-ternary': 2,
-    'no-unused-vars': [2, {'ignoreRestSiblings': true}],
+    'no-unused-vars': [1, {'ignoreRestSiblings': true}],
     'no-use-before-define': [2, {'functions': false, 'classes': false}],
     'no-useless-concat': 2,
     'no-useless-constructor': 2,
