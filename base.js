@@ -57,8 +57,10 @@ module.exports = {
       2,
       {
         'devDependencies': [
-          '**/test/*',
-          '**/test/**/*',
+          '**/__tests__/*',
+          '**/__tests__/**/*',
+          '**/tests/*',
+          '**/tests/**/*',
           '**/*.test.js*',
           '**/*.spec.js*',
           '**/*.test.ts*',
@@ -121,7 +123,7 @@ module.exports = {
       }
     ],
     'new-cap': 2,
-    'newline-per-chained-call': [2, {'ignoreChainWithDepth': 2}],
+    'newline-per-chained-call': 0,
     'no-array-constructor': 2,
     'no-await-in-loop': 1,
     'no-case-declarations': 2,
