@@ -165,7 +165,7 @@ module.exports = {
     'no-use-before-define': [2, {'functions': false, 'classes': false}],
     'no-useless-concat': 2,
     'no-useless-constructor': 2,
-    'no-useless-escape': 2,
+    'no-useless-escape': 1,
     'no-var': 2,
     'no-warning-comments': [
       1,
