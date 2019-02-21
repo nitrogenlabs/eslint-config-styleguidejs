@@ -21,13 +21,18 @@ module.exports = {
   },
   rules: {
     'no-undef': 0,
+    'no-unused-vars': 0,
     'typescript/class-name-casing': 2,
     'typescript/member-naming': 2,
     'typescript/member-naming': 2,
     'typescript/member-ordering': 2,
     'typescript/no-angle-bracket-type-assertion': 2,
     'typescript/no-array-constructor': 2,
-    'typescript/no-unused-vars': 1,
+    'typescript/no-unused-vars': [1,
+      {
+        "ignoreRestSiblings": false
+      }
+    ],
     'typescript/type-annotation-spacing': 2,
     'react/prop-types': 0
   }
