@@ -6,9 +6,9 @@ module.exports = {
     node: true
   },
   extends: 'styleguidejs/base',
-  parser: 'typescript-eslint-parser',
+  parser: '@typescript-eslint/parser',
   plugins: [
-    'typescript'
+    '@typescript-eslint'
   ],
   parserOptions: {
     ecmaFeatures: {
