@@ -47,7 +47,7 @@ module.exports = {
     'import/extensions': [2, 'never', {'ignorePackages': true}],
     'import/first': 2,
     'import/max-dependencies': [1, {'max': 15}],
-    'import/named': 2,
+    'import/named': 1,
     'import/newline-after-import': 2,
     'import/no-absolute-path': 2,
     'import/no-cycle': 2,
@@ -146,7 +146,7 @@ module.exports = {
     'no-new-object': 2,
     'no-new-wrappers': 2,
     'no-param-reassign': 2,
-    'no-plusplus':[2, {"allowForLoopAfterthoughts": true }],
+    'no-plusplus': [2, {"allowForLoopAfterthoughts": true}],
     'no-restricted-properties': [
       1,
       {
