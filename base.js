@@ -52,7 +52,12 @@ module.exports = {
     'import/default': 0,
     'import/export': 2,
     'import/exports-last': 0,
-    'import/extensions': [2, 'never', {'ignorePackages': true}],
+    'import/extensions': [2, 'never', {
+      'css': 'always',
+      'json': 'always',
+      'svg': 'always',
+      'types': 'always'
+    }],
     'import/first': 2,
     'import/max-dependencies': [1, {'max': 15}],
     'import/named': 1,
