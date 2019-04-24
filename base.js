@@ -20,6 +20,7 @@ module.exports = {
     'import',
     'jest',
     'react',
+    'react-hooks',
     'react-native'
   ],
   rules: {
