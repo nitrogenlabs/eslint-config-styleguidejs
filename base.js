@@ -79,7 +79,8 @@ module.exports = {
           '**/*.spec.js*',
           '**/*.test.ts*',
           '**/*.spec.ts*',
-          'jest.setup.js'
+          'jest.setup.js',
+          'webpack.setup.js'
         ],
         'peerDependencies': true
       }
