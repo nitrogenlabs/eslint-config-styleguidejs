@@ -232,7 +232,7 @@ module.exports = {
     'react/self-closing-comp': [2, {'component': true, 'html': false}],
     'semi': 0,
     'semi-spacing': 2,
-    'sort-keys': [2, 'asc', {'caseSensitive': true, 'natural': false}],
+    'sort-keys': [0, 'asc', {'caseSensitive': true, 'natural': false}],
     'space-before-blocks': [2, 'always'],
     'space-before-function-paren': [
       2,
