@@ -23,14 +23,18 @@ module.exports = {
     'no-undef': 0,
     'no-unused-vars': 0,
     '@typescript-eslint/class-name-casing': 2,
-    '@typescript-eslint/member-naming': 2,
+    '@typescript-eslint/consistent-type-assertions': [2,
+      {
+        assertionStyle: 'as',
+        objectLiteralTypeAssertions: 'never',
+      }
+    ],
     '@typescript-eslint/member-naming': 2,
     '@typescript-eslint/member-ordering': 2,
-    '@typescript-eslint/no-angle-bracket-type-assertion': 2,
     '@typescript-eslint/no-array-constructor': 2,
     '@typescript-eslint/no-unused-vars': [1,
       {
-        "ignoreRestSiblings": false
+        ignoreRestSiblings: false
       }
     ],
     '@typescript-eslint/type-annotation-spacing': 2,
