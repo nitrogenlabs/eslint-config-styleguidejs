@@ -30,6 +30,10 @@
   },
   "scripts": {
     "clean": "lex clean",
+    "publish:major": "npm version major && npm run publish:tags && npm publish",
+    "publish:minor": "npm version minor && npm run publish:tags && npm publish",
+    "publish:patch": "npm version patch && npm run publish:tags && npm publish",
+    "publish:tags": "git push --tags && git push origin HEAD",
     "update": "lex update -i"
   },
   "dependencies": {
