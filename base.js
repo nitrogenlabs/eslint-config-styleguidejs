@@ -49,7 +49,6 @@ module.exports = {
     'eqeqeq': [2, 'always'],
     'func-style': ['error', 'expression', {'allowArrowFunctions': true}],
     'generator-star-spacing': 1,
-    'id-length': [2, {'exceptions': ['x', 'y', 'z'], 'min': 2}],
     'import/default': 0,
     'import/export': 2,
     'import/exports-last': 0,
@@ -232,7 +231,7 @@ module.exports = {
     'react/self-closing-comp': [2, {'component': true, 'html': false}],
     'semi': 0,
     'semi-spacing': 2,
-    'sort-keys': [0, 'asc', {'caseSensitive': true, 'natural': false}],
+    'sort-keys': [1, 'asc', {'caseSensitive': true, 'natural': true}],
     'space-before-blocks': [2, 'always'],
     'space-before-function-paren': [
       2,
