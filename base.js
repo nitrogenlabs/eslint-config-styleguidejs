@@ -59,7 +59,6 @@ module.exports = {
       'types': 'always'
     }],
     'import/first': 2,
-    'import/max-dependencies': [1, {'max': 15}],
     'import/named': 1,
     'import/newline-after-import': 2,
     'import/no-absolute-path': 2,
