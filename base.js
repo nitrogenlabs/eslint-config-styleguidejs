@@ -248,5 +248,10 @@ module.exports = {
     'valid-typeof': 0,
     'vars-on-top': 2,
     'wrap-iife': [2, 'outside']
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 };
