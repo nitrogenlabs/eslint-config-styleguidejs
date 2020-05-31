@@ -23,26 +23,57 @@ module.exports = {
     'no-undef': 0,
     'no-unused-vars': 0,
     '@typescript-eslint/naming-convention': [2,
-      {'selector': 'default', 'format': ['camelCase']},
-      {
-        'selector': 'variable',
-        'format': ['camelCase', 'UPPER_CASE']
-      },
-      {
-        'selector': 'parameter',
-        'format': ['camelCase'],
-        'leadingUnderscore': 'allow'
-      },
-      {
-        'selector': 'memberLike',
-        'modifiers': ['private'],
-        'format': ['camelCase'],
-        'leadingUnderscore': 'require'
-      },
 
       {
-        'selector': 'typeLike',
-        'format': ['PascalCase']
+        "selector": "default",
+        "format": [
+          "camelCase"
+        ],
+        "leadingUnderscore": "allow"
+      },
+      {
+        "selector": "class",
+        "format": [
+          "PascalCase"
+        ],
+        "leadingUnderscore": "forbid"
+      },
+      {
+        "selector": "parameter",
+        "format": [
+          "camelCase"
+        ]
+      },
+      {
+        "selector": "property",
+        "format": [
+          "camelCase",
+          "UPPER_CASE"
+        ]
+      },
+      {
+        "selector": "memberLike",
+        "modifiers": [
+          "private"
+        ],
+        "format": [
+          "camelCase"
+        ]
+      },
+      {
+        "selector": "typeLike",
+        "format": [
+          "PascalCase"
+        ],
+        "leadingUnderscore": "forbid"
+      },
+      {
+        "selector": "variable",
+        "format": [
+          "camelCase",
+          "PascalCase",
+          "UPPER_CASE"
+        ]
       }
     ],
     '@typescript-eslint/consistent-type-assertions': [2,
