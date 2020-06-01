@@ -23,57 +23,68 @@ module.exports = {
     'no-undef': 0,
     'no-unused-vars': 0,
     '@typescript-eslint/naming-convention': [2,
-
       {
-        "selector": "default",
-        "format": [
-          "camelCase"
+        'selector': 'class',
+        'format': [
+          'PascalCase'
         ],
-        "leadingUnderscore": "allow"
+        'leadingUnderscore': 'forbid'
       },
       {
-        "selector": "class",
-        "format": [
-          "PascalCase"
+        'selector': 'default',
+        'format': [
+          'strictCamelCase'
         ],
-        "leadingUnderscore": "forbid"
+        'leadingUnderscore': 'allow'
       },
       {
-        "selector": "parameter",
-        "format": [
-          "camelCase"
+        'selector': 'enumMember',
+        'format': [
+          'strictCamelCase',
+          'UPPER_CASE'
         ]
       },
       {
-        "selector": "property",
-        "format": [
-          "camelCase",
-          "UPPER_CASE"
-        ]
-      },
-      {
-        "selector": "memberLike",
-        "modifiers": [
-          "private"
+        'selector': 'memberLike',
+        'modifiers': [
+          'private'
         ],
-        "format": [
-          "camelCase"
+        'format': [
+          'strictCamelCase'
         ]
       },
       {
-        "selector": "typeLike",
-        "format": [
-          "PascalCase"
+        'selector': 'parameter',
+        'format': [
+          'strictCamelCase',
+          'PascalCase'
         ],
-        "leadingUnderscore": "forbid"
+        'leadingUnderscore': 'forbid'
       },
       {
-        "selector": "variable",
-        "format": [
-          "camelCase",
-          "PascalCase",
-          "UPPER_CASE"
-        ]
+        'selector': 'property',
+        'format': [
+          'strictCamelCase',
+          'PascalCase',
+          'UPPER_CASE'
+        ],
+        'leadingUnderscore': 'allow'
+      },
+      {
+        'selector': 'typeLike',
+        'format': [
+          'PascalCase'
+        ],
+        'leadingUnderscore': 'forbid'
+      },
+      {
+        'selector': 'variable',
+        'format': [
+          'strictCamelCase',
+          'PascalCase',
+          'UPPER_CASE'
+        ],
+        'leadingUnderscore': 'allow'
       }
     ],
     '@typescript-eslint/consistent-type-assertions': [2,
