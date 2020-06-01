@@ -63,11 +63,7 @@ module.exports = {
       },
       {
         'selector': 'property',
-        'format': [
-          'strictCamelCase',
-          'PascalCase',
-          'UPPER_CASE'
-        ],
+        'format': null,
         'leadingUnderscore': 'allow'
       },
       {
