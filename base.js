@@ -160,7 +160,6 @@ module.exports = {
     'no-new-object': 2,
     'no-new-wrappers': 2,
     'no-param-reassign': 2,
-    'no-plusplus': [2, {"allowForLoopAfterthoughts": true}],
     'no-restricted-properties': [
       1,
       {
