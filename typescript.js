@@ -22,6 +22,14 @@ module.exports = {
   rules: {
     'no-undef': 0,
     'no-unused-vars': 0,
+    'no-use-before-define': 0,
+    '@typescript-eslint/consistent-type-assertions': [2,
+      {
+        assertionStyle: 'as',
+        objectLiteralTypeAssertions: 'never',
+      }
+    ],
+    '@typescript-eslint/member-ordering': 2,
     '@typescript-eslint/naming-convention': [2,
       {
         'selector': 'class',
@@ -83,19 +91,13 @@ module.exports = {
         'leadingUnderscore': 'allow'
       }
     ],
-    '@typescript-eslint/consistent-type-assertions': [2,
-      {
-        assertionStyle: 'as',
-        objectLiteralTypeAssertions: 'never',
-      }
-    ],
-    '@typescript-eslint/member-ordering': 2,
     '@typescript-eslint/no-array-constructor': 2,
     '@typescript-eslint/no-unused-vars': [1,
       {
         ignoreRestSiblings: false
       }
     ],
+    '@typescript-eslint/no-use-before-define': [1],
     '@typescript-eslint/type-annotation-spacing': 2,
     'react/prop-types': 0
   }
