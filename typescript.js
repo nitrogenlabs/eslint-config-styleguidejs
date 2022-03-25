@@ -22,7 +22,6 @@ module.exports = {
   rules: {
     'no-undef': 0,
     'no-unused-vars': 0,
-    'no-use-before-define': 0,
     '@typescript-eslint/consistent-type-assertions': [2,
       {
         assertionStyle: 'as',
@@ -97,7 +96,7 @@ module.exports = {
         ignoreRestSiblings: false
       }
     ],
-    '@typescript-eslint/no-use-before-define': [1],
+    '@typescript-eslint/no-use-before-define': 0,
     '@typescript-eslint/type-annotation-spacing': 2,
     'react/prop-types': 0
   }

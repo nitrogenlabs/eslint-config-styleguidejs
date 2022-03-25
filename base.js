@@ -9,8 +9,7 @@ module.exports = {
   parserOptions: {
     ecmaFeatures: {
       globalReturn: true,
-      jsx: true,
-      experimentalObjectRestSpread: true
+      jsx: true
     },
     ecmaVersion: 6,
     sourceType: 'module'
@@ -45,7 +44,7 @@ module.exports = {
     'consistent-return': 1,
     'curly': 2,
     'dot-notation': 2,
-    'eol-last': 2,
+    'eol-last': 0,
     'eqeqeq': [2, 'always'],
     'func-style': ['error', 'expression', {'allowArrowFunctions': true}],
     'generator-star-spacing': 1,
@@ -160,6 +159,7 @@ module.exports = {
     'no-new-object': 2,
     'no-new-wrappers': 2,
     'no-param-reassign': 2,
+    "no-plusplus": 1,
     'no-restricted-properties': [
       1,
       {
@@ -176,7 +176,7 @@ module.exports = {
     'no-unneeded-ternary': 2,
     'no-unused-expressions': 0,
     'no-unused-vars': [1, {'ignoreRestSiblings': true}],
-    'no-use-before-define': [2, {'functions': false, 'classes': false}],
+    'no-use-before-define': 0,
     'no-useless-concat': 2,
     'no-useless-constructor': 2,
     'no-useless-escape': 1,
