@@ -15,6 +15,7 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: [
+    "@emotion",
     'babel',
     'import',
     'jest',
@@ -58,7 +59,7 @@ module.exports = {
       'types': 'always'
     }],
     'import/first': 2,
-    'import/named': 1,
+    'import/named': 0,
     'import/newline-after-import': 2,
     'import/no-absolute-path': 2,
     'import/no-cycle': 2,

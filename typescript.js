@@ -20,8 +20,10 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
+    "indent": 0,
     'no-undef': 0,
     'no-unused-vars': 0,
+    'react/prop-types': 0,
     '@typescript-eslint/consistent-type-assertions': [2,
       {
         assertionStyle: 'as',
@@ -98,6 +100,9 @@ module.exports = {
     ],
     '@typescript-eslint/no-use-before-define': 0,
     '@typescript-eslint/type-annotation-spacing': 2,
-    'react/prop-types': 0
+    "@typescript-eslint/indent": [
+      2,
+      2
+    ]
   }
 }
