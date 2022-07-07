@@ -1,7 +1,7 @@
 {
   "name": "eslint-config-styleguidejs",
   "description": "JS Style Guide ESLint Configuration",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "main": "index.js",
   "keywords": [
     "babel",
