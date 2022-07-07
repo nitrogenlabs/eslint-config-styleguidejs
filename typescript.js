@@ -1,12 +1,14 @@
 module.exports = {
   extends: 'styleguidejs/base',
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    babelOptions: {
-      presets: [
-        '@babel/preset-typescript'
-      ]
+    ecmaFeatures: {
+      experimentalObjectRestSpread: true
     }
   },
+  plugins: [
+    '@typescript-eslint'
+  ],
   rules: {
     "indent": 0,
     'no-undef': 0,

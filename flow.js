@@ -5,6 +5,9 @@ module.exports = {
       presets: [
         '@babel/preset-flow'
       ]
+    },
+    ecmaFeatures: {
+      experimentalObjectRestSpread: true
     }
   },
   plugins: [
