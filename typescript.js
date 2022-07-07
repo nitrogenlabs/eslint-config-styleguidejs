@@ -1,23 +1,11 @@
 module.exports = {
-  env: {
-    es6: true,
-    browser: true,
-    jest: true,
-    node: true
-  },
   extends: 'styleguidejs/base',
-  parser: '@typescript-eslint/parser',
-  plugins: [
-    '@typescript-eslint'
-  ],
   parserOptions: {
-    ecmaFeatures: {
-      globalReturn: true,
-      jsx: true,
-      experimentalObjectRestSpread: true
-    },
-    ecmaVersion: 6,
-    sourceType: 'module'
+    babelOptions: {
+      presets: [
+        '@babel/preset-typescript'
+      ]
+    }
   },
   rules: {
     "indent": 0,

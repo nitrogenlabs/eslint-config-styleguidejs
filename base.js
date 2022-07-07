@@ -5,13 +5,20 @@ module.exports = {
     jest: true,
     node: true
   },
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   parserOptions: {
+    babelOptions: {
+      presets: [
+        '@babel/preset-env',
+        '@babel/preset-react'
+      ]
+    },
     ecmaFeatures: {
       globalReturn: true,
       jsx: true
     },
     ecmaVersion: 6,
+    requireConfigFile: false,
     sourceType: 'module'
   },
   plugins: [
