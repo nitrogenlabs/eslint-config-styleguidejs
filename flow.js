@@ -1,24 +1,15 @@
 module.exports = {
-  env: {
-    es6: true,
-    browser: true,
-    jest: true,
-    node: true
-  },
   extends: 'styleguidejs/base',
-  parser: '@babel/eslint-parser',
+  parserOptions: {
+    babelOptions: {
+      presets: [
+        '@babel/preset-flow'
+      ]
+    }
+  },
   plugins: [
     'flowtype'
   ],
-  parserOptions: {
-    ecmaFeatures: {
-      globalReturn: true,
-      jsx: true,
-      experimentalObjectRestSpread: true
-    },
-    ecmaVersion: 6,
-    sourceType: 'module'
-  },
   rules: {
     'flowtype/array-style-complex-type': [2, 'shorthand'],
     'flowtype/array-style-simple-type': [2, 'shorthand'],
