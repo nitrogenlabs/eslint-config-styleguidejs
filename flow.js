@@ -6,7 +6,7 @@ module.exports = {
     node: true
   },
   extends: 'styleguidejs/base',
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   plugins: [
     'flowtype'
   ],
