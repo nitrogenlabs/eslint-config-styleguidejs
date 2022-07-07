@@ -1,7 +1,7 @@
 {
   "name": "eslint-config-styleguidejs",
   "description": "JS Style Guide ESLint Configuration",
-  "version": "2.1.0",
+  "version": "2.0.3",
   "main": "index.js",
   "keywords": [
     "babel",
@@ -44,6 +44,7 @@
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
     "@emotion/eslint-plugin": "^11.7.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
     "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-flowtype": "^8.0.3",
     "eslint-plugin-import": "^2.26.0",
