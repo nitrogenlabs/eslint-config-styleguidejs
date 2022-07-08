@@ -9,13 +9,11 @@ module.exports = {
   parserOptions: {
     babelOptions: {
       presets: [
-        '@babel/preset-env',
-        '@babel/preset-react'
+        '@babel/preset-env'
       ]
     },
     ecmaFeatures: {
-      globalReturn: true,
-      jsx: true
+      globalReturn: true
     },
     ecmaVersion: 6,
     requireConfigFile: false,
@@ -25,10 +23,7 @@ module.exports = {
     "@emotion",
     'babel',
     'import',
-    'jest',
-    'react',
-    'react-hooks',
-    'react-native'
+    'jest'
   ],
   rules: {
     'array-bracket-spacing': [2, 'never'],
@@ -221,20 +216,6 @@ module.exports = {
     'quote-props': [2, 'as-needed'],
     'quotes': 0,
     'radix': [2, 'as-needed'],
-    'react/display-name': 0,
-    'react/jsx-boolean-value': 2,
-    'react/jsx-no-undef': 2,
-    'react/jsx-sort-props': 0,
-    'react/jsx-uses-react': 0,
-    'react/jsx-uses-vars': 2,
-    'react/jsx-wrap-multilines': 2,
-    'react/no-did-mount-set-state': 2,
-    'react/no-did-update-set-state': 2,
-    'react/no-multi-comp': 0,
-    'react/no-unknown-property': 2,
-    'react/prop-types': 1,
-    'react/react-in-jsx-scope': 0,
-    'react/self-closing-comp': [2, {'component': true, 'html': false}],
     'semi': 0,
     'semi-spacing': 2,
     'space-before-blocks': [2, 'always'],
@@ -254,10 +235,5 @@ module.exports = {
     'valid-typeof': 0,
     'vars-on-top': 2,
     'wrap-iife': [2, 'outside']
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
   }
 };

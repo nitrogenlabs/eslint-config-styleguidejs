@@ -13,7 +13,6 @@ module.exports = {
     "indent": 0,
     'no-undef': 0,
     'no-unused-vars': 0,
-    'react/prop-types': 0,
     '@typescript-eslint/consistent-type-assertions': [2,
       {
         assertionStyle: 'as',
