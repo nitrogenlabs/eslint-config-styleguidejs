@@ -1,10 +1,14 @@
 {
   "name": "eslint-config-styleguidejs",
   "description": "JS Style Guide ESLint Configuration",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "type": "module",
   "main": "eslint.config.js",
-  "exports": "./eslint.config.js",
+  "exports": {
+    ".": {
+      "import": "./index.js"
+    }
+  },
   "keywords": [
     "babel",
     "eslint",

@@ -61,6 +61,18 @@ This configuration includes:
 
 Make sure you have a `tsconfig.json` file in your project root. The TypeScript rules will automatically use it.
 
+### ES Modules Import
+
+This package uses ES Modules. If you're using ESM in your project, you can import it directly:
+
+```js
+// Default import
+import styleguidejs from 'eslint-config-styleguidejs';
+
+// Named imports
+import { typescriptConfig, config } from 'eslint-config-styleguidejs';
+```
+
 ## Feature Highlights
 
 ### Code Quality
