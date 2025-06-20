@@ -5,6 +5,7 @@ import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import reactNativePlugin from 'eslint-plugin-react-native';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
+import stylisticPlugin from '@stylistic/eslint-plugin-ts';
 
 // Base configuration
 const baseConfig = {
@@ -25,7 +26,8 @@ const baseConfig = {
   },
   plugins: {
     'import': importPlugin,
-    'jest': jestPlugin
+    'jest': jestPlugin,
+    '@stylistic': stylisticPlugin
   },
   rules: {
     'array-bracket-spacing': ['error', 'never'],
@@ -243,7 +245,11 @@ const baseConfig = {
     'template-curly-spacing': ['error', 'never'],
     'valid-typeof': 'off',
     'vars-on-top': 'error',
-    'wrap-iife': ['error', 'outside']
+    'wrap-iife': ['error', 'outside'],
+    '@stylistic/type-annotation-spacing': ['error', {
+      before: true,
+      after: true
+    }]
   }
 };
 
@@ -374,11 +380,7 @@ const typescriptConfig = {
       }
     ],
     '@typescript-eslint/no-use-before-define': 'off',
-    '@typescript-eslint/type-annotation-spacing': 'error',
-    '@typescript-eslint/indent': [
-      'error',
-      2
-    ]
+    '@stylistic/indent': ['error', 2]
   }
 };
 
