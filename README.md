@@ -55,6 +55,10 @@ export default [
 ];
 ```
 
+## ESLint v9 Compatibility
+
+This configuration uses ESLint v9's flat config format and is compatible with ESLint v9.2+. It leverages the `@eslint/compat` package to ensure compatibility with plugins that haven't been fully updated to ESLint v9 yet.
+
 ## License
 
 MIT

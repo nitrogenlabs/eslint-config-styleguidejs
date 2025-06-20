@@ -1,6 +1,3 @@
-import babelParser from '@babel/eslint-parser';
-import emotionPlugin from '@emotion/eslint-plugin';
-import babelPlugin from 'eslint-plugin-babel';
 import importPlugin from 'eslint-plugin-import';
 import jestPlugin from 'eslint-plugin-jest';
 import reactPlugin from 'eslint-plugin-react';
@@ -14,15 +11,10 @@ const baseConfig = {
   languageOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    parser: babelParser,
     parserOptions: {
-      babelOptions: {
-        presets: ['@babel/preset-env']
-      },
       ecmaFeatures: {
         globalReturn: true
-      },
-      requireConfigFile: false
+      }
     },
     globals: {
       ...globals.browser,
@@ -32,8 +24,6 @@ const baseConfig = {
     }
   },
   plugins: {
-    '@emotion': emotionPlugin,
-    'babel': babelPlugin,
     'import': importPlugin,
     'jest': jestPlugin
   },
@@ -43,14 +33,6 @@ const baseConfig = {
     'arrow-body-style': ['error', 'as-needed'],
     'arrow-parens': ['error', 'always'],
     'arrow-spacing': 'error',
-    'babel/new-cap': 'warn',
-    'babel/camelcase': ['error', {'properties': 'never'}],
-    'babel/no-invalid-this': 'warn',
-    'babel/object-curly-spacing': ['error', 'never'],
-    'babel/quotes': ['error', 'single'],
-    'babel/semi': ['error', 'always'],
-    'babel/no-unused-expressions': 'warn',
-    'babel/valid-typeof': 'warn',
     'brace-style': ['error', '1tbs', {'allowSingleLine': false}],
     'camelcase': 'off',
     'computed-property-spacing': ['error', 'never'],
@@ -216,7 +198,7 @@ const baseConfig = {
     ],
     'no-whitespace-before-property': 'error',
     'one-var': ['error', 'never'],
-    'object-curly-spacing': 'off',
+    'object-curly-spacing': ['error', 'never'],
     'object-shorthand': 'warn',
     'padded-blocks': ['error', 'never'],
     'prefer-arrow-callback': 'error',
@@ -235,9 +217,9 @@ const baseConfig = {
     'prefer-template': 'error',
     'prefer-spread': 'error',
     'quote-props': ['error', 'as-needed'],
-    'quotes': 'off',
+    'quotes': ['error', 'single'],
     'radix': ['error', 'as-needed'],
-    'semi': 'off',
+    'semi': ['error', 'always'],
     'semi-spacing': 'error',
     'sort-imports': 'off',
     'sort-keys': ['error', 'asc', {
@@ -268,16 +250,6 @@ const baseConfig = {
 // React configuration
 const reactConfig = {
   files: ['**/*.jsx', '**/*.tsx'],
-  languageOptions: {
-    parserOptions: {
-      babelOptions: {
-        presets: ['@babel/preset-react']
-      },
-      ecmaFeatures: {
-        jsx: true
-      }
-    }
-  },
   plugins: {
     'react': reactPlugin,
     'react-hooks': reactHooksPlugin,
