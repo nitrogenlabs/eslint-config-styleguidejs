@@ -1,8 +1,10 @@
 {
   "name": "eslint-config-styleguidejs",
   "description": "JS Style Guide ESLint Configuration",
-  "version": "3.2.2",
-  "main": "index.js",
+  "version": "4.0.0",
+  "type": "module",
+  "main": "eslint.config.js",
+  "exports": "./eslint.config.js",
   "keywords": [
     "babel",
     "eslint",
@@ -17,8 +19,8 @@
   ],
   "author": {
     "name": "Giraldo Rosales",
-    "email": "giraldo@nitrogenlabs.com",
-    "url": "https://nitrogenlabs.com"
+    "email": "giraldo@nitrogenx.co",
+    "url": "https://styleguidejs.nitrogenx.co"
   },
   "repository": {
     "type": "git",
@@ -44,13 +46,14 @@
     "@babel/preset-react": "^7.26.3",
     "@babel/preset-typescript": "^7.26.0",
     "@emotion/eslint-plugin": "^11.12.0",
-    "@typescript-eslint/eslint-plugin": "^8.24.0",
-    "@typescript-eslint/parser": "^8.24.0",
+    "eslint": "^9.2.0",
     "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jest": "^28.11.0",
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.1.0",
-    "eslint-plugin-react-native": "^5.0.0"
+    "eslint-plugin-react-native": "^5.0.0",
+    "globals": "^14.0.0",
+    "typescript-eslint": "^8.24.0"
   }
 }
