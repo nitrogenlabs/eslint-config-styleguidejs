@@ -36,6 +36,7 @@
     "publish:minor": "npm version minor && npm run publish:tags && npm publish",
     "publish:patch": "npm version patch && npm run publish:tags && npm publish",
     "publish:tags": "git push --tags && git push origin HEAD",
+    "test": "node test/run-tests.js",
     "update": "lex update -i"
   },
   "dependencies": {

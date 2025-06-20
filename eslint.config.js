@@ -286,103 +286,6 @@ const reactConfig = {
   }
 };
 
-// TypeScript configuration
-const typescriptConfig = {
-  files: ['**/*.ts', '**/*.tsx'],
-  languageOptions: {
-    parser: tseslint.parser,
-    parserOptions: {
-      project: true,
-      projectService: true
-    }
-  },
-  rules: {
-    'indent': 'off',
-    'no-undef': 'off',
-    'no-unused-vars': 'off',
-    '@typescript-eslint/consistent-type-assertions': ['error',
-      {
-        assertionStyle: 'as',
-        objectLiteralTypeAssertions: 'never',
-      }
-    ],
-    '@typescript-eslint/member-ordering': 'error',
-    '@typescript-eslint/naming-convention': ['error',
-      {
-        'selector': 'class',
-        'format': [
-          'PascalCase'
-        ],
-        'leadingUnderscore': 'forbid'
-      },
-      {
-        'selector': 'default',
-        'format': [
-          'camelCase'
-        ],
-        'leadingUnderscore': 'allow'
-      },
-      {
-        'selector': 'enumMember',
-        'format': [
-          'camelCase',
-          'UPPER_CASE'
-        ]
-      },
-      {
-        'selector': 'memberLike',
-        'modifiers': [
-          'private'
-        ],
-        'format': [
-          'camelCase'
-        ]
-      },
-      {
-        'selector': 'parameter',
-        'format': [
-          'camelCase',
-          'PascalCase'
-        ],
-        'leadingUnderscore': 'forbid'
-      },
-      {
-        'selector': 'property',
-        'format': null,
-        'leadingUnderscore': 'allow'
-      },
-      {
-        'selector': 'typeLike',
-        'format': [
-          'PascalCase'
-        ],
-        'leadingUnderscore': 'forbid'
-      },
-      {
-        'selector': 'variable',
-        'format': [
-          'camelCase',
-          'PascalCase',
-          'UPPER_CASE'
-        ],
-        'leadingUnderscore': 'allow'
-      }
-    ],
-    '@typescript-eslint/no-array-constructor': 'error',
-    '@typescript-eslint/no-unused-vars': ['warn',
-      {
-        'args': 'after-used',
-        'argsIgnorePattern': '^_',
-        'caughtErrors': 'all',
-        'caughtErrorsIgnorePattern': '^_',
-        'ignoreRestSiblings': true,
-        'varsIgnorePattern': '^_'
-      }
-    ],
-    '@typescript-eslint/no-use-before-define': 'off',
-    '@stylistic/indent': ['error', 2]
-  }
-};
 
 // Test files configuration
 const testConfig = {
@@ -397,11 +300,112 @@ const ignoresConfig = {
   ignores: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/.lex-tmp/**']
 };
 
-export default [
+export const config = [
   ignoresConfig,
   baseConfig,
   reactConfig,
-  ...tseslint.configs.recommended,
-  typescriptConfig,
   testConfig
 ];
+
+export const typescriptConfig = tseslint.config(
+  config,
+  ...tseslint.configs.recommended,
+  {
+    files: ['**/*.{js,jsx,ts,tsx}'],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        project: true,
+        projectService: true
+      }
+    },
+    rules: {
+      'indent': 'off',
+      'no-undef': 'off',
+      'no-unused-vars': 'off',
+      '@typescript-eslint/consistent-type-assertions': ['error',
+        {
+          assertionStyle: 'as',
+          objectLiteralTypeAssertions: 'never',
+        }
+      ],
+      '@typescript-eslint/member-ordering': 'error',
+      '@typescript-eslint/naming-convention': ['error',
+        {
+          'selector': 'class',
+          'format': [
+            'PascalCase'
+          ],
+          'leadingUnderscore': 'forbid'
+        },
+        {
+          'selector': 'default',
+          'format': [
+            'camelCase'
+          ],
+          'leadingUnderscore': 'allow'
+        },
+        {
+          'selector': 'enumMember',
+          'format': [
+            'camelCase',
+            'UPPER_CASE'
+          ]
+        },
+        {
+          'selector': 'memberLike',
+          'modifiers': [
+            'private'
+          ],
+          'format': [
+            'camelCase'
+          ]
+        },
+        {
+          'selector': 'parameter',
+          'format': [
+            'camelCase',
+            'PascalCase'
+          ],
+          'leadingUnderscore': 'forbid'
+        },
+        {
+          'selector': 'property',
+          'format': null,
+          'leadingUnderscore': 'allow'
+        },
+        {
+          'selector': 'typeLike',
+          'format': [
+            'PascalCase'
+          ],
+          'leadingUnderscore': 'forbid'
+        },
+        {
+          'selector': 'variable',
+          'format': [
+            'camelCase',
+            'PascalCase',
+            'UPPER_CASE'
+          ],
+          'leadingUnderscore': 'allow'
+        }
+      ],
+      '@typescript-eslint/no-array-constructor': 'error',
+      '@typescript-eslint/no-unused-vars': ['warn',
+        {
+          'args': 'after-used',
+          'argsIgnorePattern': '^_',
+          'caughtErrors': 'all',
+          'caughtErrorsIgnorePattern': '^_',
+          'ignoreRestSiblings': true,
+          'varsIgnorePattern': '^_'
+        }
+      ],
+      '@typescript-eslint/no-use-before-define': 'off',
+      '@stylistic/indent': ['error', 2]
+    }
+  }
+);
+
+export default config;
