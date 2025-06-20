@@ -286,11 +286,9 @@ const typescriptConfig = {
   languageOptions: {
     parser: tseslint.parser,
     parserOptions: {
-      project: './tsconfig.json'
+      project: true,
+      projectService: true
     }
-  },
-  plugins: {
-    '@typescript-eslint': tseslint.plugin
   },
   rules: {
     'indent': 'off',
@@ -401,6 +399,7 @@ export default [
   ignoresConfig,
   baseConfig,
   reactConfig,
+  ...tseslint.configs.recommended,
   typescriptConfig,
   testConfig
 ];
