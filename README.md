@@ -89,6 +89,18 @@ This package is fully compatible with ESLint v9 and uses the flat config format.
 - `eslint-plugin-react-hooks` v5 for React Hooks support
 - `eslint-plugin-import` v2 for import/export validation
 
+### Import Extensions
+
+The `import/extensions` rule is configured to always require file extensions for the following file types:
+- JavaScript files (`.js`, `.jsx`)
+- TypeScript files (`.ts`, `.tsx`)
+- CSS files (`.css`)
+- JSON files (`.json`)
+- SVG files (`.svg`)
+- Type files (`.types`)
+
+This helps ensure consistent import statements across your codebase.
+
 ## Feature Highlights
 
 ### Code Quality

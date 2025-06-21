@@ -30,6 +30,16 @@ const baseConfig = {
     '@stylistic': stylistic
   },
   rules: {
+    '@stylistic/type-annotation-spacing': ['error', {
+      before: false,
+      after: true,
+      overrides: {
+        arrow: {
+          before: true,
+          after: true
+        }
+      }
+    }],
     'array-bracket-spacing': ['error', 'never'],
     'array-callback-return': 'error',
     'arrow-body-style': ['error', 'as-needed'],
@@ -37,9 +47,9 @@ const baseConfig = {
     'arrow-spacing': 'error',
     'brace-style': ['error', '1tbs', {allowSingleLine: false}],
     camelcase: 'off',
-    'computed-property-spacing': ['error', 'never'],
     'comma-dangle': ['error', 'never'],
     'comma-style': ['error', 'last'],
+    'computed-property-spacing': ['error', 'never'],
     'consistent-return': 'warn',
     curly: 'error',
     'dot-notation': 'error',
@@ -52,8 +62,12 @@ const baseConfig = {
     'import/exports-last': 'off',
     'import/extensions': ['error', 'never', {
       css: 'always',
+      js: 'always',
+      jsx: 'always',
       json: 'always',
       svg: 'always',
+      ts: 'always',
+      tsx: 'always',
       types: 'always'
     }],
     'import/first': 'error',
@@ -113,19 +127,19 @@ const baseConfig = {
       'error',
       {
         overrides: {
-          if: {
+          catch: {
             after: false
           },
           for: {
             after: false
           },
-          while: {
+          if: {
             after: false
           },
           switch: {
             after: false
           },
-          catch: {
+          while: {
             after: false
           }
         }
@@ -148,14 +162,14 @@ const baseConfig = {
     'no-case-declarations': 'error',
     'no-class-assign': 'error',
     'no-confusing-arrow': ['error', {allowParens: true}],
-    'no-const-assign': 'error',
     'no-console': 'warn',
+    'no-const-assign': 'error',
     'no-dupe-keys': 'error',
     'no-duplicate-imports': 'error',
     'no-else-return': 'error',
     'no-eq-null': 'error',
-    'no-extra-semi': 'error',
     'no-eval': 'warn',
+    'no-extra-semi': 'error',
     'no-invalid-this': 'off',
     'no-loop-func': 'warn',
     'no-mixed-operators': 'error',
@@ -171,9 +185,9 @@ const baseConfig = {
     'no-restricted-properties': [
       'warn',
       {
+        message: 'Please use spread, {...obj}',
         object: 'Object',
-        property: 'assign',
-        message: 'Please use spread, {...obj}'
+        property: 'assign'
       }
     ],
     'no-sparse-arrays': 'error',
@@ -192,16 +206,16 @@ const baseConfig = {
     'no-warning-comments': [
       'warn',
       {
+        location: 'anywhere',
         terms: [
           'fixme'
-        ],
-        location: 'anywhere'
+        ]
       }
     ],
     'no-whitespace-before-property': 'error',
-    'one-var': ['error', 'never'],
     'object-curly-spacing': ['error', 'never'],
     'object-shorthand': 'warn',
+    'one-var': ['error', 'never'],
     'padded-blocks': ['error', 'never'],
     'prefer-arrow-callback': 'error',
     'prefer-const': ['error', {destructuring: 'all', ignoreReadBeforeAssign: true}],
@@ -216,8 +230,8 @@ const baseConfig = {
       }
     ],
     'prefer-rest-params': 'error',
-    'prefer-template': 'error',
     'prefer-spread': 'error',
+    'prefer-template': 'error',
     'quote-props': ['error', 'as-needed'],
     quotes: ['error', 'single'],
     radix: ['error', 'as-needed'],
@@ -245,11 +259,7 @@ const baseConfig = {
     'template-curly-spacing': ['error', 'never'],
     'valid-typeof': 'off',
     'vars-on-top': 'error',
-    'wrap-iife': ['error', 'outside'],
-    '@stylistic/type-annotation-spacing': ['error', {
-      before: true,
-      after: true
-    }]
+    'wrap-iife': ['error', 'outside']
   }
 };
 
@@ -320,9 +330,7 @@ export const typescriptConfig = tseslint.config(
       }
     },
     rules: {
-      indent: 'off',
-      'no-undef': 'off',
-      'no-unused-vars': 'off',
+      '@stylistic/indent': ['error', 2],
       '@typescript-eslint/consistent-type-assertions': ['error',
         {
           assertionStyle: 'as',
@@ -403,7 +411,19 @@ export const typescriptConfig = tseslint.config(
         }
       ],
       '@typescript-eslint/no-use-before-define': 'off',
-      '@stylistic/indent': ['error', 2]
+      'import/extensions': ['error', 'never', {
+        css: 'always',
+        js: 'always',
+        jsx: 'always',
+        json: 'always',
+        svg: 'always',
+        ts: 'always',
+        tsx: 'always',
+        types: 'always'
+      }],
+      indent: 'off',
+      'no-undef': 'off',
+      'no-unused-vars': 'off'
     }
   }
 );
