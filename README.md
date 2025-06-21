@@ -63,15 +63,31 @@ Make sure you have a `tsconfig.json` file in your project root. The TypeScript r
 
 ### ES Modules Import
 
-This package uses ES Modules. If you're using ESM in your project, you can import it directly:
+This package uses ES Modules. If you're using ESM in your project, you can import it in multiple ways:
 
 ```js
-// Default import
+// Method 1: Default import (gives you the base config array)
 import styleguidejs from 'eslint-config-styleguidejs';
 
-// Named imports
-import { typescriptConfig, config } from 'eslint-config-styleguidejs';
+// You can access the TypeScript config as a property
+const { typescriptConfig } = styleguidejs;
+
+// Method 2: Named imports
+import { config, typescriptConfig } from 'eslint-config-styleguidejs';
+
+// Method 3: Import specific configs
+import { typescriptConfig } from 'eslint-config-styleguidejs';
 ```
+
+### ESLint v9 Compatibility
+
+This package is fully compatible with ESLint v9 and uses the flat config format. It uses the following plugins that are ESLint v9 compatible:
+
+- `@stylistic/eslint-plugin` for stylistic rules (replaces the deprecated `@typescript-eslint/eslint-plugin` stylistic rules)
+- `typescript-eslint` v8 for TypeScript support
+- `eslint-plugin-react` v7 for React support
+- `eslint-plugin-react-hooks` v5 for React Hooks support
+- `eslint-plugin-import` v2 for import/export validation
 
 ## Feature Highlights
 

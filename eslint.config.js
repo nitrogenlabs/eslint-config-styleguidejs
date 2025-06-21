@@ -1,3 +1,4 @@
+import stylistic from '@stylistic/eslint-plugin';
 import importPlugin from 'eslint-plugin-import';
 import jestPlugin from 'eslint-plugin-jest';
 import reactPlugin from 'eslint-plugin-react';
@@ -5,7 +6,6 @@ import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import reactNativePlugin from 'eslint-plugin-react-native';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import stylisticPlugin from '@stylistic/eslint-plugin-ts';
 
 // Base configuration
 const baseConfig = {
@@ -25,9 +25,9 @@ const baseConfig = {
     }
   },
   plugins: {
-    'import': importPlugin,
-    'jest': jestPlugin,
-    '@stylistic': stylisticPlugin
+    import: importPlugin,
+    jest: jestPlugin,
+    '@stylistic': stylistic
   },
   rules: {
     'array-bracket-spacing': ['error', 'never'],
@@ -35,26 +35,26 @@ const baseConfig = {
     'arrow-body-style': ['error', 'as-needed'],
     'arrow-parens': ['error', 'always'],
     'arrow-spacing': 'error',
-    'brace-style': ['error', '1tbs', {'allowSingleLine': false}],
-    'camelcase': 'off',
+    'brace-style': ['error', '1tbs', {allowSingleLine: false}],
+    camelcase: 'off',
     'computed-property-spacing': ['error', 'never'],
     'comma-dangle': ['error', 'never'],
     'comma-style': ['error', 'last'],
     'consistent-return': 'warn',
-    'curly': 'error',
+    curly: 'error',
     'dot-notation': 'error',
     'eol-last': 'off',
-    'eqeqeq': ['error', 'always'],
-    'func-style': ['error', 'expression', {'allowArrowFunctions': true}],
+    eqeqeq: ['error', 'always'],
+    'func-style': ['error', 'expression', {allowArrowFunctions: true}],
     'generator-star-spacing': 'warn',
     'import/default': 'off',
     'import/export': 'error',
     'import/exports-last': 'off',
     'import/extensions': ['error', 'never', {
-      'css': 'always',
-      'json': 'always',
-      'svg': 'always',
-      'types': 'always'
+      css: 'always',
+      json: 'always',
+      svg: 'always',
+      types: 'always'
     }],
     'import/first': 'error',
     'import/named': 'off',
@@ -66,7 +66,7 @@ const baseConfig = {
     'import/no-extraneous-dependencies': [
       'error',
       {
-        'devDependencies': [
+        devDependencies: [
           '**/__tests__/*',
           '**/__tests__/**/*',
           '**/tests/*',
@@ -78,7 +78,7 @@ const baseConfig = {
           'jest.setup.js',
           '**/*.config.*'
         ],
-        'peerDependencies': true
+        peerDependencies: true
       }
     ],
     'import/no-internal-modules': 'off',
@@ -91,11 +91,11 @@ const baseConfig = {
     'import/order': [
       'error',
       {
-        'alphabetize': {
-          'caseInsensitive': true,
-          'order': 'asc'
+        alphabetize: {
+          caseInsensitive: true,
+          order: 'asc'
         },
-        'groups': [
+        groups: [
           ['builtin', 'external', 'internal'],
           ['parent', 'sibling', 'index'],
           'type'
@@ -104,7 +104,7 @@ const baseConfig = {
       }
     ],
     'import/prefer-default-export': 'off',
-    'indent': ['error', 2, {'SwitchCase': 1}],
+    indent: ['error', 2, {SwitchCase: 1}],
     'jest/no-disabled-tests': 'warn',
     'jest/no-focused-tests': 'warn',
     'jest/no-identical-title': 'error',
@@ -112,33 +112,33 @@ const baseConfig = {
     'keyword-spacing': [
       'error',
       {
-        'overrides': {
-          'if': {
-            'after': false
+        overrides: {
+          if: {
+            after: false
           },
-          'for': {
-            'after': false
+          for: {
+            after: false
           },
-          'while': {
-            'after': false
+          while: {
+            after: false
           },
-          'switch': {
-            'after': false
+          switch: {
+            after: false
           },
-          'catch': {
-            'after': false
+          catch: {
+            after: false
           }
         }
       }
     ],
     'max-len': [
       'error', {
-        'code': 120,
-        'ignoreRegExpLiterals': true,
-        'ignoreStrings': true,
-        'ignoreTemplateLiterals': true,
-        'ignoreUrls': true,
-        'tabWidth': 2
+        code: 120,
+        ignoreRegExpLiterals: true,
+        ignoreStrings: true,
+        ignoreTemplateLiterals: true,
+        ignoreUrls: true,
+        tabWidth: 2
       }
     ],
     'new-cap': 'off',
@@ -147,7 +147,7 @@ const baseConfig = {
     'no-await-in-loop': 'warn',
     'no-case-declarations': 'error',
     'no-class-assign': 'error',
-    'no-confusing-arrow': ['error', {'allowParens': true}],
+    'no-confusing-arrow': ['error', {allowParens: true}],
     'no-const-assign': 'error',
     'no-console': 'warn',
     'no-dupe-keys': 'error',
@@ -161,7 +161,7 @@ const baseConfig = {
     'no-mixed-operators': 'error',
     'no-mixed-spaces-and-tabs': 'error',
     'no-multi-assign': 'error',
-    'no-multiple-empty-lines': ['error', {'max': 2}],
+    'no-multiple-empty-lines': ['error', {max: 2}],
     'no-nested-ternary': 'error',
     'no-new-func': 'error',
     'no-new-object': 'error',
@@ -171,19 +171,19 @@ const baseConfig = {
     'no-restricted-properties': [
       'warn',
       {
-        'object': 'Object',
-        'property': 'assign',
-        'message': 'Please use spread, {...obj}'
+        object: 'Object',
+        property: 'assign',
+        message: 'Please use spread, {...obj}'
       }
     ],
     'no-sparse-arrays': 'error',
     'no-trailing-spaces': 'error',
     'no-undef-init': 'error',
-    'no-underscore-dangle': ['warn', {'enforceInMethodNames': true}],
+    'no-underscore-dangle': ['warn', {enforceInMethodNames: true}],
     'no-unexpected-multiline': 'error',
     'no-unneeded-ternary': 'error',
     'no-unused-expressions': 'off',
-    'no-unused-vars': ['warn', {'ignoreRestSiblings': true}],
+    'no-unused-vars': ['warn', {ignoreRestSiblings: true}],
     'no-use-before-define': 'off',
     'no-useless-concat': 'error',
     'no-useless-constructor': 'error',
@@ -192,10 +192,10 @@ const baseConfig = {
     'no-warning-comments': [
       'warn',
       {
-        'terms': [
+        terms: [
           'fixme'
         ],
-        'location': 'anywhere'
+        location: 'anywhere'
       }
     ],
     'no-whitespace-before-property': 'error',
@@ -204,44 +204,44 @@ const baseConfig = {
     'object-shorthand': 'warn',
     'padded-blocks': ['error', 'never'],
     'prefer-arrow-callback': 'error',
-    'prefer-const': ['error', {'destructuring': 'all', 'ignoreReadBeforeAssign': true}],
+    'prefer-const': ['error', {destructuring: 'all', ignoreReadBeforeAssign: true}],
     'prefer-destructuring': [
       'error',
       {
-        'array': false,
-        'object': true
+        array: false,
+        object: true
       },
       {
-        'enforceForRenamedProperties': false
+        enforceForRenamedProperties: false
       }
     ],
     'prefer-rest-params': 'error',
     'prefer-template': 'error',
     'prefer-spread': 'error',
     'quote-props': ['error', 'as-needed'],
-    'quotes': ['error', 'single'],
-    'radix': ['error', 'as-needed'],
-    'semi': ['error', 'always'],
+    quotes: ['error', 'single'],
+    radix: ['error', 'as-needed'],
+    semi: ['error', 'always'],
     'semi-spacing': 'error',
     'sort-imports': 'off',
     'sort-keys': ['error', 'asc', {
-      'caseSensitive': true,
-      'minKeys': 2,
-      'natural': false
+      caseSensitive: true,
+      minKeys: 2,
+      natural: false
     }],
     'space-before-blocks': ['error', 'always'],
     'space-before-function-paren': [
       'error',
       {
-        'anonymous': 'never',
-        'asyncArrow': 'always',
-        'named': 'never',
+        anonymous: 'never',
+        asyncArrow: 'always',
+        named: 'never'
       }
     ],
     'space-in-parens': ['error', 'never'],
     'space-infix-ops': 'error',
-    'spaced-comment': ['error', 'always', {'exceptions': ['-', '+']}],
-    'strict': ['error', 'never'],
+    'spaced-comment': ['error', 'always', {exceptions: ['-', '+']}],
+    strict: ['error', 'never'],
     'template-curly-spacing': ['error', 'never'],
     'valid-typeof': 'off',
     'vars-on-top': 'error',
@@ -257,7 +257,7 @@ const baseConfig = {
 const reactConfig = {
   files: ['**/*.jsx', '**/*.tsx'],
   plugins: {
-    'react': reactPlugin,
+    react: reactPlugin,
     'react-hooks': reactHooksPlugin,
     'react-native': reactNativePlugin
   },
@@ -280,7 +280,7 @@ const reactConfig = {
     'react/no-unknown-property': 'error',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
-    'react/self-closing-comp': ['error', {'component': true, 'html': false}],
+    'react/self-closing-comp': ['error', {component: true, html: false}],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn'
   }
@@ -320,86 +320,86 @@ export const typescriptConfig = tseslint.config(
       }
     },
     rules: {
-      'indent': 'off',
+      indent: 'off',
       'no-undef': 'off',
       'no-unused-vars': 'off',
       '@typescript-eslint/consistent-type-assertions': ['error',
         {
           assertionStyle: 'as',
-          objectLiteralTypeAssertions: 'never',
+          objectLiteralTypeAssertions: 'never'
         }
       ],
       '@typescript-eslint/member-ordering': 'error',
       '@typescript-eslint/naming-convention': ['error',
         {
-          'selector': 'class',
-          'format': [
+          selector: 'class',
+          format: [
             'PascalCase'
           ],
-          'leadingUnderscore': 'forbid'
+          leadingUnderscore: 'forbid'
         },
         {
-          'selector': 'default',
-          'format': [
+          selector: 'default',
+          format: [
             'camelCase'
           ],
-          'leadingUnderscore': 'allow'
+          leadingUnderscore: 'allow'
         },
         {
-          'selector': 'enumMember',
-          'format': [
+          selector: 'enumMember',
+          format: [
             'camelCase',
             'UPPER_CASE'
           ]
         },
         {
-          'selector': 'memberLike',
-          'modifiers': [
+          selector: 'memberLike',
+          modifiers: [
             'private'
           ],
-          'format': [
+          format: [
             'camelCase'
           ]
         },
         {
-          'selector': 'parameter',
-          'format': [
+          selector: 'parameter',
+          format: [
             'camelCase',
             'PascalCase'
           ],
-          'leadingUnderscore': 'forbid'
+          leadingUnderscore: 'forbid'
         },
         {
-          'selector': 'property',
-          'format': null,
-          'leadingUnderscore': 'allow'
+          selector: 'property',
+          format: null,
+          leadingUnderscore: 'allow'
         },
         {
-          'selector': 'typeLike',
-          'format': [
+          selector: 'typeLike',
+          format: [
             'PascalCase'
           ],
-          'leadingUnderscore': 'forbid'
+          leadingUnderscore: 'forbid'
         },
         {
-          'selector': 'variable',
-          'format': [
+          selector: 'variable',
+          format: [
             'camelCase',
             'PascalCase',
             'UPPER_CASE'
           ],
-          'leadingUnderscore': 'allow'
+          leadingUnderscore: 'allow'
         }
       ],
       '@typescript-eslint/no-array-constructor': 'error',
       '@typescript-eslint/no-unused-vars': ['warn',
         {
-          'args': 'after-used',
-          'argsIgnorePattern': '^_',
-          'caughtErrors': 'all',
-          'caughtErrorsIgnorePattern': '^_',
-          'ignoreRestSiblings': true,
-          'varsIgnorePattern': '^_'
+          args: 'after-used',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+          varsIgnorePattern: '^_'
         }
       ],
       '@typescript-eslint/no-use-before-define': 'off',
