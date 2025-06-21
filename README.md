@@ -109,6 +109,8 @@ This helps ensure consistent import statements across your codebase.
 - **Enforce Best Practices**: Promote patterns that lead to maintainable, readable code
 - **Type Safety**: Leverage TypeScript's type system to catch errors at lint time
 
+For a detailed explanation of how our ESLint rules align with modern JavaScript and TypeScript best practices, see [BEST_PRACTICES.md](./BEST_PRACTICES.md).
+
 ### Developer Experience
 
 - **Readability First**: Rules optimized for code readability and scan-ability

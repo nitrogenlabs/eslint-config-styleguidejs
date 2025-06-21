@@ -338,7 +338,7 @@ export const typescriptConfig = tseslint.config(
         }
       ],
       '@typescript-eslint/member-ordering': 'error',
-      '@typescript-eslint/naming-convention': ['error',
+      '@typescript-eslint/naming-convention': ['warn',
         {
           selector: 'class',
           format: [
