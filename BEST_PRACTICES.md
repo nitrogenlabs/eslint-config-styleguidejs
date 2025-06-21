@@ -12,6 +12,66 @@ Our ESLint configuration is built around several core principles that reflect mo
 4. **Consistency**: Enforcing consistent style and patterns across the codebase
 5. **Maintainability**: Avoiding patterns that make code difficult to maintain or refactor
 
+## Psychological Benefits of Our Spacing Rules
+
+Our configuration enforces no spaces inside object literals and array brackets. This approach offers several cognitive and psychological benefits:
+
+### Visual Cohesion
+
+```js
+// Without spaces - objects and arrays are perceived as cohesive units
+const user = {name: 'John', age: 30};
+const points = [10, 20, 30];
+
+// With spaces - creates visual fragmentation
+const user = { name: 'John', age: 30 };
+const points = [ 10, 20, 30 ];
+```
+
+When brackets and braces are treated as part of the data structure they contain (without spaces), the brain processes them as a single cohesive unit. This reduces cognitive load by treating objects and arrays as atomic entities rather than collections of separate elements.
+
+### Alignment with Syntax Structures
+
+```js
+// Consistent treatment of all bracket types
+function process({id, name}) {  // object destructuring
+  return [id, name];            // array literal
+}
+
+// Inconsistent visual treatment
+function process({ id, name }) {
+  return [ id, name ];
+}
+```
+
+Our no-space approach creates visual consistency with other bracket-like structures in JavaScript (function calls, control structures), strengthening the mental model of how code is structured.
+
+### Reduced Visual Noise
+
+```js
+// Less visual noise - easier to scan
+const config = {
+  user: {name: 'John', role: 'admin'},
+  settings: {theme: 'dark', notifications: {email: true, push: false}}
+};
+
+// More visual noise - harder to scan
+const config = {
+  user: { name: 'John', role: 'admin' },
+  settings: { theme: 'dark', notifications: { email: true, push: false } }
+};
+```
+
+Each space adds visual noise to the code. With nested structures, this noise compounds quickly, making it harder for the brain to filter out irrelevant information and focus on the content.
+
+### Muscle Memory and Typing Efficiency
+
+Consistently typing without spaces between brackets builds muscle memory, making coding more fluid and reducing the cognitive overhead of style decisions. This consistency extends to IDEs and code formatters, creating a seamless experience across tools.
+
+### Psychological Anchoring
+
+The absence of spaces creates stronger "anchoring points" for the eyes when scanning code. The brain can quickly identify the boundaries of data structures without having to process extra whitespace, making code navigation more efficient.
+
 ## Key Best Practices
 
 ### Modern JavaScript Features

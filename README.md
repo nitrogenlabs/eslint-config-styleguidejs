@@ -6,6 +6,8 @@
 
 > "Code like everyone can read your work, because they can."
 
+📖 **[Explore our Best Practices Guide](./BEST_PRACTICES.md)** – Discover the psychological and cognitive benefits behind our coding standards and how they improve developer productivity.
+
 ## Why Choose styleguidejs?
 
 - **✨ Optimized for Modern Development**: Carefully tuned rules that align with how JavaScript and TypeScript are written today
@@ -109,7 +111,7 @@ This helps ensure consistent import statements across your codebase.
 - **Enforce Best Practices**: Promote patterns that lead to maintainable, readable code
 - **Type Safety**: Leverage TypeScript's type system to catch errors at lint time
 
-For a detailed explanation of how our ESLint rules align with modern JavaScript and TypeScript best practices, see [BEST_PRACTICES.md](./BEST_PRACTICES.md).
+🧠 **[Deep Dive into Our Best Practices](./BEST_PRACTICES.md)** – Learn how our rules are scientifically designed to reduce cognitive load and improve code comprehension through psychological principles of visual perception and mental processing.
 
 ### Developer Experience
 
