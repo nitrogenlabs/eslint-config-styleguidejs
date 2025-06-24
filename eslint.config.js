@@ -7,36 +7,35 @@ import reactNativePlugin from 'eslint-plugin-react-native';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-// Base configuration
 const baseConfig = {
   languageOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module',
-    parserOptions: {
-      ecmaFeatures: {
-        globalReturn: true
-      }
-    },
     globals: {
       ...globals.browser,
       ...globals.es2021,
       ...globals.jest,
       ...globals.node
-    }
+    },
+    parserOptions: {
+      ecmaFeatures: {
+        globalReturn: true
+      }
+    },
+    sourceType: 'module'
   },
   plugins: {
+    '@stylistic': stylistic,
     import: importPlugin,
-    jest: jestPlugin,
-    '@stylistic': stylistic
+    jest: jestPlugin
   },
   rules: {
     '@stylistic/type-annotation-spacing': ['error', {
-      before: false,
       after: true,
+      before: false,
       overrides: {
         arrow: {
-          before: true,
-          after: true
+          after: true,
+          before: true
         }
       }
     }],
@@ -63,8 +62,8 @@ const baseConfig = {
     'import/extensions': ['error', 'never', {
       css: 'always',
       js: 'always',
-      jsx: 'always',
       json: 'always',
+      jsx: 'always',
       svg: 'always',
       ts: 'always',
       tsx: 'always',
@@ -181,7 +180,7 @@ const baseConfig = {
     'no-new-object': 'error',
     'no-new-wrappers': 'error',
     'no-param-reassign': 'error',
-    'no-plusplus': 'warn',
+    'no-plusplus': 'off',
     'no-restricted-properties': [
       'warn',
       {
@@ -263,7 +262,6 @@ const baseConfig = {
   }
 };
 
-// React configuration
 const reactConfig = {
   files: ['**/*.jsx', '**/*.tsx'],
   plugins: {
@@ -271,12 +269,9 @@ const reactConfig = {
     'react-hooks': reactHooksPlugin,
     'react-native': reactNativePlugin
   },
-  settings: {
-    react: {
-      version: 'detect'
-    }
-  },
   rules: {
+    'react-hooks/exhaustive-deps': 'warn',
+    'react-hooks/rules-of-hooks': 'error',
     'react/display-name': 'off',
     'react/jsx-boolean-value': 'error',
     'react/jsx-no-undef': 'error',
@@ -290,14 +285,15 @@ const reactConfig = {
     'react/no-unknown-property': 'error',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
-    'react/self-closing-comp': ['error', {component: true, html: false}],
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn'
+    'react/self-closing-comp': ['error', {component: true, html: false}]
+  },
+  settings: {
+    react: {
+      version: 'detect'
+    }
   }
 };
 
-
-// Test files configuration
 const testConfig = {
   files: ['**/__tests__/**/*', '**/tests/**/*', '**/*.test.*', '**/*.spec.*'],
   rules: {
@@ -305,7 +301,6 @@ const testConfig = {
   }
 };
 
-// File ignores
 const ignoresConfig = {
   ignores: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/.lex-tmp/**']
 };
@@ -340,63 +335,63 @@ export const typescriptConfig = tseslint.config(
       '@typescript-eslint/member-ordering': 'error',
       '@typescript-eslint/naming-convention': ['warn',
         {
-          selector: 'class',
           format: [
             'PascalCase'
           ],
-          leadingUnderscore: 'forbid'
+          leadingUnderscore: 'forbid',
+          selector: 'class'
         },
         {
-          selector: 'default',
           format: [
             'camelCase'
           ],
-          leadingUnderscore: 'allow'
+          leadingUnderscore: 'allow',
+          selector: 'default'
         },
         {
-          selector: 'enumMember',
           format: [
             'camelCase',
             'UPPER_CASE'
-          ]
+          ],
+          selector: 'enumMember'
         },
         {
-          selector: 'memberLike',
+          format: [
+            'camelCase'
+          ],
           modifiers: [
             'private'
           ],
-          format: [
-            'camelCase'
-          ]
+          selector: 'memberLike'
         },
         {
-          selector: 'parameter',
           format: [
             'camelCase',
             'PascalCase'
           ],
-          leadingUnderscore: 'forbid'
+          leadingUnderscore: 'forbid',
+          selector: 'parameter'
         },
         {
-          selector: 'property',
           format: null,
-          leadingUnderscore: 'allow'
+          leadingUnderscore: 'allow',
+          selector: 'property'
         },
         {
-          selector: 'typeLike',
           format: [
             'PascalCase'
           ],
-          leadingUnderscore: 'forbid'
+          leadingUnderscore: 'forbid',
+          selector: 'typeLike'
         },
         {
-          selector: 'variable',
           format: [
             'camelCase',
             'PascalCase',
             'UPPER_CASE'
           ],
-          leadingUnderscore: 'allow'
+          leadingUnderscore: 'allow',
+          selector: 'variable'
         }
       ],
       '@typescript-eslint/no-array-constructor': 'error',
@@ -414,8 +409,8 @@ export const typescriptConfig = tseslint.config(
       'import/extensions': ['error', 'never', {
         css: 'always',
         js: 'always',
-        jsx: 'always',
         json: 'always',
+        jsx: 'always',
         svg: 'always',
         ts: 'always',
         tsx: 'always',

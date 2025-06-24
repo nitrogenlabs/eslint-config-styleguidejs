@@ -9,7 +9,7 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "*.ts",
-    "*.tsx"
+    "**/*.ts",
+    "**/*.tsx"
   ]
 }
