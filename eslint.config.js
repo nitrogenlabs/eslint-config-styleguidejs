@@ -410,7 +410,12 @@ export const typescriptConfig = tseslint.config(
       ],
       '@typescript-eslint/no-array-constructor': 'error',
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-malformed-types': 'error',
+      '@typescript-eslint/ban-types': 'error',
+      '@typescript-eslint/no-invalid-void-type': 'error',
+      '@typescript-eslint/no-duplicate-type-constituents': 'error',
+      '@typescript-eslint/no-misused-new': 'error',
+      '@typescript-eslint/no-redundant-type-constituents': 'error',
+      '@typescript-eslint/no-unsafe-declaration-merging': 'error',
       '@typescript-eslint/no-unused-vars': ['warn',
         {
           args: 'after-used',
