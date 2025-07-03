@@ -395,6 +395,8 @@ export const typescriptConfig = tseslint.config(
         }
       ],
       '@typescript-eslint/no-array-constructor': 'error',
+      '@typescript-eslint/no-duplicate-imports': 'error',
+      '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': ['warn',
         {
           args: 'after-used',
@@ -417,6 +419,7 @@ export const typescriptConfig = tseslint.config(
         types: 'always'
       }],
       indent: 'off',
+      'no-duplicate-imports': 'off',
       'no-undef': 'off',
       'no-unused-vars': 'off'
     }
