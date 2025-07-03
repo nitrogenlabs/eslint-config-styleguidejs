@@ -46,6 +46,7 @@
   "dependencies": {
     "@eslint/compat": "^1.1.0",
     "@stylistic/eslint-plugin": "^4.4.1",
+    "@stylistic/eslint-plugin-ts": "^4.4.1",
     "eslint": "^9.0.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jest": "^28.11.0",

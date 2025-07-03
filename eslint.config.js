@@ -1,4 +1,5 @@
 import stylistic from '@stylistic/eslint-plugin';
+import tsStyleistic from '@stylistic/eslint-plugin-ts';
 import importPlugin from 'eslint-plugin-import';
 import jestPlugin from 'eslint-plugin-jest';
 import reactPlugin from 'eslint-plugin-react';
@@ -25,6 +26,7 @@ const baseConfig = {
   },
   plugins: {
     '@stylistic': stylistic,
+    '@stylistic/ts': tsStyleistic,
     import: importPlugin,
     jest: jestPlugin
   },
@@ -326,6 +328,16 @@ export const typescriptConfig = tseslint.config(
     },
     rules: {
       '@stylistic/indent': ['error', 2],
+      '@stylistic/ts/member-delimiter-style': ['error', {
+        multiline: {
+          delimiter: 'semi',
+          requireLast: true
+        },
+        singleline: {
+          delimiter: 'semi',
+          requireLast: false
+        }
+      }],
       '@typescript-eslint/consistent-type-assertions': ['error',
         {
           assertionStyle: 'as',
@@ -396,6 +408,7 @@ export const typescriptConfig = tseslint.config(
       ],
       '@typescript-eslint/no-array-constructor': 'error',
       '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-malformed-types': 'error',
       '@typescript-eslint/no-unused-vars': ['warn',
         {
           args: 'after-used',
@@ -407,6 +420,16 @@ export const typescriptConfig = tseslint.config(
         }
       ],
       '@typescript-eslint/no-use-before-define': 'off',
+      '@typescript-eslint/type-annotation-spacing': ['error', {
+        after: true,
+        before: false,
+        overrides: {
+          arrow: {
+            after: true,
+            before: true
+          }
+        }
+      }],
       'import/extensions': ['error', 'never', {
         css: 'always',
         js: 'always',
