@@ -1,5 +1,4 @@
 import stylistic from '@stylistic/eslint-plugin';
-import tsStyleistic from '@stylistic/eslint-plugin-ts';
 import importPlugin from 'eslint-plugin-import';
 import jestPlugin from 'eslint-plugin-jest';
 import reactPlugin from 'eslint-plugin-react';
@@ -26,7 +25,6 @@ const baseConfig = {
   },
   plugins: {
     '@stylistic': stylistic,
-    '@stylistic/ts': tsStyleistic,
     import: importPlugin,
     jest: jestPlugin
   },
@@ -53,7 +51,6 @@ const baseConfig = {
     'computed-property-spacing': ['error', 'never'],
     'consistent-return': 'warn',
     curly: ['error', 'all'],
-    'nonblock-statement-body-position': ['error', 'below'],
     'dot-notation': 'error',
     'eol-last': 'off',
     eqeqeq: ['error', 'always'],
@@ -64,12 +61,12 @@ const baseConfig = {
     'import/exports-last': 'off',
     'import/extensions': ['error', 'never', {
       css: 'always',
-      js: 'always',
+      js: 'alwaysIgnorePackages',
       json: 'always',
-      jsx: 'always',
+      jsx: 'alwaysIgnorePackages',
       svg: 'always',
-      ts: 'always',
-      tsx: 'always',
+      ts: 'alwaysIgnorePackages',
+      tsx: 'alwaysIgnorePackages',
       types: 'always'
     }],
     'import/first': 'error',
@@ -157,6 +154,7 @@ const baseConfig = {
         tabWidth: 2
       }
     ],
+    'max-statements-per-line': ['error', {max: 1}],
     'new-cap': 'off',
     'newline-per-chained-call': 'off',
     'no-array-constructor': 'error',
@@ -178,7 +176,6 @@ const baseConfig = {
     'no-mixed-spaces-and-tabs': 'error',
     'no-multi-assign': 'error',
     'no-multiple-empty-lines': ['error', {max: 2}],
-    'max-statements-per-line': ['error', {max: 1}],
     'no-nested-ternary': 'error',
     'no-new-func': 'error',
     'no-new-object': 'error',
@@ -216,6 +213,7 @@ const baseConfig = {
       }
     ],
     'no-whitespace-before-property': 'error',
+    'nonblock-statement-body-position': ['error', 'below'],
     'object-curly-spacing': ['error', 'never'],
     'object-shorthand': 'warn',
     'one-var': ['error', 'never'],
@@ -330,7 +328,7 @@ export const typescriptConfig = tseslint.config(
     },
     rules: {
       '@stylistic/indent': ['error', 2],
-      '@stylistic/ts/member-delimiter-style': ['error', {
+      '@stylistic/member-delimiter-style': ['error', {
         multiline: {
           delimiter: 'semi',
           requireLast: true
@@ -338,6 +336,16 @@ export const typescriptConfig = tseslint.config(
         singleline: {
           delimiter: 'semi',
           requireLast: false
+        }
+      }],
+      '@stylistic/type-annotation-spacing': ['error', {
+        after: true,
+        before: false,
+        overrides: {
+          arrow: {
+            after: true,
+            before: true
+          }
         }
       }],
       '@typescript-eslint/consistent-type-assertions': ['error',
@@ -409,12 +417,12 @@ export const typescriptConfig = tseslint.config(
         }
       ],
       '@typescript-eslint/no-array-constructor': 'error',
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/ban-types': 'error',
-      '@typescript-eslint/no-invalid-void-type': 'error',
       '@typescript-eslint/no-duplicate-type-constituents': 'error',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-invalid-void-type': 'error',
       '@typescript-eslint/no-misused-new': 'error',
       '@typescript-eslint/no-redundant-type-constituents': 'error',
+      '@typescript-eslint/no-restricted-types': 'error',
       '@typescript-eslint/no-unsafe-declaration-merging': 'error',
       '@typescript-eslint/no-unused-vars': ['warn',
         {
@@ -427,16 +435,6 @@ export const typescriptConfig = tseslint.config(
         }
       ],
       '@typescript-eslint/no-use-before-define': 'off',
-      '@typescript-eslint/type-annotation-spacing': ['error', {
-        after: true,
-        before: false,
-        overrides: {
-          arrow: {
-            after: true,
-            before: true
-          }
-        }
-      }],
       'import/extensions': ['error', 'never', {
         css: 'always',
         js: 'always',
