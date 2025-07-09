@@ -391,8 +391,9 @@ export const typescriptConfig = tseslint.config(
             'camelCase',
             'PascalCase'
           ],
-          leadingUnderscore: 'forbid',
-          selector: 'parameter'
+          leadingUnderscore: 'allow',
+          selector: 'parameter',
+          trailingUnderscore: 'forbid'
         },
         {
           format: null,
