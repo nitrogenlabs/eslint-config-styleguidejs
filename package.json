@@ -1,7 +1,7 @@
 {
   "name": "eslint-config-styleguidejs",
   "description": "JS Style Guide ESLint Configuration",
-  "version": "4.0.19",
+  "version": "4.0.20",
   "type": "module",
   "main": "eslint.config.js",
   "exports": {
