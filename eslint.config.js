@@ -25,8 +25,7 @@ const baseConfig = {
   },
   plugins: {
     '@stylistic': stylistic,
-    import: importPlugin,
-    jest: jestPlugin
+    import: importPlugin
   },
   rules: {
     '@stylistic/type-annotation-spacing': ['error', {
@@ -118,10 +117,6 @@ const baseConfig = {
     ],
     'import/prefer-default-export': 'off',
     indent: ['error', 2, {SwitchCase: 1}],
-    'jest/no-disabled-tests': 'warn',
-    'jest/no-focused-tests': 'warn',
-    'jest/no-identical-title': 'error',
-    'jest/valid-expect': 'error',
     'keyword-spacing': [
       'error',
       {
@@ -303,15 +298,12 @@ const testConfig = {
     jest: jestPlugin
   },
   rules: {
-    'import/order': [
-      'error',
-      {
-        alphabetize: {caseInsensitive: true, order: 'asc'},
-        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-        'newlines-between': 'always'
-      }
-    ],
-    'jest/prefer-hoist': 'error',
+    'jest/consistent-test-it': ['error'],
+    'jest/no-disabled-tests': 'warn',
+    'jest/no-focused-tests': 'warn',
+    'jest/no-identical-title': 'error',
+    'jest/valid-expect': 'error',
+    'padding-around-all': ['error'],
     'padding-line-between-statements': [
       'error',
       {blankLine: 'always', next: 'import', prev: 'expression'}
