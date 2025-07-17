@@ -291,7 +291,7 @@ const reactConfig = {
   }
 };
 
-const testConfig = {
+export const testConfig = {
   files: ['**/__tests__/**/*', '**/tests/**/*', '**/*.test.*', '**/*.spec.*'],
   plugins: {
     import: importPlugin,
@@ -324,6 +324,7 @@ export const config = [
 
 export const typescriptConfig = tseslint.config(
   config,
+  testConfig,
   ...tseslint.configs.recommended,
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
