@@ -298,8 +298,24 @@ const reactConfig = {
 
 const testConfig = {
   files: ['**/__tests__/**/*', '**/tests/**/*', '**/*.test.*', '**/*.spec.*'],
+  plugins: {
+    import: importPlugin,
+    jest: jestPlugin
+  },
   rules: {
-    '@typescript-eslint/no-explicit-any': 'off'
+    'import/order': [
+      'error',
+      {
+        alphabetize: {caseInsensitive: true, order: 'asc'},
+        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+        'newlines-between': 'always'
+      }
+    ],
+    'jest/prefer-hoist': 'error',
+    'padding-line-between-statements': [
+      'error',
+      {blankLine: 'always', next: 'import', prev: 'expression'}
+    ]
   }
 };
 
