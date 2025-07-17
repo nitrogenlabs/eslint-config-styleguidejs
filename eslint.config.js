@@ -302,12 +302,12 @@ export const testConfig = {
     'jest/no-disabled-tests': 'warn',
     'jest/no-focused-tests': 'warn',
     'jest/no-identical-title': 'error',
-    'jest/valid-expect': 'error',
-    'padding-around-all': ['error'],
-    'padding-line-between-statements': [
+    'jest/padding-around-all': ['error'],
+    'jest/padding-line-between-statements': [
       'error',
       {blankLine: 'always', next: 'import', prev: 'expression'}
-    ]
+    ],
+    'jest/valid-expect': 'error'
   }
 };
 
