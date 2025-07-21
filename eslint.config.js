@@ -1,6 +1,7 @@
 import stylistic from '@stylistic/eslint-plugin';
 import importPlugin from 'eslint-plugin-import';
 import jestPlugin from 'eslint-plugin-jest';
+import markdownPlugin from 'eslint-plugin-markdown';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import reactNativePlugin from 'eslint-plugin-react-native';
@@ -315,16 +316,33 @@ const ignoresConfig = {
   ignores: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/.lex-tmp/**']
 };
 
+// Markdown configuration for linting code blocks in markdown files
+export const markdownConfig = {
+  files: ['**/*.md'],
+  plugins: {
+    markdown: markdownPlugin
+  },
+  processor: 'markdown/markdown',
+  rules: {
+    'no-undef': 'off',
+    'no-unused-vars': 'off',
+    'no-console': 'off',
+    'import/no-unresolved': 'off'
+  }
+};
+
 export const config = [
   ignoresConfig,
   baseConfig,
   reactConfig,
-  testConfig
+  testConfig,
+  markdownConfig
 ];
 
 export const typescriptConfig = tseslint.config(
   config,
   testConfig,
+  markdownConfig,
   ...tseslint.configs.recommended,
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
