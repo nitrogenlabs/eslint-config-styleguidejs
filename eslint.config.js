@@ -270,7 +270,7 @@ const reactConfig = {
     'react-hooks/exhaustive-deps': 'warn',
     'react-hooks/rules-of-hooks': 'error',
     'react/display-name': 'off',
-    'react/jsx-boolean-value': 'error',
+    'react/jsx-boolean-value': 'off',
     'react/jsx-no-undef': 'error',
     'react/jsx-sort-props': 'off',
     'react/jsx-uses-react': 'off',
