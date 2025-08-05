@@ -29,6 +29,30 @@ const baseConfig = {
     import: importPlugin
   },
   rules: {
+    '@stylistic/keyword-spacing': [
+      'error',
+      {
+        after: true,
+        before: true,
+        overrides: {
+          catch: {
+            after: false
+          },
+          for: {
+            after: false
+          },
+          if: {
+            after: false
+          },
+          switch: {
+            after: false
+          },
+          while: {
+            after: false
+          }
+        }
+      }
+    ],
     '@stylistic/type-annotation-spacing': ['error', {
       after: true,
       before: false,
@@ -59,7 +83,7 @@ const baseConfig = {
     'import/default': 'off',
     'import/export': 'error',
     'import/exports-last': 'off',
-    'import/extensions': ['error', 'never', {
+    'import/extensions': ['error', 'ignorePackages', {
       css: 'always',
       js: 'alwaysIgnorePackages',
       json: 'always',
@@ -121,6 +145,8 @@ const baseConfig = {
     'keyword-spacing': [
       'error',
       {
+        after: true,
+        before: true,
         overrides: {
           catch: {
             after: false
@@ -324,10 +350,10 @@ export const markdownConfig = {
   },
   processor: 'markdown/markdown',
   rules: {
-    'no-undef': 'off',
-    'no-unused-vars': 'off',
+    'import/no-unresolved': 'off',
     'no-console': 'off',
-    'import/no-unresolved': 'off'
+    'no-undef': 'off',
+    'no-unused-vars': 'off'
   }
 };
 
@@ -403,6 +429,10 @@ export const typescriptConfig = tseslint.config(
             'UPPER_CASE'
           ],
           selector: 'enumMember'
+        },
+        {
+          format: null,
+          selector: 'import'
         },
         {
           format: [
