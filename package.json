@@ -41,6 +41,7 @@
     "publish:patch": "npm version patch && npm run publish:tags && npm publish",
     "publish:tags": "git push --tags && git push origin HEAD",
     "test": "node test/run-tests.js",
+    "test:rules": "node test/validate-rules-standalone.js",
     "update": "lex update --interactive"
   },
   "dependencies": {
@@ -54,7 +55,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-native": "^5.0.0",
     "globals": "^16.3.0",
-    "typescript-eslint": "^8.38.0"
+    "typescript-eslint": "^8.39.0"
   },
   "peerDependencies": {
     "eslint": "^9.0.0"

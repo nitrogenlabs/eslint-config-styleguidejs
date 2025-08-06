@@ -258,6 +258,12 @@ const baseConfig = {
     'quote-props': ['error', 'as-needed'],
     quotes: ['error', 'single'],
     radix: ['error', 'as-needed'],
+    'react/jsx-sort-props': ['error', {
+      callbacksLast: false,
+      ignoreCase: false,
+      reservedFirst: false,
+      shorthandFirst: false
+    }],
     semi: ['error', 'always'],
     'semi-spacing': 'error',
     'sort-imports': 'off',

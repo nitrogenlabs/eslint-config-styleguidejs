@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
 import { ESLint } from 'eslint';
-import { typescriptConfig } from '../eslint.config.js';
+import { config } from '../eslint.config.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { validateRules } from './validate-rules.js';
 
 // Get the directory name of the current module
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -14,7 +15,7 @@ async function runTypescriptTest() {
   try {
     const eslint = new ESLint({
       overrideConfigFile: true,
-      overrideConfig: typescriptConfig
+      overrideConfig: config
     });
 
     const testFile = path.join(__dirname, 'typescript-test.ts');
@@ -47,6 +48,10 @@ async function runAllTests() {
 
   // Run TypeScript test
   testResults.push(await runTypescriptTest());
+
+  // Run rule validation test
+  console.log('\nRunning rule validation test...');
+  testResults.push(await validateRules());
 
   // Add more tests here as needed
 
