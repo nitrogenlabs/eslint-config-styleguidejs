@@ -258,12 +258,6 @@ const baseConfig = {
     'quote-props': ['error', 'as-needed'],
     quotes: ['error', 'single'],
     radix: ['error', 'as-needed'],
-    'react/jsx-sort-props': ['error', {
-      callbacksLast: false,
-      ignoreCase: false,
-      reservedFirst: false,
-      shorthandFirst: false
-    }],
     semi: ['error', 'always'],
     'semi-spacing': 'error',
     'sort-imports': 'off',
@@ -305,7 +299,12 @@ const reactConfig = {
     'react/display-name': 'off',
     'react/jsx-boolean-value': 'off',
     'react/jsx-no-undef': 'error',
-    'react/jsx-sort-props': 'off',
+    'react/jsx-sort-props': ['error', {
+      callbacksLast: false,
+      ignoreCase: false,
+      reservedFirst: false,
+      shorthandFirst: false
+    }],
     'react/jsx-uses-react': 'off',
     'react/jsx-uses-vars': 'error',
     'react/jsx-wrap-multilines': 'error',
