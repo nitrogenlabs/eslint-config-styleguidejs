@@ -380,7 +380,6 @@ export const typescriptConfig = tseslint.config(
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: true,
         projectService: true
       }
     },
