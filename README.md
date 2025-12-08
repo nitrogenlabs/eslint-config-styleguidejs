@@ -10,14 +10,14 @@
 
 ## Why Choose styleguidejs?
 
-- **✨ Optimized for Modern Development**: Carefully tuned rules that align with how JavaScript and TypeScript are written today
-- **🚀 Accelerate Code Reviews**: Consistent formatting and style rules eliminate trivial feedback, focusing reviews on what matters
-- **🧠 Reduce Cognitive Load**: Standardized patterns build muscle memory and let developers focus on solving problems, not syntax
-- **🔍 Type-Aware Linting**: First-class TypeScript support with type-checking rules that catch real bugs
-- **⚡ Performance Focused**: Rules selected and configured for minimal impact on lint speed
-- **🌐 Cross-Environment Compatible**: Works seamlessly across browsers, Node.js, and React Native
-- **🤝 Team-Friendly**: Designed for multi-developer teams with rules that encourage maintainable code
-- **📊 Industry Aligned**: Based on patterns used by top tech companies and popular open-source projects
+- **Optimized for Modern Development**: Carefully tuned rules that align with how JavaScript and TypeScript are written today
+- **Accelerate Code Reviews**: Consistent formatting and style rules eliminate trivial feedback, focusing reviews on what matters
+- **Reduce Cognitive Load**: Standardized patterns build muscle memory and let developers focus on solving problems, not syntax
+- **Type-Aware Linting**: First-class TypeScript support with type-checking rules that catch real bugs
+- **Performance Focused**: Rules selected and configured for minimal impact on lint speed
+- **Cross-Environment Compatible**: Works seamlessly across browsers, Node.js, and React Native
+- **Team-Friendly**: Designed for multi-developer teams with rules that encourage maintainable code
+- **Industry Aligned**: Based on patterns used by top tech companies and popular open-source projects
 
 ## Installation
 
@@ -111,7 +111,7 @@ This helps ensure consistent import statements across your codebase.
 - **Enforce Best Practices**: Promote patterns that lead to maintainable, readable code
 - **Type Safety**: Leverage TypeScript's type system to catch errors at lint time
 
-🧠 **[Deep Dive into Our Best Practices](./BEST_PRACTICES.md)** – Learn how our rules are scientifically designed to reduce cognitive load and improve code comprehension through psychological principles of visual perception and mental processing.
+**[Deep Dive into Our Best Practices](./BEST_PRACTICES.md)** – Learn how our rules are scientifically designed to reduce cognitive load and improve code comprehension through psychological principles of visual perception and mental processing.
 
 ### Developer Experience
 
