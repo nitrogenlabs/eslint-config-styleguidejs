@@ -55,13 +55,7 @@ const baseConfig = {
     ],
     '@stylistic/type-annotation-spacing': ['error', {
       after: true,
-      before: false,
-      overrides: {
-        arrow: {
-          after: true,
-          before: true
-        }
-      }
+      before: false
     }],
     'array-bracket-spacing': ['error', 'never'],
     'array-callback-return': 'error',
@@ -397,13 +391,7 @@ export const typescriptConfig = tseslint.config(
       }],
       '@stylistic/type-annotation-spacing': ['error', {
         after: true,
-        before: false,
-        overrides: {
-          arrow: {
-            after: true,
-            before: true
-          }
-        }
+        before: false
       }],
       '@typescript-eslint/consistent-type-assertions': ['error',
         {
