@@ -366,8 +366,6 @@ export const config = [
 
 export const typescriptConfig = [
   ...config,
-  ...testConfig,
-  ...markdownConfig,
   ...tseslint.configs.recommended,
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
