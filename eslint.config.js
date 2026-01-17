@@ -364,10 +364,10 @@ export const config = [
   markdownConfig
 ];
 
-export const typescriptConfig = tseslint.config(
-  config,
-  testConfig,
-  markdownConfig,
+export const typescriptConfig = [
+  ...config,
+  ...testConfig,
+  ...markdownConfig,
   ...tseslint.configs.recommended,
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
@@ -501,6 +501,6 @@ export const typescriptConfig = tseslint.config(
       'no-unused-vars': 'off'
     }
   }
-);
+];
 
 export default config;
