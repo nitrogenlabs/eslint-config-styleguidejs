@@ -29,6 +29,12 @@ const baseConfig = {
     import: importPlugin
   },
   rules: {
+    '@stylistic/arrow-spacing': [
+      'error', {
+        after: true,
+        before: true
+      }
+    ],
     '@stylistic/keyword-spacing': [
       'error',
       {
@@ -61,7 +67,6 @@ const baseConfig = {
     'array-callback-return': 'error',
     'arrow-body-style': ['error', 'as-needed'],
     'arrow-parens': ['error', 'always'],
-    'arrow-spacing': 'error',
     'brace-style': ['error', '1tbs', {allowSingleLine: false}],
     camelcase: 'off',
     'comma-dangle': ['error', 'never'],
