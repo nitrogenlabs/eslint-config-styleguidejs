@@ -8,6 +8,16 @@ import reactNativePlugin from 'eslint-plugin-react-native';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
+import typeImportExternalFirstPlugin from './custom-rules/type-import-external-first-plugin.mjs';
+
+// Disable import/order for the import-type-sort test file so only the custom rule is enforced
+const importTypeSortTestOverride = {
+  files: ['test/import-type-sort.test.ts'],
+  rules: {
+    'import/order': 'off'
+  }
+};
+
 const baseConfig = {
   languageOptions: {
     ecmaVersion: 'latest',
@@ -26,13 +36,13 @@ const baseConfig = {
   },
   plugins: {
     '@stylistic': stylistic,
-    import: importPlugin
+    import: importPlugin,
+    'type-import-external-first': typeImportExternalFirstPlugin
   },
   rules: {
     '@stylistic/arrow-spacing': [
       'error', {
-        after: true,
-        before: true
+        after: true
       }
     ],
     '@stylistic/keyword-spacing': [
@@ -59,13 +69,6 @@ const baseConfig = {
         }
       }
     ],
-    '@stylistic/type-annotation-spacing': ['error', {
-      after: true,
-      before: false,
-      overrides: {
-        arrow: {after: true, before: false}
-      }
-    }],
     'array-bracket-spacing': ['error', 'never'],
     'array-callback-return': 'error',
     'arrow-body-style': ['error', 'as-needed'],
@@ -135,11 +138,24 @@ const baseConfig = {
           order: 'asc'
         },
         groups: [
-          ['builtin', 'external', 'internal'],
-          ['parent', 'sibling', 'index'],
-          'type'
+          ['type', 'builtin', 'external'],
+          ['internal', 'parent', 'sibling', 'index']
         ],
-        'newlines-between': 'always'
+        'newlines-between': 'always',
+        pathGroups: [
+          {
+            group: 'type',
+            pattern: '@{*,**}',
+            position: 'before'
+          },
+          {
+            group: 'type',
+            pattern: '{.,..}/**',
+            position: 'after'
+          }
+        ],
+        pathGroupsExcludedImportTypes: ['type'],
+        warnOnUnassignedImports: true
       }
     ],
     'import/prefer-default-export': 'off',
@@ -268,7 +284,10 @@ const baseConfig = {
       minKeys: 2,
       natural: false
     }],
-    'space-before-blocks': ['error', 'always'],
+    'space-before-blocks': [
+      'error',
+      {classes: 'always', functions: 'always', keywords: 'always'}
+    ],
     'space-before-function-paren': [
       'error',
       {
@@ -282,6 +301,7 @@ const baseConfig = {
     'spaced-comment': ['error', 'always', {exceptions: ['-', '+']}],
     strict: ['error', 'never'],
     'template-curly-spacing': ['error', 'never'],
+    'type-import-external-first/type-import-external-first': 'error',
     'valid-typeof': 'off',
     'vars-on-top': 'error',
     'wrap-iife': ['error', 'outside']
@@ -369,7 +389,8 @@ export const config = [
   baseConfig,
   reactConfig,
   testConfig,
-  markdownConfig
+  markdownConfig,
+  importTypeSortTestOverride
 ];
 
 export const typescriptConfig = [
@@ -393,13 +414,6 @@ export const typescriptConfig = [
         singleline: {
           delimiter: 'semi',
           requireLast: false
-        }
-      }],
-      '@stylistic/type-annotation-spacing': ['error', {
-        after: true,
-        before: false,
-        overrides: {
-          arrow: {after: true, before: false}
         }
       }],
       '@typescript-eslint/consistent-type-assertions': ['error',

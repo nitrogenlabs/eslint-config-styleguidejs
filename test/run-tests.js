@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { ESLint } from 'eslint';
-import { config } from '../eslint.config.js';
+import { config, typescriptConfig } from '../eslint.config.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { validateRules } from './validate-rules.js';
@@ -15,11 +15,14 @@ async function runTypescriptTest() {
   try {
     const eslint = new ESLint({
       overrideConfigFile: true,
-      overrideConfig: config
+      overrideConfig: typescriptConfig
     });
 
-    const testFile = path.join(__dirname, 'typescript-test.ts');
-    const results = await eslint.lintFiles([testFile]);
+    const testFiles = [
+      path.join(__dirname, 'typescript-test.ts'),
+      path.join(__dirname, 'import-type-sort.test.ts')
+    ];
+    const results = await eslint.lintFiles(testFiles);
     const formatter = await eslint.loadFormatter('stylish');
     const resultText = formatter.format(results);
 
