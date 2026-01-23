@@ -1,4 +1,6 @@
-// TypeScript test file with various features to test ESLint rules
+
+// Test: Arrow function type annotation spacing (should allow no space before =>)
+type ForgotPassword = (username: string) => Promise<boolean>;
 
 // Variables with type annotations
 const name: string = 'John';

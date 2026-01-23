@@ -6,7 +6,7 @@
 
 > "Code like everyone can read your work, because they can."
 
-📖 **[Explore our Best Practices Guide](./BEST_PRACTICES.md)** – Discover the psychological and cognitive benefits behind our coding standards and how they improve developer productivity.
+**[Explore our Best Practices Guide](./BEST_PRACTICES.md)** – Discover the psychological and cognitive benefits behind our coding standards and how they improve developer productivity.
 
 ## Why Choose styleguidejs?
 
@@ -94,6 +94,7 @@ This package is fully compatible with ESLint v9 and uses the flat config format.
 ### Import Extensions
 
 The `import/extensions` rule is configured to always require file extensions for the following file types:
+
 - JavaScript files (`.js`, `.jsx`)
 - TypeScript files (`.ts`, `.tsx`)
 - CSS files (`.css`)
