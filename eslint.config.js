@@ -2,6 +2,7 @@ import stylistic from '@stylistic/eslint-plugin';
 import importPlugin from 'eslint-plugin-import';
 import jestPlugin from 'eslint-plugin-jest';
 import markdownPlugin from 'eslint-plugin-markdown';
+import perfectionist from 'eslint-plugin-perfectionist';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import reactNativePlugin from 'eslint-plugin-react-native';
@@ -10,11 +11,11 @@ import tseslint from 'typescript-eslint';
 
 import typeImportExternalFirstPlugin from './custom-rules/type-import-external-first-plugin.mjs';
 
-// Disable import/order for the import-type-sort test file so only the custom rule is enforced
+// Disable perfectionist for the import-type-sort test file so only the custom rule is enforced
 const importTypeSortTestOverride = {
   files: ['test/import-type-sort.test.ts'],
   rules: {
-    'import/order': 'off'
+    'perfectionist/sort-imports': 'off'
   }
 };
 
@@ -37,6 +38,7 @@ const baseConfig = {
   plugins: {
     '@stylistic': stylistic,
     import: importPlugin,
+    perfectionist,
     'type-import-external-first': typeImportExternalFirstPlugin
   },
   rules: {
@@ -130,37 +132,9 @@ const baseConfig = {
     'import/no-self-import': 'error',
     'import/no-useless-path-segments': 'error',
     'import/no-webpack-loader-syntax': 'off',
-    'import/order': [
-      'error',
-      {
-        alphabetize: {
-          caseInsensitive: true,
-          order: 'asc'
-        },
-        groups: [
-          ['type', 'builtin', 'external'],
-          ['internal', 'parent', 'sibling', 'index']
-        ],
-        'newlines-between': 'always',
-        pathGroups: [
-          {
-            group: 'type',
-            pattern: '@{*,**}',
-            position: 'before'
-          },
-          {
-            group: 'type',
-            pattern: '{.,..}/**',
-            position: 'after'
-          }
-        ],
-        pathGroupsExcludedImportTypes: ['type'],
-        warnOnUnassignedImports: true
-      }
-    ],
+    'import/order': 'off',
     'import/prefer-default-export': 'off',
-    indent: ['error', 2, {SwitchCase: 1}],
-    'keyword-spacing': [
+    indent: ['error', 2, {SwitchCase: 1}],'keyword-spacing': [
       'error',
       {
         after: true,
@@ -258,6 +232,22 @@ const baseConfig = {
     'object-shorthand': 'warn',
     'one-var': ['error', 'never'],
     'padded-blocks': ['error', 'never'],
+
+    'perfectionist/sort-imports': [
+      'error',
+      {
+        groups: [
+          ['builtin', 'external'],
+          'internal',
+          ['parent', 'sibling', 'index'],
+          'type'
+        ],
+        ignoreCase: true,
+        internalPattern: ['^~/.+'],
+        order: 'asc',
+        type: 'natural'
+      }
+    ],
     'prefer-arrow-callback': 'error',
     'prefer-const': ['error', {destructuring: 'all', ignoreReadBeforeAssign: true}],
     'prefer-destructuring': [
