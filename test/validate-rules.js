@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import { ESLint } from 'eslint';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import {ESLint} from 'eslint';
+import {dirname, join} from 'path';
+import {fileURLToPath} from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -69,13 +69,13 @@ describe('test suite', () => {
 });
 `;
 
-async function validateRules() {
+const validateRules = async () => {
   console.log('🧪 Validating ESLint rules...\n');
 
   try {
     // Create ESLint instance
     const eslint = new ESLint({
-      overrideConfigFile: join(__dirname, '..', 'eslint.config.js'),
+      overrideConfigFile: join(__dirname, '..', 'eslint.config.js')
     });
 
     // Lint the test code
@@ -85,14 +85,14 @@ async function validateRules() {
 
     const result = results[0];
 
-    if (result.errorCount === 0 && result.warningCount === 0) {
+    if(result.errorCount === 0 && result.warningCount === 0) {
       console.log('✅ All rules validated successfully!');
       console.log('📊 No rule errors or warnings found.');
       return true;
     }
 
     // Check for rule-related errors
-    const ruleErrors = result.messages.filter(msg =>
+    const ruleErrors = result.messages.filter((msg) =>
       msg.ruleId && (
         msg.message.includes('Could not find') ||
         msg.message.includes('deprecated') ||
@@ -100,22 +100,22 @@ async function validateRules() {
       )
     );
 
-    if (ruleErrors.length > 0) {
+    if(ruleErrors.length > 0) {
       console.log('❌ Found rule validation errors:');
-      ruleErrors.forEach(error => {
+      ruleErrors.forEach((error) => {
         console.log(`   - ${error.ruleId}: ${error.message}`);
       });
       return false;
     }
 
     // Show other linting issues (these are expected from our test code)
-    const otherIssues = result.messages.filter(msg =>
+    const otherIssues = result.messages.filter((msg) =>
       msg.ruleId && !ruleErrors.includes(msg)
     );
 
-    if (otherIssues.length > 0) {
+    if(otherIssues.length > 0) {
       console.log('⚠️  Found expected linting issues (rules are working):');
-      otherIssues.forEach(issue => {
+      otherIssues.forEach((issue) => {
         console.log(`   - ${issue.ruleId}: ${issue.message} (line ${issue.line})`);
       });
     }
@@ -123,12 +123,11 @@ async function validateRules() {
     console.log('\n✅ All ESLint rules exist and are working correctly!');
     console.log(`📊 Total issues found: ${result.errorCount + result.warningCount}`);
     return true;
-
-  } catch (error) {
+  } catch(error) {
     console.error('❌ Error validating rules:', error.message);
 
     // Check if it's a rule-related error
-    if (error.message.includes('Could not find') ||
+    if(error.message.includes('Could not find') ||
         error.message.includes('deprecated') ||
         error.message.includes('not found in plugin')) {
       console.error('This appears to be a rule validation error.');
@@ -138,7 +137,7 @@ async function validateRules() {
     console.error('This appears to be a configuration error.');
     return false;
   }
-}
+};
 
 // Export the validation function
-export { validateRules };
+export {validateRules};

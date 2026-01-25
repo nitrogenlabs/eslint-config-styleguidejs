@@ -9,16 +9,6 @@ import reactNativePlugin from 'eslint-plugin-react-native';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-import typeImportExternalFirstPlugin from './custom-rules/type-import-external-first-plugin.mjs';
-
-// Disable perfectionist for the import-type-sort test file so only the custom rule is enforced
-const importTypeSortTestOverride = {
-  files: ['test/import-type-sort.test.ts'],
-  rules: {
-    'perfectionist/sort-imports': 'off'
-  }
-};
-
 const baseConfig = {
   languageOptions: {
     ecmaVersion: 'latest',
@@ -38,8 +28,7 @@ const baseConfig = {
   plugins: {
     '@stylistic': stylistic,
     import: importPlugin,
-    perfectionist,
-    'type-import-external-first': typeImportExternalFirstPlugin
+    perfectionist
   },
   rules: {
     '@stylistic/arrow-spacing': [
@@ -238,12 +227,12 @@ const baseConfig = {
       {
         groups: [
           ['builtin', 'external'],
-          'internal',
-          ['parent', 'sibling', 'index'],
+          ['internal', 'parent', 'sibling', 'index'],
           'type'
         ],
         ignoreCase: true,
         internalPattern: ['^~/.+'],
+        newlinesBetween: 'ignore',
         order: 'asc',
         type: 'natural'
       }
@@ -291,7 +280,6 @@ const baseConfig = {
     'spaced-comment': ['error', 'always', {exceptions: ['-', '+']}],
     strict: ['error', 'never'],
     'template-curly-spacing': ['error', 'never'],
-    'type-import-external-first/type-import-external-first': 'error',
     'valid-typeof': 'off',
     'vars-on-top': 'error',
     'wrap-iife': ['error', 'outside']
@@ -357,6 +345,14 @@ export const testConfig = {
 
 const ignoresConfig = {
   ignores: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/.lex-tmp/**']
+};
+
+// Disable perfectionist for the import-type-sort test file
+const importTypeSortTestOverride = {
+  files: ['test/import-type-sort.test.ts'],
+  rules: {
+    'perfectionist/sort-imports': 'off'
+  }
 };
 
 // Markdown configuration for linting code blocks in markdown files
