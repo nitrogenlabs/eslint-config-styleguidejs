@@ -2,12 +2,12 @@ import stylistic from '@stylistic/eslint-plugin';
 import importPlugin from 'eslint-plugin-import';
 import jestPlugin from 'eslint-plugin-jest';
 import markdownPlugin from 'eslint-plugin-markdown';
-import perfectionist from 'eslint-plugin-perfectionist';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import reactNativePlugin from 'eslint-plugin-react-native';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
+import customSortImportsRule from './custom-sort-imports-rule.js';
 
 const baseConfig = {
   languageOptions: {
@@ -28,7 +28,11 @@ const baseConfig = {
   plugins: {
     '@stylistic': stylistic,
     import: importPlugin,
-    perfectionist
+    'custom-sort': {
+      rules: {
+        'sort-imports': customSortImportsRule,
+      },
+    },
   },
   rules: {
     '@stylistic/arrow-spacing': [
@@ -222,19 +226,12 @@ const baseConfig = {
     'one-var': ['error', 'never'],
     'padded-blocks': ['error', 'never'],
 
-    'perfectionist/sort-imports': [
+    'custom-sort/sort-imports': [
       'error',
       {
-        groups: [
-          ['builtin', 'external'],
-          ['internal', 'parent', 'sibling', 'index'],
-          'type'
-        ],
         ignoreCase: true,
         internalPattern: ['^~/.+'],
-        newlinesBetween: 'ignore',
-        order: 'asc',
-        type: 'natural'
+        newlinesBetween: 'ignore'
       }
     ],
     'prefer-arrow-callback': 'error',
@@ -347,14 +344,6 @@ const ignoresConfig = {
   ignores: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/.lex-tmp/**']
 };
 
-// Disable perfectionist for the import-type-sort test file
-const importTypeSortTestOverride = {
-  files: ['test/import-type-sort.test.ts'],
-  rules: {
-    'perfectionist/sort-imports': 'off'
-  }
-};
-
 // Markdown configuration for linting code blocks in markdown files
 export const markdownConfig = {
   files: ['**/*.md'],
@@ -375,8 +364,7 @@ export const config = [
   baseConfig,
   reactConfig,
   testConfig,
-  markdownConfig,
-  importTypeSortTestOverride
+  markdownConfig
 ];
 
 export const typescriptConfig = [
