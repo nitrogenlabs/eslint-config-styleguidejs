@@ -19,8 +19,11 @@ const runTypescriptTest = async () => {
     });
 
     const testFiles = [
+      path.join(__dirname, 'import-external-builtin-order.test.ts'),
+      path.join(__dirname, 'import-builtin-external-order.test.ts'),
+      path.join(__dirname, 'import-type-placement.test.ts'),
+      path.join(__dirname, 'import-type-sort.test.ts'),
       path.join(__dirname, 'typescript-test.ts'),
-      path.join(__dirname, 'import-type-sort.test.ts')
     ];
     const results = await eslint.lintFiles(testFiles);
     const formatter = await eslint.loadFormatter('stylish');

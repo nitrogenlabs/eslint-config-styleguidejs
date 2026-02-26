@@ -4,14 +4,14 @@
  * and adjusted so type imports respect external/internal/relative grouping.
  *
  * Group order (top to bottom):
- * 1. value-builtin (Node builtins, including node: prefix)
- * 2. value-external (packages)
+ * 1. value-external (packages)
+ * 2. value-builtin (Node builtins, including node: prefix)
  * 3. value-internal (matches internalPattern)
  * 4. value-parent (../foo)
  * 5. value-sibling (./foo)
  * 6. value-index (./ or ./index.*)
- * 7. type-builtin
- * 8. type-external
+ * 7. type-external
+ * 8. type-builtin
  * 9. type-internal
  * 10. type-parent
  * 11. type-sibling
@@ -52,7 +52,7 @@ const customSortImportsRule = {
     const {
       ignoreCase = true,
       internalPattern = ['^~/.+', '^@/.+'],
-      newlinesBetween = 'ignore' // currently informational; we do not insert blank lines
+      newlinesBetween = 'ignore'
     } = options;
 
     const sourceCode = context.sourceCode || context.getSourceCode();
@@ -89,20 +89,59 @@ const customSortImportsRule = {
       return isType ? 'type-external' : 'external';
     }
 
-    const groupOrder = {
-      builtin: 0,
-      external: 1,
-      internal: 2,
-      parent: 3,
-      sibling: 4,
-      index: 5,
-      'type-builtin': 6,
-      'type-external': 7,
-      'type-internal': 8,
-      'type-parent': 9,
-      'type-sibling': 10,
-      'type-index': 11
+    const groupMeta = {
+      external: {
+        block: 'value-absolute',
+        order: 0
+      },
+      builtin: {
+        block: 'value-absolute',
+        order: 1
+      },
+      internal: {
+        block: 'value-absolute',
+        order: 2
+      },
+      parent: {
+        block: 'value-relative',
+        order: 3
+      },
+      sibling: {
+        block: 'value-relative',
+        order: 4
+      },
+      index: {
+        block: 'value-relative',
+        order: 5
+      },
+      'type-external': {
+        block: 'type',
+        order: 6
+      },
+      'type-builtin': {
+        block: 'type',
+        order: 7
+      },
+      'type-internal': {
+        block: 'type',
+        order: 8
+      },
+      'type-parent': {
+        block: 'type',
+        order: 9
+      },
+      'type-sibling': {
+        block: 'type',
+        order: 10
+      },
+      'type-index': {
+        block: 'type',
+        order: 11
+      }
     };
+    const orderedGroupKeys = Object.keys(groupMeta).sort(
+      (a, b) => groupMeta[a].order - groupMeta[b].order
+    );
 
     const compareImportSources = (a, b) => {
       const left = ignoreCase ? a.toLowerCase() : a;
@@ -120,20 +159,7 @@ const customSortImportsRule = {
       'Program:exit'() {
         if (importNodes.length < 2) return;
 
-        const grouped = {
-          builtin: [],
-          external: [],
-          internal: [],
-          parent: [],
-          sibling: [],
-          index: [],
-          'type-builtin': [],
-          'type-external': [],
-          'type-internal': [],
-          'type-parent': [],
-          'type-sibling': [],
-          'type-index': []
-        };
+        const grouped = Object.fromEntries(orderedGroupKeys.map((group) => [group, []]));
 
         for (const node of importNodes) {
           const source = node.source.value;
@@ -149,29 +175,51 @@ const customSortImportsRule = {
 
         // Build expected order by group precedence
         const expectedOrder = [];
-        for (const key of Object.keys(groupOrder).sort((a, b) => groupOrder[a] - groupOrder[b])) {
-          expectedOrder.push(...grouped[key].map((item) => item.node));
+        for (const key of orderedGroupKeys) {
+          expectedOrder.push(...grouped[key].map((item) => ({group: key, node: item.node})));
         }
 
-        // If order already matches, nothing to do
+        // Check order differences first
         let differs = false;
         for (let i = 0; i < importNodes.length; i += 1) {
-          if (importNodes[i] !== expectedOrder[i]) {
+          if (importNodes[i] !== expectedOrder[i].node) {
             differs = true;
             break;
           }
         }
-        if (!differs) return;
 
         const firstImport = importNodes[0];
         const lastImport = importNodes[importNodes.length - 1];
 
-        const expectedCode = expectedOrder.map((n) => sourceCode.getText(n)).join('\n');
+        const expectedCodeParts = [];
+
+        for(let index = 0; index < expectedOrder.length; index += 1) {
+          const current = expectedOrder[index];
+          const previous = expectedOrder[index - 1];
+
+          if(index > 0) {
+            if(newlinesBetween === 'always') {
+              const previousBlock = groupMeta[previous.group].block;
+              const currentBlock = groupMeta[current.group].block;
+              expectedCodeParts.push(previousBlock === currentBlock ? '\n' : '\n\n');
+            } else {
+              expectedCodeParts.push('\n');
+            }
+          }
+
+          expectedCodeParts.push(sourceCode.getText(current.node));
+        }
+
+        const expectedCode = expectedCodeParts.join('');
+        const currentCode = sourceCode.text.slice(firstImport.range[0], lastImport.range[1]);
+
+        if(newlinesBetween === 'ignore' && !differs) return;
+        if(newlinesBetween !== 'ignore' && !differs && currentCode === expectedCode) return;
 
         context.report({
           node: firstImport,
           message:
-            'Imports are not sorted correctly. Expected builtin -> external -> internal -> parent -> sibling -> index, then the same order for type imports.',
+            'Imports are not sorted correctly. Expected external -> builtin -> internal -> parent -> sibling -> index, then the same order for type imports.',
           fix(fixer) {
             return fixer.replaceTextRange(
               [firstImport.range[0], lastImport.range[1]],

@@ -3,6 +3,7 @@ import vitestPlugin from '@vitest/eslint-plugin';
 import markdownPlugin from 'eslint-plugin-markdown';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
+
 import customSortImportsRule from './custom-sort-imports-rule.js';
 import {
   importPlugin as localImportPlugin,
@@ -81,7 +82,7 @@ const baseConfig = {
       {
         ignoreCase: true,
         internalPattern: ['^~/.+'],
-        newlinesBetween: 'ignore'
+        newlinesBetween: 'always'
       }
     ],
     'dot-notation': 'error',
