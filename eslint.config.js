@@ -324,7 +324,16 @@ const reactConfig = {
 };
 
 export const testConfig = {
-  files: ['**/__tests__/**/*', '**/tests/**/*', '**/*.test.*', '**/*.spec.*'],
+  files: [
+    '**/__tests__/**/*',
+    '**/tests/**/*',
+    '**/*.test.js',
+    '**/*.test.ts',
+    '**/*.test.tsx',
+    '**/*.spec.js',
+    '**/*.spec.ts',
+    '**/*.spec.tsx'
+  ],
   languageOptions: {
     globals: {
       ...globals.vitest
@@ -335,7 +344,7 @@ export const testConfig = {
     vitest: vitestPlugin
   },
   rules: {
-
+    'import/no-extraneous-dependencies': 'off',
     'padding-line-between-statements': [
       'error',
       {blankLine: 'always', next: 'import', prev: 'expression'}

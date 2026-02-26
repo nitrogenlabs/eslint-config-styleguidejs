@@ -23,30 +23,6 @@ import {createRequire} from 'module';
 const require = createRequire(import.meta.url);
 
 const customSortImportsRule = {
-  meta: {
-    type: 'suggestion',
-    docs: {
-      description: 'Sort imports with external before internal/relative, preserving type grouping',
-      category: 'Stylistic Issues'
-    },
-    fixable: 'code',
-    schema: [
-      {
-        type: 'object',
-        properties: {
-          ignoreCase: {type: 'boolean'},
-          internalPattern: {
-            type: 'array',
-            items: {type: 'string'}
-          },
-          newlinesBetween: {
-            enum: ['ignore', 'always', 'never']
-          }
-        }
-      }
-    ]
-  },
-
   create(context) {
     const options = context.options[0] || {};
     const {
@@ -65,12 +41,12 @@ const customSortImportsRule = {
 
     const isBuiltin = (source) => builtinModules.has(source);
 
-    function getImportGroup(source, isType) {
+    const getImportGroup = (source, isType) => {
       const relative = source.startsWith('.');
       const internal = internalPatterns.some((pattern) => pattern.test(source));
       const builtin = isBuiltin(source);
 
-      if (relative) {
+      if(relative) {
         const isIndex =
           source === './' ||
           source === './index' ||
@@ -79,24 +55,36 @@ const customSortImportsRule = {
           source === './index.ts' ||
           source === './index.tsx';
 
-        if (isIndex) return isType ? 'type-index' : 'index';
-        if (source.startsWith('../')) return isType ? 'type-parent' : 'parent';
+        if(isIndex)         {
+          return isType ? 'type-index' : 'index';
+        }
+        if(source.startsWith('../'))         {
+          return isType ? 'type-parent' : 'parent';
+        }
         return isType ? 'type-sibling' : 'sibling';
       }
 
-      if (builtin) return isType ? 'type-builtin' : 'builtin';
-      if (internal) return isType ? 'type-internal' : 'internal';
+      if(builtin)       {
+        return isType ? 'type-builtin' : 'builtin';
+      }
+      if(internal)       {
+        return isType ? 'type-internal' : 'internal';
+      }
       return isType ? 'type-external' : 'external';
-    }
+    };
 
     const groupMeta = {
+      builtin: {
+        block: 'value-absolute',
+        order: 1
+      },
       external: {
         block: 'value-absolute',
         order: 0
       },
-      builtin: {
-        block: 'value-absolute',
-        order: 1
+      index: {
+        block: 'value-relative',
+        order: 5
       },
       internal: {
         block: 'value-absolute',
@@ -110,17 +98,17 @@ const customSortImportsRule = {
         block: 'value-relative',
         order: 4
       },
-      index: {
-        block: 'value-relative',
-        order: 5
+      'type-builtin': {
+        block: 'type',
+        order: 7
       },
       'type-external': {
         block: 'type',
         order: 6
       },
-      'type-builtin': {
+      'type-index': {
         block: 'type',
-        order: 7
+        order: 11
       },
       'type-internal': {
         block: 'type',
@@ -133,10 +121,6 @@ const customSortImportsRule = {
       'type-sibling': {
         block: 'type',
         order: 10
-      },
-      'type-index': {
-        block: 'type',
-        order: 11
       }
     };
     const orderedGroupKeys = Object.keys(groupMeta).sort(
@@ -158,12 +142,14 @@ const customSortImportsRule = {
       },
 
       'Program:exit'() {
-        if (importNodes.length < 2) return;
+        if(importNodes.length < 2)         {
+          return;
+        }
 
         const grouped = Object.fromEntries(orderedGroupKeys.map((group) => [group, []]));
         const groupedByBlock = Object.fromEntries(orderedBlockKeys.map((block) => [block, []]));
 
-        for (const node of importNodes) {
+        for(const node of importNodes) {
           const source = node.source.value;
           const isType = node.importKind === 'type';
           const group = getImportGroup(source, isType);
@@ -171,14 +157,14 @@ const customSortImportsRule = {
         }
 
         // Sort within each specific group first.
-        for (const key of Object.keys(grouped)) {
+        for(const key of Object.keys(grouped)) {
           grouped[key].sort((a, b) => compareImportSources(a.source, b.source));
         }
 
         // Re-group by block and sort by import source so ordering is based on module path,
         // not imported identifier names, while still preserving high-level blocks.
-        for (const key of orderedGroupKeys) {
-          const block = groupMeta[key].block;
+        for(const key of orderedGroupKeys) {
+          const {block} = groupMeta[key];
           groupedByBlock[block].push(...grouped[key].map((item) => ({group: key, ...item})));
         }
 
@@ -202,8 +188,8 @@ const customSortImportsRule = {
 
         // Check order differences first
         let differs = false;
-        for (let i = 0; i < importNodes.length; i += 1) {
-          if (importNodes[i] !== expectedOrder[i].node) {
+        for(let i = 0; i < importNodes.length; i += 1) {
+          if(importNodes[i] !== expectedOrder[i].node) {
             differs = true;
             break;
           }
@@ -234,22 +220,49 @@ const customSortImportsRule = {
         const expectedCode = expectedCodeParts.join('');
         const currentCode = sourceCode.text.slice(firstImport.range[0], lastImport.range[1]);
 
-        if(newlinesBetween === 'ignore' && !differs) return;
-        if(newlinesBetween !== 'ignore' && !differs && currentCode === expectedCode) return;
+        if(newlinesBetween === 'ignore' && !differs)         {
+          return;
+        }
+        if(newlinesBetween !== 'ignore' && !differs && currentCode === expectedCode)         {
+          return;
+        }
 
         context.report({
-          node: firstImport,
-          message:
-            'Imports are not sorted correctly. Expected absolute imports sorted by module path, then relative imports, then type imports.',
           fix(fixer) {
             return fixer.replaceTextRange(
               [firstImport.range[0], lastImport.range[1]],
               expectedCode
             );
-          }
+          },
+          message:
+            'Imports are not sorted correctly. Expected absolute imports sorted by module path, then relative imports, then type imports.',
+          node: firstImport
         });
       }
     };
+  },
+  meta: {
+    docs: {
+      category: 'Stylistic Issues',
+      description: 'Sort imports with external before internal/relative, preserving type grouping'
+    },
+    fixable: 'code',
+    schema: [
+      {
+        properties: {
+          ignoreCase: {type: 'boolean'},
+          internalPattern: {
+            items: {type: 'string'},
+            type: 'array'
+          },
+          newlinesBetween: {
+            enum: ['ignore', 'always', 'never']
+          }
+        },
+        type: 'object'
+      }
+    ],
+    type: 'suggestion'
   }
 };
 
