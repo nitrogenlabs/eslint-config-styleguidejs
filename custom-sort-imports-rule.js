@@ -142,6 +142,7 @@ const customSortImportsRule = {
     const orderedGroupKeys = Object.keys(groupMeta).sort(
       (a, b) => groupMeta[a].order - groupMeta[b].order
     );
+    const orderedBlockKeys = ['value-absolute', 'value-relative', 'type'];
 
     const compareImportSources = (a, b) => {
       const left = ignoreCase ? a.toLowerCase() : a;
@@ -160,6 +161,7 @@ const customSortImportsRule = {
         if (importNodes.length < 2) return;
 
         const grouped = Object.fromEntries(orderedGroupKeys.map((group) => [group, []]));
+        const groupedByBlock = Object.fromEntries(orderedBlockKeys.map((block) => [block, []]));
 
         for (const node of importNodes) {
           const source = node.source.value;
@@ -168,15 +170,34 @@ const customSortImportsRule = {
           grouped[group].push({node, source});
         }
 
-        // Sort within each group alphabetically by source path
+        // Sort within each specific group first.
         for (const key of Object.keys(grouped)) {
           grouped[key].sort((a, b) => compareImportSources(a.source, b.source));
         }
 
-        // Build expected order by group precedence
-        const expectedOrder = [];
+        // Re-group by block and sort by import source so ordering is based on module path,
+        // not imported identifier names, while still preserving high-level blocks.
         for (const key of orderedGroupKeys) {
-          expectedOrder.push(...grouped[key].map((item) => ({group: key, node: item.node})));
+          const block = groupMeta[key].block;
+          groupedByBlock[block].push(...grouped[key].map((item) => ({group: key, ...item})));
+        }
+
+        for(const block of orderedBlockKeys) {
+          groupedByBlock[block].sort((a, b) => {
+            if(block === 'type') {
+              const groupOrderDelta = groupMeta[a.group].order - groupMeta[b.group].order;
+              if(groupOrderDelta !== 0) {
+                return groupOrderDelta;
+              }
+            }
+
+            return compareImportSources(a.source, b.source);
+          });
+        }
+
+        const expectedOrder = [];
+        for(const block of orderedBlockKeys) {
+          expectedOrder.push(...groupedByBlock[block].map((item) => ({group: item.group, node: item.node})));
         }
 
         // Check order differences first
@@ -219,7 +240,7 @@ const customSortImportsRule = {
         context.report({
           node: firstImport,
           message:
-            'Imports are not sorted correctly. Expected external -> builtin -> internal -> parent -> sibling -> index, then the same order for type imports.',
+            'Imports are not sorted correctly. Expected absolute imports sorted by module path, then relative imports, then type imports.',
           fix(fixer) {
             return fixer.replaceTextRange(
               [firstImport.range[0], lastImport.range[1]],

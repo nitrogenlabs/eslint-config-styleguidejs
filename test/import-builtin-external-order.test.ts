@@ -1,5 +1,5 @@
-import globals from 'globals';
 import {readFileSync} from 'fs';
+import globals from 'globals';
 import {dirname, resolve} from 'path';
 import {fileURLToPath} from 'url';
 
