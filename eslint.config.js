@@ -1,13 +1,15 @@
 import stylistic from '@stylistic/eslint-plugin';
-import importPlugin from 'eslint-plugin-import';
-import jestPlugin from 'eslint-plugin-jest';
+import vitestPlugin from '@vitest/eslint-plugin';
 import markdownPlugin from 'eslint-plugin-markdown';
-import reactPlugin from 'eslint-plugin-react';
-import reactHooksPlugin from 'eslint-plugin-react-hooks';
-import reactNativePlugin from 'eslint-plugin-react-native';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import customSortImportsRule from './custom-sort-imports-rule.js';
+import {
+  importPlugin as localImportPlugin,
+  reactHooksPlugin as localReactHooksPlugin,
+  reactNativePlugin as localReactNativePlugin,
+  reactPlugin as localReactPlugin
+} from './plugins/styleguide-v10-plugins.js';
 
 const baseConfig = {
   languageOptions: {
@@ -15,7 +17,6 @@ const baseConfig = {
     globals: {
       ...globals.browser,
       ...globals.es2021,
-      ...globals.jest,
       ...globals.node
     },
     parserOptions: {
@@ -27,12 +28,12 @@ const baseConfig = {
   },
   plugins: {
     '@stylistic': stylistic,
-    import: importPlugin,
     'custom-sort': {
       rules: {
-        'sort-imports': customSortImportsRule,
-      },
+        'sort-imports': customSortImportsRule
+      }
     },
+    import: localImportPlugin
   },
   rules: {
     '@stylistic/arrow-spacing': [
@@ -75,6 +76,14 @@ const baseConfig = {
     'computed-property-spacing': ['error', 'never'],
     'consistent-return': 'warn',
     curly: ['error', 'all'],
+    'custom-sort/sort-imports': [
+      'error',
+      {
+        ignoreCase: true,
+        internalPattern: ['^~/.+'],
+        newlinesBetween: 'ignore'
+      }
+    ],
     'dot-notation': 'error',
     'eol-last': 'off',
     eqeqeq: ['error', 'always'],
@@ -113,6 +122,8 @@ const baseConfig = {
           '**/*.test.ts*',
           '**/*.spec.ts*',
           'jest.setup.js',
+          'vitest.setup.js',
+          'vitest.setup.ts',
           '**/*.config.*'
         ],
         peerDependencies: true
@@ -225,15 +236,6 @@ const baseConfig = {
     'object-shorthand': 'warn',
     'one-var': ['error', 'never'],
     'padded-blocks': ['error', 'never'],
-
-    'custom-sort/sort-imports': [
-      'error',
-      {
-        ignoreCase: true,
-        internalPattern: ['^~/.+'],
-        newlinesBetween: 'ignore'
-      }
-    ],
     'prefer-arrow-callback': 'error',
     'prefer-const': ['error', {destructuring: 'all', ignoreReadBeforeAssign: true}],
     'prefer-destructuring': [
@@ -286,9 +288,9 @@ const baseConfig = {
 const reactConfig = {
   files: ['**/*.jsx', '**/*.tsx'],
   plugins: {
-    react: reactPlugin,
-    'react-hooks': reactHooksPlugin,
-    'react-native': reactNativePlugin
+    react: localReactPlugin,
+    'react-hooks': localReactHooksPlugin,
+    'react-native': localReactNativePlugin
   },
   rules: {
     'react-hooks/exhaustive-deps': 'warn',
@@ -322,21 +324,27 @@ const reactConfig = {
 
 export const testConfig = {
   files: ['**/__tests__/**/*', '**/tests/**/*', '**/*.test.*', '**/*.spec.*'],
+  languageOptions: {
+    globals: {
+      ...globals.vitest
+    }
+  },
   plugins: {
-    import: importPlugin,
-    jest: jestPlugin
+    import: localImportPlugin,
+    vitest: vitestPlugin
   },
   rules: {
-    'jest/consistent-test-it': ['error'],
-    'jest/no-disabled-tests': 'warn',
-    'jest/no-focused-tests': 'warn',
-    'jest/no-identical-title': 'error',
-    'jest/padding-around-all': ['error'],
-    'jest/valid-expect': 'error',
+
     'padding-line-between-statements': [
       'error',
       {blankLine: 'always', next: 'import', prev: 'expression'}
-    ]
+    ],
+    'vitest/consistent-test-it': ['error'],
+    'vitest/no-disabled-tests': 'warn',
+    'vitest/no-focused-tests': 'warn',
+    'vitest/no-identical-title': 'error',
+    'vitest/padding-around-all': ['error'],
+    'vitest/valid-expect': 'error'
   }
 };
 

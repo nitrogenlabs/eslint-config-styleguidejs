@@ -1,0 +1,1060 @@
+{
+  "generatedAt": "2026-02-26T04:26:37.064Z",
+  "eslintVersion": "10.0.2",
+  "audits": [
+    {
+      "config": "config",
+      "coreRuleCount": 292,
+      "pluginCount": 8,
+      "enabledRuleCount": 115,
+      "supported": [
+        {
+          "ruleId": "@stylistic/arrow-spacing",
+          "source": "@stylistic"
+        },
+        {
+          "ruleId": "@stylistic/keyword-spacing",
+          "source": "@stylistic"
+        },
+        {
+          "ruleId": "array-bracket-spacing",
+          "source": "core"
+        },
+        {
+          "ruleId": "array-callback-return",
+          "source": "core"
+        },
+        {
+          "ruleId": "arrow-body-style",
+          "source": "core"
+        },
+        {
+          "ruleId": "arrow-parens",
+          "source": "core"
+        },
+        {
+          "ruleId": "brace-style",
+          "source": "core"
+        },
+        {
+          "ruleId": "comma-dangle",
+          "source": "core"
+        },
+        {
+          "ruleId": "comma-style",
+          "source": "core"
+        },
+        {
+          "ruleId": "computed-property-spacing",
+          "source": "core"
+        },
+        {
+          "ruleId": "consistent-return",
+          "source": "core"
+        },
+        {
+          "ruleId": "curly",
+          "source": "core"
+        },
+        {
+          "ruleId": "dot-notation",
+          "source": "core"
+        },
+        {
+          "ruleId": "eqeqeq",
+          "source": "core"
+        },
+        {
+          "ruleId": "func-style",
+          "source": "core"
+        },
+        {
+          "ruleId": "generator-star-spacing",
+          "source": "core"
+        },
+        {
+          "ruleId": "import/export",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/extensions",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/first",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/newline-after-import",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-absolute-path",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-cycle",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-deprecated",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-duplicates",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-extraneous-dependencies",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-mutable-exports",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-named-as-default",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-named-as-default-member",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-self-import",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-useless-path-segments",
+          "source": "import"
+        },
+        {
+          "ruleId": "indent",
+          "source": "core"
+        },
+        {
+          "ruleId": "keyword-spacing",
+          "source": "core"
+        },
+        {
+          "ruleId": "max-len",
+          "source": "core"
+        },
+        {
+          "ruleId": "max-statements-per-line",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-array-constructor",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-await-in-loop",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-case-declarations",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-class-assign",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-confusing-arrow",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-console",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-const-assign",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-dupe-keys",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-duplicate-imports",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-else-return",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-eq-null",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-eval",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-extra-semi",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-loop-func",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-mixed-operators",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-mixed-spaces-and-tabs",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-multi-assign",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-multiple-empty-lines",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-nested-ternary",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-new-func",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-new-object",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-new-wrappers",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-param-reassign",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-restricted-properties",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-sparse-arrays",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-trailing-spaces",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-undef-init",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-underscore-dangle",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-unexpected-multiline",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-unneeded-ternary",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-unused-vars",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-useless-concat",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-useless-constructor",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-useless-escape",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-var",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-warning-comments",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-whitespace-before-property",
+          "source": "core"
+        },
+        {
+          "ruleId": "nonblock-statement-body-position",
+          "source": "core"
+        },
+        {
+          "ruleId": "object-curly-spacing",
+          "source": "core"
+        },
+        {
+          "ruleId": "object-shorthand",
+          "source": "core"
+        },
+        {
+          "ruleId": "one-var",
+          "source": "core"
+        },
+        {
+          "ruleId": "padded-blocks",
+          "source": "core"
+        },
+        {
+          "ruleId": "custom-sort/sort-imports",
+          "source": "custom-sort"
+        },
+        {
+          "ruleId": "prefer-arrow-callback",
+          "source": "core"
+        },
+        {
+          "ruleId": "prefer-const",
+          "source": "core"
+        },
+        {
+          "ruleId": "prefer-destructuring",
+          "source": "core"
+        },
+        {
+          "ruleId": "prefer-rest-params",
+          "source": "core"
+        },
+        {
+          "ruleId": "prefer-spread",
+          "source": "core"
+        },
+        {
+          "ruleId": "prefer-template",
+          "source": "core"
+        },
+        {
+          "ruleId": "quote-props",
+          "source": "core"
+        },
+        {
+          "ruleId": "quotes",
+          "source": "core"
+        },
+        {
+          "ruleId": "radix",
+          "source": "core"
+        },
+        {
+          "ruleId": "semi",
+          "source": "core"
+        },
+        {
+          "ruleId": "semi-spacing",
+          "source": "core"
+        },
+        {
+          "ruleId": "sort-keys",
+          "source": "core"
+        },
+        {
+          "ruleId": "space-before-blocks",
+          "source": "core"
+        },
+        {
+          "ruleId": "space-before-function-paren",
+          "source": "core"
+        },
+        {
+          "ruleId": "space-in-parens",
+          "source": "core"
+        },
+        {
+          "ruleId": "space-infix-ops",
+          "source": "core"
+        },
+        {
+          "ruleId": "spaced-comment",
+          "source": "core"
+        },
+        {
+          "ruleId": "strict",
+          "source": "core"
+        },
+        {
+          "ruleId": "template-curly-spacing",
+          "source": "core"
+        },
+        {
+          "ruleId": "vars-on-top",
+          "source": "core"
+        },
+        {
+          "ruleId": "wrap-iife",
+          "source": "core"
+        },
+        {
+          "ruleId": "react-hooks/exhaustive-deps",
+          "source": "react-hooks"
+        },
+        {
+          "ruleId": "react-hooks/rules-of-hooks",
+          "source": "react-hooks"
+        },
+        {
+          "ruleId": "react/jsx-no-undef",
+          "source": "react"
+        },
+        {
+          "ruleId": "react/jsx-sort-props",
+          "source": "react"
+        },
+        {
+          "ruleId": "react/jsx-uses-vars",
+          "source": "react"
+        },
+        {
+          "ruleId": "react/jsx-wrap-multilines",
+          "source": "react"
+        },
+        {
+          "ruleId": "react/no-did-mount-set-state",
+          "source": "react"
+        },
+        {
+          "ruleId": "react/no-did-update-set-state",
+          "source": "react"
+        },
+        {
+          "ruleId": "react/no-unknown-property",
+          "source": "react"
+        },
+        {
+          "ruleId": "react/self-closing-comp",
+          "source": "react"
+        },
+        {
+          "ruleId": "vitest/consistent-test-it",
+          "source": "vitest"
+        },
+        {
+          "ruleId": "vitest/no-disabled-tests",
+          "source": "vitest"
+        },
+        {
+          "ruleId": "vitest/no-focused-tests",
+          "source": "vitest"
+        },
+        {
+          "ruleId": "vitest/no-identical-title",
+          "source": "vitest"
+        },
+        {
+          "ruleId": "vitest/padding-around-all",
+          "source": "vitest"
+        },
+        {
+          "ruleId": "vitest/valid-expect",
+          "source": "vitest"
+        },
+        {
+          "ruleId": "padding-line-between-statements",
+          "source": "core"
+        }
+      ],
+      "unsupported": []
+    },
+    {
+      "config": "typescriptConfig",
+      "coreRuleCount": 292,
+      "pluginCount": 9,
+      "enabledRuleCount": 144,
+      "supported": [
+        {
+          "ruleId": "@stylistic/arrow-spacing",
+          "source": "@stylistic"
+        },
+        {
+          "ruleId": "@stylistic/keyword-spacing",
+          "source": "@stylistic"
+        },
+        {
+          "ruleId": "array-bracket-spacing",
+          "source": "core"
+        },
+        {
+          "ruleId": "array-callback-return",
+          "source": "core"
+        },
+        {
+          "ruleId": "arrow-body-style",
+          "source": "core"
+        },
+        {
+          "ruleId": "arrow-parens",
+          "source": "core"
+        },
+        {
+          "ruleId": "brace-style",
+          "source": "core"
+        },
+        {
+          "ruleId": "comma-dangle",
+          "source": "core"
+        },
+        {
+          "ruleId": "comma-style",
+          "source": "core"
+        },
+        {
+          "ruleId": "computed-property-spacing",
+          "source": "core"
+        },
+        {
+          "ruleId": "consistent-return",
+          "source": "core"
+        },
+        {
+          "ruleId": "curly",
+          "source": "core"
+        },
+        {
+          "ruleId": "dot-notation",
+          "source": "core"
+        },
+        {
+          "ruleId": "eqeqeq",
+          "source": "core"
+        },
+        {
+          "ruleId": "func-style",
+          "source": "core"
+        },
+        {
+          "ruleId": "generator-star-spacing",
+          "source": "core"
+        },
+        {
+          "ruleId": "import/export",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/extensions",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/first",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/newline-after-import",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-absolute-path",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-cycle",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-deprecated",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-duplicates",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-extraneous-dependencies",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-mutable-exports",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-named-as-default",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-named-as-default-member",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-self-import",
+          "source": "import"
+        },
+        {
+          "ruleId": "import/no-useless-path-segments",
+          "source": "import"
+        },
+        {
+          "ruleId": "indent",
+          "source": "core"
+        },
+        {
+          "ruleId": "keyword-spacing",
+          "source": "core"
+        },
+        {
+          "ruleId": "max-len",
+          "source": "core"
+        },
+        {
+          "ruleId": "max-statements-per-line",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-array-constructor",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-await-in-loop",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-case-declarations",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-class-assign",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-confusing-arrow",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-console",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-const-assign",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-dupe-keys",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-duplicate-imports",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-else-return",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-eq-null",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-eval",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-extra-semi",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-loop-func",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-mixed-operators",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-mixed-spaces-and-tabs",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-multi-assign",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-multiple-empty-lines",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-nested-ternary",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-new-func",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-new-object",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-new-wrappers",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-param-reassign",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-restricted-properties",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-sparse-arrays",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-trailing-spaces",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-undef-init",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-underscore-dangle",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-unexpected-multiline",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-unneeded-ternary",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-unused-vars",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-useless-concat",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-useless-constructor",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-useless-escape",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-var",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-warning-comments",
+          "source": "core"
+        },
+        {
+          "ruleId": "no-whitespace-before-property",
+          "source": "core"
+        },
+        {
+          "ruleId": "nonblock-statement-body-position",
+          "source": "core"
+        },
+        {
+          "ruleId": "object-curly-spacing",
+          "source": "core"
+        },
+        {
+          "ruleId": "object-shorthand",
+          "source": "core"
+        },
+        {
+          "ruleId": "one-var",
+          "source": "core"
+        },
+        {
+          "ruleId": "padded-blocks",
+          "source": "core"
+        },
+        {
+          "ruleId": "custom-sort/sort-imports",
+          "source": "custom-sort"
+        },
+        {
+          "ruleId": "prefer-arrow-callback",
+          "source": "core"
+        },
+        {
+          "ruleId": "prefer-const",
+          "source": "core"
+        },
+        {
+          "ruleId": "prefer-destructuring",
+          "source": "core"
+        },
+        {
+          "ruleId": "prefer-rest-params",
+          "source": "core"
+        },
+        {
+          "ruleId": "prefer-spread",
+          "source": "core"
+        },
+        {
+          "ruleId": "prefer-template",
+          "source": "core"
+        },
+        {
+          "ruleId": "quote-props",
+          "source": "core"
+        },
+        {
+          "ruleId": "quotes",
+          "source": "core"
+        },
+        {
+          "ruleId": "radix",
+          "source": "core"
+        },
+        {
+          "ruleId": "semi",
+          "source": "core"
+        },
+        {
+          "ruleId": "semi-spacing",
+          "source": "core"
+        },
+        {
+          "ruleId": "sort-keys",
+          "source": "core"
+        },
+        {
+          "ruleId": "space-before-blocks",
+          "source": "core"
+        },
+        {
+          "ruleId": "space-before-function-paren",
+          "source": "core"
+        },
+        {
+          "ruleId": "space-in-parens",
+          "source": "core"
+        },
+        {
+          "ruleId": "space-infix-ops",
+          "source": "core"
+        },
+        {
+          "ruleId": "spaced-comment",
+          "source": "core"
+        },
+        {
+          "ruleId": "strict",
+          "source": "core"
+        },
+        {
+          "ruleId": "template-curly-spacing",
+          "source": "core"
+        },
+        {
+          "ruleId": "vars-on-top",
+          "source": "core"
+        },
+        {
+          "ruleId": "wrap-iife",
+          "source": "core"
+        },
+        {
+          "ruleId": "react-hooks/exhaustive-deps",
+          "source": "react-hooks"
+        },
+        {
+          "ruleId": "react-hooks/rules-of-hooks",
+          "source": "react-hooks"
+        },
+        {
+          "ruleId": "react/jsx-no-undef",
+          "source": "react"
+        },
+        {
+          "ruleId": "react/jsx-sort-props",
+          "source": "react"
+        },
+        {
+          "ruleId": "react/jsx-uses-vars",
+          "source": "react"
+        },
+        {
+          "ruleId": "react/jsx-wrap-multilines",
+          "source": "react"
+        },
+        {
+          "ruleId": "react/no-did-mount-set-state",
+          "source": "react"
+        },
+        {
+          "ruleId": "react/no-did-update-set-state",
+          "source": "react"
+        },
+        {
+          "ruleId": "react/no-unknown-property",
+          "source": "react"
+        },
+        {
+          "ruleId": "react/self-closing-comp",
+          "source": "react"
+        },
+        {
+          "ruleId": "vitest/consistent-test-it",
+          "source": "vitest"
+        },
+        {
+          "ruleId": "vitest/no-disabled-tests",
+          "source": "vitest"
+        },
+        {
+          "ruleId": "vitest/no-focused-tests",
+          "source": "vitest"
+        },
+        {
+          "ruleId": "vitest/no-identical-title",
+          "source": "vitest"
+        },
+        {
+          "ruleId": "vitest/padding-around-all",
+          "source": "vitest"
+        },
+        {
+          "ruleId": "vitest/valid-expect",
+          "source": "vitest"
+        },
+        {
+          "ruleId": "padding-line-between-statements",
+          "source": "core"
+        },
+        {
+          "ruleId": "@typescript-eslint/ban-ts-comment",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-array-constructor",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-duplicate-enum-values",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-empty-object-type",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-explicit-any",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-extra-non-null-assertion",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-misused-new",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-namespace",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-non-null-asserted-optional-chain",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-require-imports",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-this-alias",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-unnecessary-type-constraint",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-unsafe-declaration-merging",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-unsafe-function-type",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-unused-expressions",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-wrapper-object-types",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/prefer-as-const",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/prefer-namespace-keyword",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/triple-slash-reference",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@stylistic/indent",
+          "source": "@stylistic"
+        },
+        {
+          "ruleId": "@stylistic/member-delimiter-style",
+          "source": "@stylistic"
+        },
+        {
+          "ruleId": "@typescript-eslint/consistent-type-assertions",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/member-ordering",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/naming-convention",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-duplicate-type-constituents",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-invalid-void-type",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-redundant-type-constituents",
+          "source": "@typescript-eslint"
+        },
+        {
+          "ruleId": "@typescript-eslint/no-restricted-types",
+          "source": "@typescript-eslint"
+        }
+      ],
+      "unsupported": []
+    }
+  ]
+}

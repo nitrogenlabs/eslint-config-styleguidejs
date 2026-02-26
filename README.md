@@ -2,7 +2,7 @@
 
 ## The Ultimate JavaScript & TypeScript Linting Solution
 
-**eslint-config-styleguidejs** is a comprehensive, battle-tested ESLint configuration designed to maximize developer productivity and code quality across modern JavaScript and TypeScript projects. Built on ESLint v9's powerful flat config format, it represents the distillation of industry best practices from thousands of production codebases.
+**eslint-config-styleguidejs** is a comprehensive, battle-tested ESLint configuration designed to maximize developer productivity and code quality across modern JavaScript and TypeScript projects. Built on ESLint v10's flat config format, it represents the distillation of industry best practices from thousands of production codebases.
 
 > "Code like everyone can read your work, because they can."
 
@@ -27,7 +27,7 @@ npm install --save-dev eslint-config-styleguidejs
 
 ## Usage
 
-### ESLint v9 (Flat Config)
+### ESLint v10 (Flat Config)
 
 Create an `eslint.config.js` file in your project root:
 
@@ -81,15 +81,32 @@ import { config, typescriptConfig } from 'eslint-config-styleguidejs';
 import { typescriptConfig } from 'eslint-config-styleguidejs';
 ```
 
-### ESLint v9 Compatibility
+### ESLint v10 Compatibility
 
-This package is fully compatible with ESLint v9 and uses the flat config format. It uses the following plugins that are ESLint v9 compatible:
+This package is fully compatible with ESLint v10 and uses the flat config format. Third-party plugin namespaces with v10 gaps were replaced by in-repo local plugins:
 
 - `@stylistic/eslint-plugin` for stylistic rules (replaces the deprecated `@typescript-eslint/eslint-plugin` stylistic rules)
 - `typescript-eslint` v8 for TypeScript support
-- `eslint-plugin-react` v7 for React support
-- `eslint-plugin-react-hooks` v5 for React Hooks support
-- `eslint-plugin-import` v2 for import/export validation
+- `@vitest/eslint-plugin` for Vitest test rule support
+- Local `import/*` rules (`plugins/styleguide-v10-plugins.js`)
+- Local `react/*` rules (`plugins/styleguide-v10-plugins.js`)
+- Local `react-hooks/*` rules (`plugins/styleguide-v10-plugins.js`)
+- Local `react-native/*` plugin namespace (`plugins/styleguide-v10-plugins.js`)
+
+### Audit Supported Rules
+
+Run the built-in support audit to verify every enabled rule resolves under ESLint v10:
+
+```bash
+npm run audit:v10
+```
+
+The report is written to `reports/eslint-v10-support.json`.
+
+Current local rule coverage in `plugins/styleguide-v10-plugins.js`:
+
+- Implemented with active checks: `import/extensions`, `import/first`, `import/newline-after-import`, `import/no-absolute-path`, `import/no-duplicates`, `import/no-extraneous-dependencies`, `import/no-mutable-exports`, `import/no-self-import`, `import/no-useless-path-segments`, `react/jsx-no-undef`, `react/jsx-sort-props`, `react/no-did-mount-set-state`, `react/no-did-update-set-state`, `react/no-unknown-property`, `react/self-closing-comp`, `react-hooks/rules-of-hooks`
+- Compatibility placeholders (non-reporting): remaining configured `import/*`, `react/*`, and `react-hooks/exhaustive-deps` rules that require deeper cross-file/framework analysis
 
 ### Import Extensions
 
@@ -124,7 +141,7 @@ This helps ensure consistent import statements across your codebase.
 ### Framework Support
 
 - **React & React Native**: Specialized rules for React and React Native development
-- **Jest Testing**: Support for Jest test files with appropriate rule adjustments
+- **Vitest Testing**: Support for Vitest test files with appropriate rule adjustments
 - **Node.js**: Server-side specific rules and globals
 
 ### Team Collaboration
