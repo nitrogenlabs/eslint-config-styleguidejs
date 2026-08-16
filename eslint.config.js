@@ -1,6 +1,6 @@
+import markdownPlugin from '@eslint/markdown';
 import stylistic from '@stylistic/eslint-plugin';
 import vitestPlugin from '@vitest/eslint-plugin';
-import markdownPlugin from 'eslint-plugin-markdown';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
