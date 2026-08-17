@@ -34,6 +34,11 @@
   "bugs": {
     "url": "https://github.com/nitrogenlabs/eslint-config-styleguidejs/issues"
   },
+  "bundledDependencies": [
+    "ts-api-utils",
+    "typescript",
+    "typescript-eslint"
+  ],
   "scripts": {
     "audit:v10": "node scripts/audit-eslint-v10.mjs",
     "clean": "lex clean",
@@ -51,6 +56,8 @@
     "@vitest/eslint-plugin": "^1.6.27",
     "eslint": "10.8.1",
     "globals": "17.11.0",
+    "ts-api-utils": "2.5.0",
+    "typescript": "6.0.3",
     "typescript-eslint": "8.67.0"
   },
   "peerDependencies": {

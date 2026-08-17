@@ -1,13 +1,36 @@
 #!/usr/bin/env node
 
 import {ESLint} from 'eslint';
+import {createRequire} from 'module';
 import path from 'path';
 import {fileURLToPath} from 'url';
+
 import {config, typescriptConfig} from '../eslint.config.js';
 import {validateRules} from './validate-rules.js';
 
 // Get the directory name of the current module
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
+
+const runTypescriptRuntimeTest = async () => {
+  console.log('Checking the isolated TypeScript lint runtime...');
+
+  try {
+    const tsApiRequire = createRequire(require.resolve('ts-api-utils'));
+    const lintTypescript = tsApiRequire('typescript');
+
+    if(lintTypescript.versionMajorMinor !== '6.0' || !lintTypescript.TypeFlags) {
+      console.error(`❌ Expected the lint runtime to use TypeScript 6.0, received ${lintTypescript.version}.`);
+      return false;
+    }
+
+    console.log(`✅ TypeScript ${lintTypescript.version} lint runtime is isolated successfully!`);
+    return true;
+  } catch(error) {
+    console.error('❌ Error checking the TypeScript lint runtime:', error);
+    return false;
+  }
+};
 
 const runTypescriptTest = async () => {
   console.log('Running TypeScript configuration test...');
@@ -23,7 +46,7 @@ const runTypescriptTest = async () => {
       path.join(__dirname, 'import-builtin-external-order.test.ts'),
       path.join(__dirname, 'import-type-placement.test.ts'),
       path.join(__dirname, 'import-type-sort.test.ts'),
-      path.join(__dirname, 'typescript-test.ts'),
+      path.join(__dirname, 'typescript-test.ts')
     ];
     const results = await eslint.lintFiles(testFiles);
     const formatter = await eslint.loadFormatter('stylish');
@@ -50,6 +73,8 @@ const runAllTests = async () => {
   console.log('🧪 Running all tests for eslint-config-styleguidejs...\n');
 
   const testResults = [];
+
+  testResults.push(await runTypescriptRuntimeTest());
 
   // Run TypeScript test
   testResults.push(await runTypescriptTest());

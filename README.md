@@ -63,6 +63,10 @@ This configuration includes:
 
 Make sure you have a `tsconfig.json` file in your project root. The TypeScript rules will automatically use it.
 
+Projects may use TypeScript 7 or newer for compilation. Until `typescript-eslint` supports the TypeScript 7 native
+compiler API, this package keeps its lint parser on an isolated TypeScript 6 compatibility runtime. The compatibility
+runtime does not change the TypeScript version used by your project or its build commands.
+
 ### ES Modules Import
 
 This package uses ES Modules. If you're using ESM in your project, you can import it in multiple ways:
