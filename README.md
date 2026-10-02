@@ -67,6 +67,12 @@ Projects may use TypeScript 7 or newer for compilation. Until `typescript-eslint
 compiler API, this package keeps its lint parser on an isolated TypeScript 6 compatibility runtime. The compatibility
 runtime does not change the TypeScript version used by your project or its build commands.
 
+This repository uses TypeScript 7.0.2 for compilation through the development dependency
+`@typescript/native` (`npm:typescript@7.0.2`). Run `npm run typecheck` to check the TypeScript fixture with
+that compiler. The command explicitly selects the native compiler because both TypeScript versions provide a
+`tsc` executable. The published lint runtime stays pinned to TypeScript 6.0.3 with `typescript-eslint` 8.71.0,
+whose supported TypeScript range is `>=4.8.4 <6.1.0`.
+
 ### ES Modules Import
 
 This package uses ES Modules. If you're using ESM in your project, you can import it in multiple ways:
