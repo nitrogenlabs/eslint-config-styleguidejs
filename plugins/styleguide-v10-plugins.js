@@ -1,6 +1,8 @@
 import fs from 'node:fs';
-import path from 'node:path';
 import {builtinModules} from 'node:module';
+import path from 'node:path';
+
+import {createRulesOfHooks} from './react-hooks-rules.js';
 
 const builtinModuleSet = new Set(builtinModules.flatMap((name) => [name, `node:${name}`]));
 
@@ -913,107 +915,9 @@ const reactRules = {
   }
 };
 
-function getFunctionName(node, ancestors) {
-  if(node.id?.type === 'Identifier') {
-    return node.id.name;
-  }
-
-  const parent = ancestors[ancestors.length - 1];
-  if(!parent) {
-    return null;
-  }
-
-  if(parent.type === 'VariableDeclarator' && parent.id.type === 'Identifier') {
-    return parent.id.name;
-  }
-
-  if(parent.type === 'AssignmentExpression' && parent.left.type === 'Identifier') {
-    return parent.left.name;
-  }
-
-  if(parent.type === 'Property' && parent.key.type === 'Identifier') {
-    return parent.key.name;
-  }
-
-  if(parent.type === 'MethodDefinition' && parent.key.type === 'Identifier') {
-    return parent.key.name;
-  }
-
-  return null;
-}
-
-function isHookName(name) {
-  return /^use[A-Z0-9]/u.test(name);
-}
-
 const reactHooksRules = {
   'exhaustive-deps': createNoopRule('Compatibility placeholder for react-hooks/exhaustive-deps.'),
-
-  'rules-of-hooks': {
-    meta: {
-      type: 'problem',
-      docs: {description: 'Enforce basic React Hooks usage constraints.'},
-      schema: []
-    },
-    create(context) {
-      return {
-        CallExpression(node) {
-          if(node.callee.type !== 'Identifier' || !isHookName(node.callee.name)) {
-            return;
-          }
-
-          const ancestors = getAncestorsForNode(context, node);
-          const functionAncestorIndex = [...ancestors].reverse().findIndex((ancestor) => (
-            ancestor.type === 'FunctionDeclaration' ||
-            ancestor.type === 'FunctionExpression' ||
-            ancestor.type === 'ArrowFunctionExpression'
-          ));
-
-          if(functionAncestorIndex === -1) {
-            context.report({
-              node,
-              message: `React Hook "${node.callee.name}" cannot be called at the top level.`
-            });
-            return;
-          }
-
-          const fnNode = ancestors[ancestors.length - 1 - functionAncestorIndex];
-          const functionAncestors = ancestors.slice(0, ancestors.length - functionAncestorIndex);
-          const functionName = getFunctionName(fnNode, functionAncestors);
-
-          const isComponent = functionName ? /^[A-Z]/u.test(functionName) : false;
-          const isCustomHook = functionName ? isHookName(functionName) : false;
-
-          if(!isComponent && !isCustomHook) {
-            context.report({
-              node,
-              message: `React Hook "${node.callee.name}" must be called in a React component or custom hook.`
-            });
-          }
-
-          const disallowedAncestors = ancestors.filter((ancestor) => (
-            ancestor.type === 'IfStatement' ||
-            ancestor.type === 'ConditionalExpression' ||
-            ancestor.type === 'ForStatement' ||
-            ancestor.type === 'ForInStatement' ||
-            ancestor.type === 'ForOfStatement' ||
-            ancestor.type === 'WhileStatement' ||
-            ancestor.type === 'DoWhileStatement' ||
-            ancestor.type === 'SwitchCase' ||
-            ancestor.type === 'TryStatement' ||
-            ancestor.type === 'CatchClause'
-          ));
-
-          if(disallowedAncestors.length > 0) {
-            context.report({
-              node,
-              message: `React Hook "${node.callee.name}" cannot be called conditionally.`
-            });
-          }
-        }
-      };
-    }
-  }
+  'rules-of-hooks': createRulesOfHooks(getAncestorsForNode)
 };
 
 const reactNativePlugin = {

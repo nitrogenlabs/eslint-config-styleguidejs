@@ -47,6 +47,7 @@
     "publish:patch": "npm version patch && npm run publish:tags && npm publish",
     "publish:tags": "git push --tags && git push origin HEAD",
     "test": "node test/run-tests.js",
+    "test:hooks": "lex test --config vitest.config.js",
     "test:rules": "node test/validate-rules-standalone.js",
     "update": "lex update --interactive"
   },
@@ -62,5 +63,8 @@
   },
   "peerDependencies": {
     "eslint": "^10.0.0"
+  },
+  "devDependencies": {
+    "@nlabs/lex": "2.1.0"
   }
 }

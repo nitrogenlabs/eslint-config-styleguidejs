@@ -113,6 +113,16 @@ npm run audit:v10
 
 The report is written to `reports/eslint-v10-support.json`.
 
+### React Hooks Classifier Regression Tests
+
+Run `npm run test:hooks` for the public-config JavaScript/TSX hook classifier regressions.
+The development dependency on Lex supplies Vitest and its matching coverage provider; no separate
+test runner dependency is required. Run
+`npm run test:hooks -- --collectCoverageFrom plugins/react-hooks-rules.js` to enforce 90% coverage
+for the focused hook-rule implementation. This coverage boundary does not represent coverage of
+the other local rules. The existing `npm test` command continues to validate TypeScript fixtures
+and configured rule support.
+
 Current local rule coverage in `plugins/styleguide-v10-plugins.js`:
 
 - Implemented with active checks: `import/extensions`, `import/first`, `import/newline-after-import`, `import/no-absolute-path`, `import/no-duplicates`, `import/no-extraneous-dependencies`, `import/no-mutable-exports`, `import/no-self-import`, `import/no-useless-path-segments`, `react/jsx-no-undef`, `react/jsx-sort-props`, `react/no-did-mount-set-state`, `react/no-did-update-set-state`, `react/no-unknown-property`, `react/self-closing-comp`, `react-hooks/rules-of-hooks`
