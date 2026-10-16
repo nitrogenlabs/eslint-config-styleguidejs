@@ -197,6 +197,19 @@ const customSortImportsRule = {
 
         const firstImport = importNodes[0];
         const lastImport = importNodes[importNodes.length - 1];
+        // Replacing the whole span is safe only for uncommented, contiguous
+        // specifier imports. Keep setup, comment ownership and side effects intact.
+        const canFix = importNodes.every((node, index) =>
+          node.specifiers.length > 0 &&
+          sourceCode.getCommentsBefore(node).length === 0 &&
+          sourceCode.getCommentsAfter(node).length === 0 &&
+          sourceCode.getCommentsInside(node).length === 0 &&
+          (index === 0 || /^\s*$/u.test(sourceCode.text.slice(importNodes[index - 1].range[1], node.range[0])))
+        );
+
+        if(!canFix && !differs) {
+          return;
+        }
 
         const expectedCodeParts = [];
 
@@ -229,6 +242,9 @@ const customSortImportsRule = {
 
         context.report({
           fix(fixer) {
+            if(!canFix) {
+              return null;
+            }
             return fixer.replaceTextRange(
               [firstImport.range[0], lastImport.range[1]],
               expectedCode

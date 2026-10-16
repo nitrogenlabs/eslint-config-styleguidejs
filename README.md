@@ -27,6 +27,13 @@ npm install --save-dev eslint-config-styleguidejs
 
 ## Usage
 
+Import sorting reports the configured module order and newline grouping. Automatic
+sorting is limited to contiguous specifier imports separated only by whitespace.
+Spans containing executable statements, side-effect-only imports, or comments
+inside or attached to imports require manual ordering. The fixer leaves these
+spans intact to preserve initialization, side-effect order, and comment/directive
+ownership; already ordered unsafe spans do not receive whitespace-only reports.
+
 ### ESLint v10 (Flat Config)
 
 Create an `eslint.config.js` file in your project root:
