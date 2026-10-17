@@ -28,7 +28,7 @@ const lintImports = async (code, options, typescript = false) => {
   };
 };
 
-const executeModule = (source, modules = {}) => {
+const executeModule = (source, modules = {}, captureEffects = false) => {
   const directory = mkdtempSync(join(tmpdir(), 'import-sort-runtime-'));
 
   try {
@@ -36,7 +36,13 @@ const executeModule = (source, modules = {}) => {
       writeFileSync(join(directory, name), contents);
     }
     writeFileSync(join(directory, 'entry.mjs'), source);
-    writeFileSync(join(directory, 'run.mjs'), 'import {result} from "./entry.mjs"; process.stdout.write(JSON.stringify(result));');
+    writeFileSync(join(directory, 'run.mjs'), captureEffects ? [
+      'let error;',
+      'try { await import("./entry.mjs"); } catch (caught) {',
+      '  error = {code: caught.code, message: caught.message, name: caught.name};',
+      '}',
+      'process.stdout.write(JSON.stringify({error, events: globalThis.importSortSequence}));'
+    ].join('\n') : 'import {result} from "./entry.mjs"; process.stdout.write(JSON.stringify(result));');
 
     return JSON.parse(execFileSync(process.execPath, [join(directory, 'run.mjs')], {encoding: 'utf8'}));
   } finally {
@@ -218,5 +224,120 @@ describe('public import-sort safety', () => {
     expect((await lintImports(source, {internalPattern: ['^app/']}, true)).output).toBe(
       'import type {External} from "z";\nimport type {Internal} from "app/a";'
     );
+  });
+});
+
+describe('public opt-in runtime import order', () => {
+  const options = {preserveRuntimeOrder: true};
+  const source = 'import {z} from "./z.mjs";\nimport {a} from "./a.mjs";\nexport const result = [z, a];';
+  const modules = {
+    'a.mjs': '(globalThis.importSortSequence ||= []).push("a"); export const a = 1;',
+    'z.mjs': '(globalThis.importSortSequence ||= []).push("z"); export const z = 2;'
+  };
+
+  it.each([undefined, {preserveRuntimeOrder: false}])('retains default sorting and its observable effects: %s', async (settings) => {
+    const fixed = await lintImports(source, settings);
+
+    expect(fixed.output).toBe('import {a} from "./a.mjs";\nimport {z} from "./z.mjs";\nexport const result = [z, a];');
+    expect(executeModule(fixed.output, modules, true)).toEqual({events: ['a', 'z']});
+    expect(executeModule(source, modules, true)).toEqual({events: ['z', 'a']});
+  });
+
+  it('preserves successful named-import effects through the public option', async () => {
+    const fixed = await lintImports(source, options);
+
+    expect(fixed).toEqual({diagnostics: [], output: source});
+    expect(executeModule(fixed.output, modules, true)).toEqual({events: ['z', 'a']});
+    expect(await lintImports(fixed.output, options)).toEqual(fixed);
+  });
+
+  it('preserves early named-import failure effects and the original error', async () => {
+    const fixed = await lintImports(source, options);
+
+    expect(executeModule(fixed.output, {
+      ...modules,
+      'z.mjs': '(globalThis.importSortSequence ||= []).push("z"); throw Object.assign(new RangeError("original failure"), {code: "MODEL_READ"}); export const z = 2;'
+    }, true)).toEqual({error: {code: 'MODEL_READ', message: 'original failure', name: 'RangeError'}, events: ['z']});
+  });
+
+  it('preserves bare import effects and does not report their runtime order', async () => {
+    const bare = 'import "./z.mjs";\n\nimport "./a.mjs";';
+    const fixed = await lintImports(bare, {...options, newlinesBetween: 'never'});
+
+    expect(fixed).toEqual({diagnostics: [], output: bare});
+    expect(executeModule(fixed.output, modules, true)).toEqual({events: ['z', 'a']});
+  });
+
+  it.each([
+    ['always', 'import {type Z, z, a} from "./z";\nimport fs from "node:fs";\nimport {type A} from "a";\n\nimport type {External} from "z";\nimport type {Builtin} from "node:fs";\nimport type {Internal} from "~/a";\nimport type {Parent} from "../p";\nimport type {Sibling} from "./s";\nimport type {Index} from "./index";'],
+    ['never', 'import {type Z, z, a} from "./z";\nimport fs from "node:fs";\nimport {type A} from "a";\nimport type {External} from "z";\nimport type {Builtin} from "node:fs";\nimport type {Internal} from "~/a";\nimport type {Parent} from "../p";\nimport type {Sibling} from "./s";\nimport type {Index} from "./index";'],
+    ['ignore', 'import {type Z, z, a} from "./z";\nimport fs from "node:fs";\nimport {type A} from "a";\nimport type {External} from "z";\nimport type {Builtin} from "node:fs";\nimport type {Internal} from "~/a";\nimport type {Parent} from "../p";\nimport type {Sibling} from "./s";\nimport type {Index} from "./index";']
+  ])('keeps mixed and specifier-type declarations in one runtime block with %s spacing', async (newlinesBetween, expected) => {
+    const mixed = [
+      'import type {Index} from "./index";',
+      'import {type Z, z, a} from "./z";',
+      'import type {Sibling} from "./s";',
+      'import fs from "node:fs";',
+      'import type {Parent} from "../p";',
+      'import type {Internal} from "~/a";',
+      'import type {Builtin} from "node:fs";',
+      'import {type A} from "a";',
+      'import type {External} from "z";'
+    ].join('\n');
+    const settings = {...options, newlinesBetween};
+    const fixed = await lintImports(mixed, settings, true);
+
+    expect(fixed).toEqual({diagnostics: [], output: expected});
+    expect(await lintImports(fixed.output, settings, true)).toEqual(fixed);
+  });
+
+  it.each([
+    '// provenance\nimport z from "z";\n\nimport a from "a";',
+    'import z from "z";\nimport a from "a"; // attachment',
+    'import { /* binding */ z } from "z";\nimport a from "a";',
+    'import z from "z";\n/* eslint-disable-next-line no-unused-vars */\nimport a from "a";',
+    'import z from "z";\n"use client";\nimport a from "a";',
+    'import z from "z";\nconst setup = 42;\nimport a from "a";'
+  ])('preserves every byte and avoids whitespace reports for unsafe runtime spans: %s', async (unsafe) => {
+    expect(await lintImports(unsafe, {...options, newlinesBetween: 'always'})).toEqual({diagnostics: [], output: unsafe});
+  });
+
+  it.each([
+    'import type {Z} from "z";\n// provenance\nimport a from "a";',
+    'import type {Z} from "z";\nconst setup = 42;\nimport a from "a";',
+    'import type {Z} from "z";\nimport "a";',
+    'import type {Z} from "z";\n/* eslint-disable-next-line no-unused-vars */\nimport a from "a";'
+  ])('still reports actual type ordering without fixing unsafe bytes: %s', async (unsafe) => {
+    const fixed = await lintImports(unsafe, options, true);
+
+    expect(fixed.output).toBe(unsafe);
+    expect(fixed.diagnostics).toHaveLength(1);
+    expect(fixed.diagnostics[0].fix).toBeUndefined();
+  });
+
+  it('retains safe spacing inside the runtime block and before sorted types', async () => {
+    const spaced = 'import z from "./z";\n\nimport a from "a";\nimport type {Z} from "z";';
+
+    expect((await lintImports(spaced, {...options, newlinesBetween: 'always'}, true)).output).toBe(
+      'import z from "./z";\nimport a from "a";\n\nimport type {Z} from "z";'
+    );
+    expect(await lintImports(spaced, {...options, newlinesBetween: 'ignore'}, true)).toEqual({diagnostics: [], output: spaced});
+  });
+
+  it('continues to enforce unrelated public-config lint rules', async () => {
+    const eslint = new ESLint({
+      fix: false,
+      overrideConfig: [...styleguide, {rules: {[sortRule]: ['error', options]}}],
+      overrideConfigFile: true
+    });
+    const [result] = await eslint.lintText(`${source}\nconsole.log(result)\n`, {filePath: 'imports-fixture.js'});
+
+    expect(result.messages.some((message) => message.ruleId === 'semi')).toBe(true);
+    expect(result.messages.some((message) => message.ruleId === 'no-console')).toBe(true);
+    expect(result.messages.filter((message) => message.ruleId === sortRule)).toEqual([]);
+  });
+
+  it('rejects nonboolean runtime-order options through the public schema', async () => {
+    await expect(lintImports(source, {preserveRuntimeOrder: 'true'})).rejects.toThrow(/boolean/u);
   });
 });

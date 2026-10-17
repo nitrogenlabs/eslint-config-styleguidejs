@@ -34,6 +34,47 @@ inside or attached to imports require manual ordering. The fixer leaves these
 spans intact to preserve initialization, side-effect order, and comment/directive
 ownership; already ordered unsafe spans do not receive whitespace-only reports.
 
+### Preserve intentional runtime import order
+
+`custom-sort/sort-imports` accepts the boolean `preserveRuntimeOrder` option
+(default `false`). Set it for files whose imports intentionally evaluate in source
+order. Named imports can execute module initialization and can fail before later
+modules evaluate, just as bare side-effect imports can.
+
+With this option, every declaration except explicit `import type` stays in its
+original relative order in one runtime block. Mixed imports, including
+`import {type T, value}`, and `import {type T}` remain in that block; the rule does
+not infer erasure from usage or rearrange their specifiers. Explicit `import type`
+declarations follow the runtime block, sorted by the existing external, builtin,
+internal, parent, sibling, and index groups.
+
+For example, append this file-scoped override object after the shared configuration
+in your existing flat-config array. It retains the configuration's existing
+`ignoreCase`, `internalPattern`, and `newlinesBetween` values:
+
+```json
+{
+  "files": ["src/startup.js"],
+  "rules": {
+    "custom-sort/sort-imports": ["error", {
+      "ignoreCase": true,
+      "internalPattern": ["^~/.+"],
+      "newlinesBetween": "always",
+      "preserveRuntimeOrder": true
+    }]
+  }
+}
+```
+
+`newlinesBetween: 'always'` requires one newline inside the runtime block and a
+blank line before the type block; `'never'` uses one newline throughout. `'ignore'`
+leaves spacing alone when the order is correct. The existing safe-fix boundaries
+still apply: comments/directives, bare imports, or interleaved statements leave
+the entire import span byte-for-byte intact. Such spans report only an actual
+remaining order mismatch (for example, misplaced type imports), never spacing
+alone. Other lint rules remain active. This option preserves declaration order;
+it does not establish application startup correctness.
+
 ### ESLint v10 (Flat Config)
 
 Create an `eslint.config.js` file in your project root:

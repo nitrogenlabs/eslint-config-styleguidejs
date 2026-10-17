@@ -28,7 +28,8 @@ const customSortImportsRule = {
     const {
       ignoreCase = true,
       internalPattern = ['^~/.+', '^@/.+'],
-      newlinesBetween = 'ignore'
+      newlinesBetween = 'ignore',
+      preserveRuntimeOrder = false
     } = options;
 
     const sourceCode = context.sourceCode || context.getSourceCode();
@@ -94,6 +95,10 @@ const customSortImportsRule = {
         block: 'value-relative',
         order: 3
       },
+      runtime: {
+        block: 'runtime',
+        order: -1
+      },
       sibling: {
         block: 'value-relative',
         order: 4
@@ -126,7 +131,7 @@ const customSortImportsRule = {
     const orderedGroupKeys = Object.keys(groupMeta).sort(
       (a, b) => groupMeta[a].order - groupMeta[b].order
     );
-    const orderedBlockKeys = ['value-absolute', 'value-relative', 'type'];
+    const orderedBlockKeys = preserveRuntimeOrder ? ['runtime', 'type'] : ['value-absolute', 'value-relative', 'type'];
 
     const compareImportSources = (a, b) => {
       const left = ignoreCase ? a.toLowerCase() : a;
@@ -152,23 +157,30 @@ const customSortImportsRule = {
         for(const node of importNodes) {
           const source = node.source.value;
           const isType = node.importKind === 'type';
-          const group = getImportGroup(source, isType);
+          const group = preserveRuntimeOrder && !isType ? 'runtime' : getImportGroup(source, isType);
           grouped[group].push({node, source});
         }
 
         // Sort within each specific group first.
         for(const key of Object.keys(grouped)) {
-          grouped[key].sort((a, b) => compareImportSources(a.source, b.source));
+          if(key !== 'runtime') {
+            grouped[key].sort((a, b) => compareImportSources(a.source, b.source));
+          }
         }
 
         // Re-group by block and sort by import source so ordering is based on module path,
         // not imported identifier names, while still preserving high-level blocks.
         for(const key of orderedGroupKeys) {
           const {block} = groupMeta[key];
-          groupedByBlock[block].push(...grouped[key].map((item) => ({group: key, ...item})));
+          if(grouped[key].length > 0) {
+            groupedByBlock[block].push(...grouped[key].map((item) => ({group: key, ...item})));
+          }
         }
 
         for(const block of orderedBlockKeys) {
+          if(block === 'runtime') {
+            continue;
+          }
           groupedByBlock[block].sort((a, b) => {
             if(block === 'type') {
               const groupOrderDelta = groupMeta[a.group].order - groupMeta[b.group].order;
@@ -250,7 +262,8 @@ const customSortImportsRule = {
               expectedCode
             );
           },
-          message:
+          message: preserveRuntimeOrder ?
+            'Imports are not grouped correctly. Expected runtime imports in source order, then sorted type imports.' :
             'Imports are not sorted correctly. Expected absolute imports sorted by module path, then relative imports, then type imports.',
           node: firstImport
         });
@@ -273,7 +286,8 @@ const customSortImportsRule = {
           },
           newlinesBetween: {
             enum: ['ignore', 'always', 'never']
-          }
+          },
+          preserveRuntimeOrder: {type: 'boolean'}
         },
         type: 'object'
       }
