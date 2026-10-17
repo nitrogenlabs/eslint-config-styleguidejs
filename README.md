@@ -80,6 +80,24 @@ that compiler. The command explicitly selects the native compiler because both T
 `tsc` executable. The published lint runtime stays pinned to TypeScript 6.0.3 with `typescript-eslint` 8.71.0,
 whose supported TypeScript range is `>=4.8.4 <6.1.0`.
 
+The published package explicitly bundles ESLint and the Vitest ESLint plugin with the TypeScript lint runtime.
+npm can otherwise classify ESLint as bundled through the parser's peer dependencies
+without including it in the archive, leaving consumers with a different root ESLint
+missing the required runtime. Bundling adds roughly 2 MB compressed and preserves
+the package's exact ESLint version alongside the consumer's ESLint and TypeScript.
+The Vitest plugin shares the parser's TypeScript-ESLint dependencies; bundling its
+locked closure prevents fresh transitive versions from conflicting with the
+isolated parser's bundled dependencies.
+
+Run `npm run test:package` for the archive installation regression through Lex's
+Vitest runner. It packs the real package, installs clean ESLint 10.12.0 and 10.13.0
+consumers with TypeScript 7.0.2, runs `npm ci` and dependency graph checks, and lints
+clean and invalid typed fixtures through the public configuration. npm and Node
+must be available on PATH. Set `STYLEGUIDE_PACKAGE_OFFLINE=1` to require cached
+dependencies; missing cache entries fail the test. To qualify an existing immutable
+archive instead of packing, set `STYLEGUIDE_PACKAGE_ARCHIVE` to its path. The runner
+prints a temporary evidence directory containing the archive and process logs.
+
 ### ES Modules Import
 
 This package uses ES Modules. If you're using ESM in your project, you can import it in multiple ways:

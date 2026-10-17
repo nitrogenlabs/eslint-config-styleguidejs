@@ -35,6 +35,8 @@
     "url": "https://github.com/nitrogenlabs/eslint-config-styleguidejs/issues"
   },
   "bundledDependencies": [
+    "@vitest/eslint-plugin",
+    "eslint",
     "ts-api-utils",
     "typescript",
     "typescript-eslint"
@@ -48,6 +50,7 @@
     "publish:tags": "git push --tags && git push origin HEAD",
     "test": "node test/run-tests.js",
     "test:hooks": "lex test --config vitest.config.js",
+    "test:package": "lex test --config vitest.package.config.js",
     "test:rules": "node test/validate-rules-standalone.js",
     "update": "lex update --interactive"
   },
