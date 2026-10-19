@@ -15,6 +15,6 @@ export default {
       }
     },
     environment: 'node',
-    include: ['test/react-hooks.test.js', 'test/import-sort.test.js']
+    include: ['test/react-hooks.test.js', 'test/import-sort.test.js', 'test/legacy-cleanup.test.js']
   }
 };

@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
 import {ESLint} from 'eslint';
+import {format} from 'node:util';
 import {dirname, join} from 'path';
 import {fileURLToPath} from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const fileName = fileURLToPath(import.meta.url);
+const directoryName = dirname(fileName);
 
 // Test file with intentional violations to trigger all rules
 const testCode = `
@@ -70,12 +71,12 @@ describe('test suite', () => {
 `;
 
 const validateRules = async () => {
-  console.log('🧪 Validating ESLint rules...\n');
+  process.stdout.write(`${format('🧪 Validating ESLint rules...\n')}\n`);
 
   try {
     // Create ESLint instance
     const eslint = new ESLint({
-      overrideConfigFile: join(__dirname, '..', 'eslint.config.js')
+      overrideConfigFile: join(directoryName, '..', 'eslint.config.js')
     });
 
     // Lint the test code
@@ -86,8 +87,8 @@ const validateRules = async () => {
     const result = results[0];
 
     if(result.errorCount === 0 && result.warningCount === 0) {
-      console.log('✅ All rules validated successfully!');
-      console.log('📊 No rule errors or warnings found.');
+      process.stdout.write(`${format('✅ All rules validated successfully!')}\n`);
+      process.stdout.write(`${format('📊 No rule errors or warnings found.')}\n`);
       return true;
     }
 
@@ -101,9 +102,9 @@ const validateRules = async () => {
     );
 
     if(ruleErrors.length > 0) {
-      console.log('❌ Found rule validation errors:');
+      process.stdout.write(`${format('❌ Found rule validation errors:')}\n`);
       ruleErrors.forEach((error) => {
-        console.log(`   - ${error.ruleId}: ${error.message}`);
+        process.stdout.write(`${format(`   - ${error.ruleId}: ${error.message}`)}\n`);
       });
       return false;
     }
@@ -114,27 +115,27 @@ const validateRules = async () => {
     );
 
     if(otherIssues.length > 0) {
-      console.log('⚠️  Found expected linting issues (rules are working):');
+      process.stdout.write(`${format('⚠️  Found expected linting issues (rules are working):')}\n`);
       otherIssues.forEach((issue) => {
-        console.log(`   - ${issue.ruleId}: ${issue.message} (line ${issue.line})`);
+        process.stdout.write(`${format(`   - ${issue.ruleId}: ${issue.message} (line ${issue.line})`)}\n`);
       });
     }
 
-    console.log('\n✅ All ESLint rules exist and are working correctly!');
-    console.log(`📊 Total issues found: ${result.errorCount + result.warningCount}`);
+    process.stdout.write(`${format('\n✅ All ESLint rules exist and are working correctly!')}\n`);
+    process.stdout.write(`${format(`📊 Total issues found: ${result.errorCount + result.warningCount}`)}\n`);
     return true;
   } catch(error) {
-    console.error('❌ Error validating rules:', error.message);
+    process.stderr.write(`${format('❌ Error validating rules:', error.message)}\n`);
 
     // Check if it's a rule-related error
     if(error.message.includes('Could not find') ||
         error.message.includes('deprecated') ||
         error.message.includes('not found in plugin')) {
-      console.error('This appears to be a rule validation error.');
+      process.stderr.write(`${format('This appears to be a rule validation error.')}\n`);
       return false;
     }
 
-    console.error('This appears to be a configuration error.');
+    process.stderr.write(`${format('This appears to be a configuration error.')}\n`);
     return false;
   }
 };

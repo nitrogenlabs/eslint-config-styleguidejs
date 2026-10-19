@@ -6,60 +6,48 @@ import {createRulesOfHooks} from './react-hooks-rules.js';
 
 const builtinModuleSet = new Set(builtinModules.flatMap((name) => [name, `node:${name}`]));
 
-function createNoopRule(description) {
-  return {
-    meta: {
-      type: 'suggestion',
-      docs: {description},
-      schema: []
-    },
-    create() {
-      return {};
-    }
-  };
-}
+const createNoopRule = (description) => ({
+  create() {
+    return {};
+  },
+  meta: {
+    docs: {description},
+    schema: [],
+    type: 'suggestion'
+  }
+});
 
-function getLintedFilePath(context) {
+const getLintedFilePath = (context) => {
   const filename = context.physicalFilename || context.filename || context.getFilename?.();
   if(!filename || filename === '<input>' || filename === '<text>') {
     return null;
   }
 
   return path.resolve(filename);
-}
+};
 
-function normalizePath(filePath) {
-  return filePath.split(path.sep).join('/');
-}
+const normalizePath = (filePath) => filePath.split(path.sep).join('/');
 
-function stripQueryAndHash(source) {
-  return source.split('?')[0].split('#')[0];
-}
+const stripQueryAndHash = (source) => source.split('?')[0].split('#')[0];
 
-function getImportSource(node) {
-  return node?.source?.value && typeof node.source.value === 'string'
-    ? stripQueryAndHash(node.source.value)
-    : null;
-}
+const getImportSource = (node) => (node?.source?.value && typeof node.source.value === 'string'
+  ? stripQueryAndHash(node.source.value)
+  : null);
 
-function isBareModuleSpecifier(source) {
-  return source && !source.startsWith('.') && !source.startsWith('/');
-}
+const isBareModuleSpecifier = (source) => source && !source.startsWith('.') && !source.startsWith('/');
 
-function isAbsoluteImport(source) {
-  return source.startsWith('/') || /^[A-Za-z]:[\\/]/u.test(source);
-}
+const isAbsoluteImport = (source) => source.startsWith('/') || /^[A-Za-z]:[\\/]/u.test(source);
 
-function getPackageName(moduleSpecifier) {
+const getPackageName = (moduleSpecifier) => {
   if(moduleSpecifier.startsWith('@')) {
     const parts = moduleSpecifier.split('/');
     return parts.length >= 2 ? `${parts[0]}/${parts[1]}` : moduleSpecifier;
   }
 
   return moduleSpecifier.split('/')[0];
-}
+};
 
-function resolveImportToFile(fromFile, source) {
+const resolveImportToFile = (fromFile, source) => {
   if(!fromFile || !source || (!source.startsWith('.') && !isAbsoluteImport(source))) {
     return null;
   }
@@ -92,9 +80,9 @@ function resolveImportToFile(fromFile, source) {
   }
 
   return path.resolve(raw);
-}
+};
 
-function findNearestPackageJson(filePath) {
+const findNearestPackageJson = (filePath) => {
   if(!filePath) {
     return null;
   }
@@ -114,11 +102,11 @@ function findNearestPackageJson(filePath) {
 
     currentDir = parentDir;
   }
-}
+};
 
 const packageJsonCache = new Map();
 
-function loadPackageJson(packageJsonPath) {
+const loadPackageJson = (packageJsonPath) => {
   if(!packageJsonPath) {
     return null;
   }
@@ -131,13 +119,13 @@ function loadPackageJson(packageJsonPath) {
     const parsed = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
     packageJsonCache.set(packageJsonPath, parsed);
     return parsed;
-  } catch {
+  } catch{
     packageJsonCache.set(packageJsonPath, null);
     return null;
   }
-}
+};
 
-function isDefinedInScope(name, scope) {
+const isDefinedInScope = (name, scope) => {
   let current = scope;
 
   while(current) {
@@ -148,9 +136,9 @@ function isDefinedInScope(name, scope) {
   }
 
   return false;
-}
+};
 
-function getScopeForNode(context, node) {
+const getScopeForNode = (context, node) => {
   const sourceCode = context.sourceCode || context.getSourceCode?.();
 
   if(sourceCode?.getScope) {
@@ -162,9 +150,9 @@ function getScopeForNode(context, node) {
   }
 
   return null;
-}
+};
 
-function getAncestorsForNode(context, node) {
+const getAncestorsForNode = (context, node) => {
   const sourceCode = context.sourceCode || context.getSourceCode?.();
 
   if(sourceCode?.getAncestors) {
@@ -176,42 +164,18 @@ function getAncestorsForNode(context, node) {
   }
 
   return [];
-}
+};
 
 const importRules = {
   default: createNoopRule('Compatibility placeholder for import/default.'),
   export: createNoopRule('Compatibility placeholder for import/export.'),
   'exports-last': createNoopRule('Compatibility placeholder for import/exports-last.'),
-  named: createNoopRule('Compatibility placeholder for import/named.'),
-  'no-cycle': createNoopRule('Compatibility placeholder for import/no-cycle.'),
-  'no-deprecated': createNoopRule('Compatibility placeholder for import/no-deprecated.'),
-  'no-internal-modules': createNoopRule('Compatibility placeholder for import/no-internal-modules.'),
-  'no-named-as-default': createNoopRule('Compatibility placeholder for import/no-named-as-default.'),
-  'no-named-as-default-member': createNoopRule('Compatibility placeholder for import/no-named-as-default-member.'),
-  'no-unresolved': createNoopRule('Compatibility placeholder for import/no-unresolved.'),
-  'no-webpack-loader-syntax': createNoopRule('Compatibility placeholder for import/no-webpack-loader-syntax.'),
-  order: createNoopRule('Compatibility placeholder for import/order.'),
-  'prefer-default-export': createNoopRule('Compatibility placeholder for import/prefer-default-export.'),
-
   extensions: {
-    meta: {
-      type: 'problem',
-      docs: {description: 'Enforce or disallow import file extensions.'},
-      schema: [
-        {enum: ['always', 'never', 'ignorePackages']},
-        {
-          type: 'object',
-          additionalProperties: {
-            enum: ['always', 'never', 'alwaysIgnorePackages', 'neverIgnorePackages']
-          }
-        }
-      ]
-    },
     create(context) {
       const [mode = 'never', extensionConfig = {}] = context.options;
       const filePath = getLintedFilePath(context);
 
-      function getRuleForExtension(extension, isPackageImport) {
+      const getRuleForExtension = (extension, isPackageImport) => {
         const normalizedExt = extension.replace(/^\./u, '');
         const configured = extensionConfig[normalizedExt];
 
@@ -232,9 +196,9 @@ const importRules = {
         }
 
         return mode === 'always' ? 'always' : 'never';
-      }
+      };
 
-      function resolveMissingExtensionRule(source) {
+      const resolveMissingExtensionRule = (source) => {
         if(!filePath || !source.startsWith('.')) {
           return null;
         }
@@ -261,9 +225,9 @@ const importRules = {
         }
 
         return null;
-      }
+      };
 
-      function check(node) {
+      const check = (node) => {
         const source = getImportSource(node);
         if(!source) {
           return;
@@ -277,8 +241,8 @@ const importRules = {
 
           if(extensionRule === 'never') {
             context.report({
-              node: node.source,
-              message: `Unexpected file extension "${extension}" for import "${source}".`
+              message: `Unexpected file extension "${extension}" for import "${source}".`,
+              node: node.source
             });
           }
 
@@ -290,11 +254,11 @@ const importRules = {
 
         if(extensionRule === 'always') {
           context.report({
-            node: node.source,
-            message: `Missing file extension for import "${source}".`
+            message: `Missing file extension for import "${source}".`,
+            node: node.source
           });
         }
-      }
+      };
 
       return {
         ExportAllDeclaration: check,
@@ -305,15 +269,22 @@ const importRules = {
         },
         ImportDeclaration: check
       };
+    },
+    meta: {
+      docs: {description: 'Enforce or disallow import file extensions.'},
+      schema: [
+        {enum: ['always', 'never', 'ignorePackages']},
+        {
+          additionalProperties: {
+            enum: ['always', 'never', 'alwaysIgnorePackages', 'neverIgnorePackages']
+          },
+          type: 'object'
+        }
+      ],
+      type: 'problem'
     }
   },
-
   first: {
-    meta: {
-      type: 'suggestion',
-      docs: {description: 'Ensure all imports appear before non-import statements.'},
-      schema: []
-    },
     create(context) {
       return {
         Program(node) {
@@ -323,8 +294,8 @@ const importRules = {
             if(statement.type === 'ImportDeclaration') {
               if(hasSeenNonImport) {
                 context.report({
-                  node: statement,
-                  message: 'Import statements must appear before other statements.'
+                  message: 'Import statements must appear before other statements.',
+                  node: statement
                 });
               }
               continue;
@@ -338,15 +309,15 @@ const importRules = {
           }
         }
       };
+    },
+    meta: {
+      docs: {description: 'Ensure all imports appear before non-import statements.'},
+      schema: [],
+      type: 'suggestion'
     }
   },
-
+  named: createNoopRule('Compatibility placeholder for import/named.'),
   'newline-after-import': {
-    meta: {
-      type: 'layout',
-      docs: {description: 'Require a newline after the final import declaration.'},
-      schema: []
-    },
     create(context) {
       const sourceCode = context.sourceCode || context.getSourceCode();
 
@@ -372,23 +343,22 @@ const importRules = {
 
           if(nextStatementFirstToken.loc.start.line === lastImportLastToken.loc.end.line + 1) {
             context.report({
-              node: nextStatement,
-              message: 'Expected one blank line after the final import statement.'
+              message: 'Expected one blank line after the final import statement.',
+              node: nextStatement
             });
           }
         }
       };
+    },
+    meta: {
+      docs: {description: 'Require a newline after the final import declaration.'},
+      schema: [],
+      type: 'layout'
     }
   },
-
   'no-absolute-path': {
-    meta: {
-      type: 'problem',
-      docs: {description: 'Disallow absolute import paths.'},
-      schema: []
-    },
     create(context) {
-      function check(node) {
+      const check = (node) => {
         const source = getImportSource(node);
         if(!source) {
           return;
@@ -396,11 +366,11 @@ const importRules = {
 
         if(isAbsoluteImport(source)) {
           context.report({
-            node: node.source,
-            message: `Absolute import path "${source}" is not allowed.`
+            message: `Absolute import path "${source}" is not allowed.`,
+            node: node.source
           });
         }
-      }
+      };
 
       return {
         ExportAllDeclaration: check,
@@ -411,15 +381,16 @@ const importRules = {
         },
         ImportDeclaration: check
       };
+    },
+    meta: {
+      docs: {description: 'Disallow absolute import paths.'},
+      schema: [],
+      type: 'problem'
     }
   },
-
+  'no-cycle': createNoopRule('Compatibility placeholder for import/no-cycle.'),
+  'no-deprecated': createNoopRule('Compatibility placeholder for import/no-deprecated.'),
   'no-duplicates': {
-    meta: {
-      type: 'problem',
-      docs: {description: 'Disallow duplicate imports from the same module.'},
-      schema: []
-    },
     create(context) {
       const seenSources = new Map();
 
@@ -437,8 +408,8 @@ const importRules = {
 
           if(hasExactKind || (hasBothKinds && seenKinds.size > 1)) {
             context.report({
-              node: node.source,
-              message: `Duplicate import from "${source}".`
+              message: `Duplicate import from "${source}".`,
+              node: node.source
             });
             return;
           }
@@ -447,30 +418,14 @@ const importRules = {
           seenSources.set(source, seenKinds);
         }
       };
+    },
+    meta: {
+      docs: {description: 'Disallow duplicate imports from the same module.'},
+      schema: [],
+      type: 'problem'
     }
   },
-
   'no-extraneous-dependencies': {
-    meta: {
-      type: 'problem',
-      docs: {description: 'Disallow imports from packages not listed in dependencies.'},
-      schema: [
-        {
-          type: 'object',
-          additionalProperties: true,
-          properties: {
-            devDependencies: {
-              anyOf: [
-                {type: 'boolean'},
-                {type: 'array', items: {type: 'string'}}
-              ]
-            },
-            optionalDependencies: {type: 'boolean'},
-            peerDependencies: {type: 'boolean'}
-          }
-        }
-      ]
-    },
     create(context) {
       const options = context.options[0] || {};
       const lintedFilePath = getLintedFilePath(context);
@@ -492,12 +447,12 @@ const importRules = {
       const allowOptionalDependencies = options.optionalDependencies !== false;
       const nodeModulesRoot = path.join(packageRoot, 'node_modules');
 
-      function isAllowedDevDependency(importingFile) {
+      const isAllowedDevDependency = (importingFile) => {
         if(devDependencyOption === true) {
           return true;
         }
 
-        if(devDependencyOption === false || devDependencyOption == null) {
+        if(devDependencyOption === false || devDependencyOption === null || devDependencyOption === undefined) {
           return false;
         }
 
@@ -513,7 +468,7 @@ const importRules = {
         return devDependencyOption.some((pattern) => (
           path.matchesGlob(absolutePath, pattern) || path.matchesGlob(relativePath, pattern)
         ));
-      }
+      };
 
       return {
         ImportDeclaration(node) {
@@ -548,20 +503,36 @@ const importRules = {
           }
 
           context.report({
-            node: node.source,
-            message: `Package "${packageName}" should be listed in dependencies (or allowed devDependencies) to import "${source}".`
+            message: `Package "${packageName}" should be listed in dependencies (or allowed devDependencies) to import "${source}".`,
+            node: node.source
           });
         }
       };
+    },
+    meta: {
+      docs: {description: 'Disallow imports from packages not listed in dependencies.'},
+      schema: [
+        {
+          additionalProperties: true,
+          properties: {
+            devDependencies: {
+              anyOf: [
+                {type: 'boolean'},
+                {items: {type: 'string'}, type: 'array'}
+              ]
+            },
+            optionalDependencies: {type: 'boolean'},
+            peerDependencies: {type: 'boolean'}
+          },
+          type: 'object'
+        }
+      ],
+      type: 'problem'
     }
   },
+  'no-internal-modules': createNoopRule('Compatibility placeholder for import/no-internal-modules.'),
 
   'no-mutable-exports': {
-    meta: {
-      type: 'problem',
-      docs: {description: 'Disallow mutable exports.'},
-      schema: []
-    },
     create(context) {
       return {
         ExportNamedDeclaration(node) {
@@ -574,20 +545,24 @@ const importRules = {
           }
 
           context.report({
-            node,
-            message: `Unexpected mutable export using "${node.declaration.kind}".`
+            message: `Unexpected mutable export using "${node.declaration.kind}".`,
+            node
           });
         }
       };
+    },
+    meta: {
+      docs: {description: 'Disallow mutable exports.'},
+      schema: [],
+      type: 'problem'
     }
   },
 
+  'no-named-as-default': createNoopRule('Compatibility placeholder for import/no-named-as-default.'),
+
+  'no-named-as-default-member': createNoopRule('Compatibility placeholder for import/no-named-as-default-member.'),
+
   'no-self-import': {
-    meta: {
-      type: 'problem',
-      docs: {description: 'Disallow importing the current file.'},
-      schema: []
-    },
     create(context) {
       const currentFile = getLintedFilePath(context);
 
@@ -595,7 +570,7 @@ const importRules = {
         return {};
       }
 
-      function check(node) {
+      const check = (node) => {
         const source = getImportSource(node);
         if(!source || (!source.startsWith('.') && !isAbsoluteImport(source))) {
           return;
@@ -608,26 +583,28 @@ const importRules = {
 
         if(path.resolve(importedFile) === path.resolve(currentFile)) {
           context.report({
-            node: node.source,
-            message: 'Module should not import itself.'
+            message: 'Module should not import itself.',
+            node: node.source
           });
         }
-      }
+      };
 
       return {
         ImportDeclaration: check
       };
+    },
+    meta: {
+      docs: {description: 'Disallow importing the current file.'},
+      schema: [],
+      type: 'problem'
     }
   },
 
+  'no-unresolved': createNoopRule('Compatibility placeholder for import/no-unresolved.'),
+
   'no-useless-path-segments': {
-    meta: {
-      type: 'suggestion',
-      docs: {description: 'Disallow unnecessary path segments in import paths.'},
-      schema: []
-    },
     create(context) {
-      function check(node) {
+      const check = (node) => {
         const source = getImportSource(node);
         if(!source || !source.startsWith('.')) {
           return;
@@ -643,11 +620,11 @@ const importRules = {
 
         if(comparableNormalized !== source && comparableNormalized !== `${source}/`) {
           context.report({
-            node: node.source,
-            message: `Import path "${source}" contains unnecessary path segments.`
+            message: `Import path "${source}" contains unnecessary path segments.`,
+            node: node.source
           });
         }
-      }
+      };
 
       return {
         ExportAllDeclaration: check,
@@ -658,11 +635,22 @@ const importRules = {
         },
         ImportDeclaration: check
       };
+    },
+    meta: {
+      docs: {description: 'Disallow unnecessary path segments in import paths.'},
+      schema: [],
+      type: 'suggestion'
     }
-  }
+  },
+
+  'no-webpack-loader-syntax': createNoopRule('Compatibility placeholder for import/no-webpack-loader-syntax.'),
+
+  order: createNoopRule('Compatibility placeholder for import/order.'),
+
+  'prefer-default-export': createNoopRule('Compatibility placeholder for import/prefer-default-export.')
 };
 
-function getJsxTagRootName(nodeName) {
+const getJsxTagRootName = (nodeName) => {
   if(nodeName.type === 'JSXIdentifier') {
     return nodeName.name;
   }
@@ -676,9 +664,9 @@ function getJsxTagRootName(nodeName) {
   }
 
   return null;
-}
+};
 
-function getJsxAttributeName(attributeNode) {
+const getJsxAttributeName = (attributeNode) => {
   if(attributeNode.type !== 'JSXAttribute') {
     return null;
   }
@@ -688,24 +676,12 @@ function getJsxAttributeName(attributeNode) {
   }
 
   return null;
-}
+};
 
 const reactRules = {
   'display-name': createNoopRule('Compatibility placeholder for react/display-name.'),
   'jsx-boolean-value': createNoopRule('Compatibility placeholder for react/jsx-boolean-value.'),
-  'jsx-uses-react': createNoopRule('Compatibility placeholder for react/jsx-uses-react.'),
-  'jsx-uses-vars': createNoopRule('Compatibility placeholder for react/jsx-uses-vars.'),
-  'jsx-wrap-multilines': createNoopRule('Compatibility placeholder for react/jsx-wrap-multilines.'),
-  'no-multi-comp': createNoopRule('Compatibility placeholder for react/no-multi-comp.'),
-  'prop-types': createNoopRule('Compatibility placeholder for react/prop-types.'),
-  'react-in-jsx-scope': createNoopRule('Compatibility placeholder for react/react-in-jsx-scope.'),
-
   'jsx-no-undef': {
-    meta: {
-      type: 'problem',
-      docs: {description: 'Disallow undefined components in JSX.'},
-      schema: []
-    },
     create(context) {
       return {
         JSXOpeningElement(node) {
@@ -725,43 +701,32 @@ const reactRules = {
           }
 
           context.report({
-            node,
-            message: `"${componentName}" is not defined in scope.`
+            message: `"${componentName}" is not defined in scope.`,
+            node
           });
         }
       };
+    },
+    meta: {
+      docs: {description: 'Disallow undefined components in JSX.'},
+      schema: [],
+      type: 'problem'
     }
   },
-
   'jsx-sort-props': {
-    meta: {
-      type: 'suggestion',
-      docs: {description: 'Enforce sorted JSX props.'},
-      schema: [
-        {
-          type: 'object',
-          additionalProperties: true,
-          properties: {
-            ignoreCase: {type: 'boolean'}
-          }
-        }
-      ]
-    },
     create(context) {
       const options = context.options[0] || {};
       const ignoreCase = options.ignoreCase === true;
 
-      function normalize(name) {
-        return ignoreCase ? name.toLowerCase() : name;
-      }
+      const normalize = (name) => (ignoreCase ? name.toLowerCase() : name);
 
       return {
         JSXOpeningElement(node) {
           const attributes = node.attributes
             .filter((attribute) => attribute.type === 'JSXAttribute')
             .map((attribute) => ({
-              node: attribute,
-              name: getJsxAttributeName(attribute)
+              name: getJsxAttributeName(attribute),
+              node: attribute
             }))
             .filter((entry) => entry.name);
 
@@ -771,59 +736,71 @@ const reactRules = {
 
             if(normalize(previous.name) > normalize(current.name)) {
               context.report({
-                node: current.node,
-                message: `JSX prop "${current.name}" should be sorted before "${previous.name}".`
+                message: `JSX prop "${current.name}" should be sorted before "${previous.name}".`,
+                node: current.node
               });
               return;
             }
           }
         }
       };
+    },
+    meta: {
+      docs: {description: 'Enforce sorted JSX props.'},
+      schema: [
+        {
+          additionalProperties: true,
+          properties: {
+            ignoreCase: {type: 'boolean'}
+          },
+          type: 'object'
+        }
+      ],
+      type: 'suggestion'
     }
   },
-
+  'jsx-uses-react': createNoopRule('Compatibility placeholder for react/jsx-uses-react.'),
+  'jsx-uses-vars': createNoopRule('Compatibility placeholder for react/jsx-uses-vars.'),
+  'jsx-wrap-multilines': createNoopRule('Compatibility placeholder for react/jsx-wrap-multilines.'),
   'no-did-mount-set-state': {
-    meta: {
-      type: 'problem',
-      docs: {description: 'Disallow setState in componentDidMount.'},
-      schema: []
-    },
     create(context) {
       return {
-        "MethodDefinition[key.name='componentDidMount'] CallExpression[callee.object.type='ThisExpression'][callee.property.name='setState']"(node) {
+        'MethodDefinition[key.name=\'componentDidMount\'] CallExpression[callee.object.type=\'ThisExpression\'][callee.property.name=\'setState\']'(node) {
           context.report({
-            node,
-            message: 'Do not use this.setState() in componentDidMount.'
+            message: 'Do not use this.setState() in componentDidMount.',
+            node
           });
         }
       };
+    },
+    meta: {
+      docs: {description: 'Disallow setState in componentDidMount.'},
+      schema: [],
+      type: 'problem'
     }
   },
 
   'no-did-update-set-state': {
-    meta: {
-      type: 'problem',
-      docs: {description: 'Disallow setState in componentDidUpdate.'},
-      schema: []
-    },
     create(context) {
       return {
-        "MethodDefinition[key.name='componentDidUpdate'] CallExpression[callee.object.type='ThisExpression'][callee.property.name='setState']"(node) {
+        'MethodDefinition[key.name=\'componentDidUpdate\'] CallExpression[callee.object.type=\'ThisExpression\'][callee.property.name=\'setState\']'(node) {
           context.report({
-            node,
-            message: 'Do not use this.setState() in componentDidUpdate.'
+            message: 'Do not use this.setState() in componentDidUpdate.',
+            node
           });
         }
       };
+    },
+    meta: {
+      docs: {description: 'Disallow setState in componentDidUpdate.'},
+      schema: [],
+      type: 'problem'
     }
   },
 
+  'no-multi-comp': createNoopRule('Compatibility placeholder for react/no-multi-comp.'),
+
   'no-unknown-property': {
-    meta: {
-      type: 'problem',
-      docs: {description: 'Disallow invalid JSX DOM property names.'},
-      schema: []
-    },
     create(context) {
       const knownAliases = {
         class: 'className',
@@ -845,48 +822,41 @@ const reactRules = {
           const replacement = knownAliases[attrName.toLowerCase()];
           if(replacement) {
             context.report({
-              node,
-              message: `Unknown JSX property "${attrName}". Did you mean "${replacement}"?`
+              message: `Unknown JSX property "${attrName}". Did you mean "${replacement}"?`,
+              node
             });
           }
         }
       };
+    },
+    meta: {
+      docs: {description: 'Disallow invalid JSX DOM property names.'},
+      schema: [],
+      type: 'problem'
     }
   },
 
+  'prop-types': createNoopRule('Compatibility placeholder for react/prop-types.'),
+
+  'react-in-jsx-scope': createNoopRule('Compatibility placeholder for react/react-in-jsx-scope.'),
+
   'self-closing-comp': {
-    meta: {
-      type: 'suggestion',
-      docs: {description: 'Enforce self-closing syntax for components without children.'},
-      schema: [
-        {
-          type: 'object',
-          additionalProperties: false,
-          properties: {
-            component: {type: 'boolean'},
-            html: {type: 'boolean'}
-          }
-        }
-      ]
-    },
     create(context) {
       const options = context.options[0] || {};
       const enforceComponent = options.component !== false;
       const enforceHtml = options.html === true;
 
-      function hasMeaningfulChildren(node) {
-        return node.children.some((child) => {
-          if(child.type === 'JSXText') {
-            return child.value.trim().length > 0;
-          }
+      const hasMeaningfulChildren = (node) => node.children.some((child) => {
+        if(child.type === 'JSXText') {
+          return child.value.trim().length > 0;
+        }
 
-          if(child.type === 'JSXExpressionContainer') {
-            return child.expression?.type !== 'JSXEmptyExpression';
-          }
+        if(child.type === 'JSXExpressionContainer') {
+          return child.expression?.type !== 'JSXEmptyExpression';
+        }
 
-          return true;
-        });
-      }
+        return true;
+      });
 
       return {
         JSXElement(node) {
@@ -906,11 +876,25 @@ const reactRules = {
           }
 
           context.report({
-            node: node.openingElement,
-            message: `${tagName} has no children and should be self-closing.`
+            message: `${tagName} has no children and should be self-closing.`,
+            node: node.openingElement
           });
         }
       };
+    },
+    meta: {
+      docs: {description: 'Enforce self-closing syntax for components without children.'},
+      schema: [
+        {
+          additionalProperties: false,
+          properties: {
+            component: {type: 'boolean'},
+            html: {type: 'boolean'}
+          },
+          type: 'object'
+        }
+      ],
+      type: 'suggestion'
     }
   }
 };
@@ -928,15 +912,13 @@ const reactNativePlugin = {
   rules: {}
 };
 
-function createPlugin(name, rules) {
-  return {
-    meta: {
-      name,
-      version: '1.0.0'
-    },
-    rules
-  };
-}
+const createPlugin = (name, rules) => ({
+  meta: {
+    name,
+    version: '1.0.0'
+  },
+  rules
+});
 
 export const importPlugin = createPlugin('eslint-plugin-import-local', importRules);
 export const reactPlugin = createPlugin('eslint-plugin-react-local', reactRules);

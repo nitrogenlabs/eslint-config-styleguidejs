@@ -83,7 +83,7 @@ Create an `eslint.config.js` file in your project root:
 import styleguidejs from 'eslint-config-styleguidejs';
 
 export default [
-  ...styleguidejs,
+  ...styleguidejs
   // Your custom configurations here
 ];
 ```
@@ -93,10 +93,10 @@ export default [
 For TypeScript projects, you can use the TypeScript-specific configuration:
 
 ```js
-import { typescriptConfig } from 'eslint-config-styleguidejs';
+import {typescriptConfig} from 'eslint-config-styleguidejs';
 
 export default [
-  ...typescriptConfig,
+  ...typescriptConfig
   // Your custom configurations here
 ];
 ```
@@ -143,18 +143,31 @@ prints a temporary evidence directory containing the archive and process logs.
 
 This package uses ES Modules. If you're using ESM in your project, you can import it in multiple ways:
 
+These are independent alternatives; choose one in a configuration module.
+
+Method 1: Default import (gives you the base config array):
+
 ```js
-// Method 1: Default import (gives you the base config array)
 import styleguidejs from 'eslint-config-styleguidejs';
 
 // You can access the TypeScript config as a property
-const { typescriptConfig } = styleguidejs;
+export const {typescriptConfig: defaultTypescriptConfig} = styleguidejs;
+```
 
-// Method 2: Named imports
-import { config, typescriptConfig } from 'eslint-config-styleguidejs';
+Method 2: Named imports:
 
-// Method 3: Import specific configs
-import { typescriptConfig } from 'eslint-config-styleguidejs';
+```js
+import {config, typescriptConfig} from 'eslint-config-styleguidejs';
+
+export {config, typescriptConfig};
+```
+
+Method 3: Import a specific config:
+
+```js
+import {typescriptConfig as namedTypescriptConfig} from 'eslint-config-styleguidejs';
+
+export default namedTypescriptConfig;
 ```
 
 ### ESLint v10 Compatibility
@@ -248,9 +261,9 @@ export default [
   {
     rules: {
       // Your custom rules here
-      'no-console': 'off',
-    },
-  },
+      'no-console': 'off'
+    }
+  }
 ];
 ```
 

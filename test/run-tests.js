@@ -2,38 +2,39 @@
 
 import {ESLint} from 'eslint';
 import {createRequire} from 'module';
+import {format} from 'node:util';
 import path from 'path';
 import {fileURLToPath} from 'url';
 
-import {config, typescriptConfig} from '../eslint.config.js';
+import {typescriptConfig} from '../eslint.config.js';
 import {validateRules} from './validate-rules.js';
 
 // Get the directory name of the current module
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const directoryName = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 
 const runTypescriptRuntimeTest = async () => {
-  console.log('Checking the isolated TypeScript lint runtime...');
+  process.stdout.write(`${format('Checking the isolated TypeScript lint runtime...')}\n`);
 
   try {
     const tsApiRequire = createRequire(require.resolve('ts-api-utils'));
     const lintTypescript = tsApiRequire('typescript');
 
     if(lintTypescript.versionMajorMinor !== '6.0' || !lintTypescript.TypeFlags) {
-      console.error(`❌ Expected the lint runtime to use TypeScript 6.0, received ${lintTypescript.version}.`);
+      process.stderr.write(`${format(`❌ Expected the lint runtime to use TypeScript 6.0, received ${lintTypescript.version}.`)}\n`);
       return false;
     }
 
-    console.log(`✅ TypeScript ${lintTypescript.version} lint runtime is isolated successfully!`);
+    process.stdout.write(`${format(`✅ TypeScript ${lintTypescript.version} lint runtime is isolated successfully!`)}\n`);
     return true;
   } catch(error) {
-    console.error('❌ Error checking the TypeScript lint runtime:', error);
+    process.stderr.write(`${format('❌ Error checking the TypeScript lint runtime:', error)}\n`);
     return false;
   }
 };
 
 const runTypescriptTest = async () => {
-  console.log('Running TypeScript configuration test...');
+  process.stdout.write(`${format('Running TypeScript configuration test...')}\n`);
 
   try {
     const eslint = new ESLint({
@@ -42,35 +43,35 @@ const runTypescriptTest = async () => {
     });
 
     const testFiles = [
-      path.join(__dirname, 'import-external-builtin-order.test.ts'),
-      path.join(__dirname, 'import-builtin-external-order.test.ts'),
-      path.join(__dirname, 'import-type-placement.test.ts'),
-      path.join(__dirname, 'import-type-sort.test.ts'),
-      path.join(__dirname, 'typescript-test.ts')
+      path.join(directoryName, 'import-external-builtin-order.test.ts'),
+      path.join(directoryName, 'import-builtin-external-order.test.ts'),
+      path.join(directoryName, 'import-type-placement.test.ts'),
+      path.join(directoryName, 'import-type-sort.test.ts'),
+      path.join(directoryName, 'typescript-test.ts')
     ];
     const results = await eslint.lintFiles(testFiles);
     const formatter = await eslint.loadFormatter('stylish');
     const resultText = formatter.format(results);
 
-    console.log('ESLint Results:');
-    console.log(resultText);
+    process.stdout.write(`${format('ESLint Results:')}\n`);
+    process.stdout.write(`${format(resultText)}\n`);
 
     // Check if there are any errors
     const hasErrors = results.some((result) => result.errorCount > 0);
     if(hasErrors) {
-      console.error('❌ TypeScript configuration test failed with errors.');
+      process.stderr.write(`${format('❌ TypeScript configuration test failed with errors.')}\n`);
       return false;
     }
-    console.log('✅ TypeScript configuration test passed successfully!');
+    process.stdout.write(`${format('✅ TypeScript configuration test passed successfully!')}\n`);
     return true;
   } catch(error) {
-    console.error('❌ Error running TypeScript test:', error);
+    process.stderr.write(`${format('❌ Error running TypeScript test:', error)}\n`);
     return false;
   }
 };
 
 const runAllTests = async () => {
-  console.log('🧪 Running all tests for eslint-config-styleguidejs...\n');
+  process.stdout.write(`${format('🧪 Running all tests for eslint-config-styleguidejs...\n')}\n`);
 
   const testResults = [];
 
@@ -80,24 +81,24 @@ const runAllTests = async () => {
   testResults.push(await runTypescriptTest());
 
   // Run rule validation test
-  console.log('\nRunning rule validation test...');
+  process.stdout.write(`${format('\nRunning rule validation test...')}\n`);
   testResults.push(await validateRules());
 
   // Add more tests here as needed
 
   // Print summary
-  console.log('\n📊 Test Summary:');
+  process.stdout.write(`${format('\n📊 Test Summary:')}\n`);
   const passedCount = testResults.filter((result) => result).length;
   const failedCount = testResults.filter((result) => !result).length;
 
-  console.log(`Passed: ${passedCount}, Failed: ${failedCount}, Total: ${testResults.length}`);
+  process.stdout.write(`${format(`Passed: ${passedCount}, Failed: ${failedCount}, Total: ${testResults.length}`)}\n`);
 
   // Exit with appropriate code
   if(failedCount > 0) {
-    console.log('\n❌ Some tests failed.');
+    process.stdout.write(`${format('\n❌ Some tests failed.')}\n`);
     process.exit(1);
   } else {
-    console.log('\n✅ All tests passed!');
+    process.stdout.write(`${format('\n✅ All tests passed!')}\n`);
     process.exit(0);
   }
 };
